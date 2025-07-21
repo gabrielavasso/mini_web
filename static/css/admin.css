@@ -1,0 +1,64 @@
+body.admin-fondo {
+    background-color: #f4f4f8;
+    font-family: 'Quicksand', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.admin-header {
+    background-color: #444;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.admin-nav {
+    margin-top: 10px;
+}
+
+.admin-nav a {
+    margin: 0 10px;
+    color: #eee;
+    text-decoration: none;
+}
+
+.admin-nav a:hover {
+    color: #fff;
+    text-decoration: underline;
+}
+
+.admin-contenido {
+    padding: 40px;
+}
+
+.admin-estadisticas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.estadistica-card {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.estadistica-card:hover {
+    transform: scale(1.03);
+}
+
+.estadistica-card h3 {
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: #444;
+}
+
+.estadistica-card p {
+    font-size: 24px;
+    margin: 0;
+    color: #6c5ce7;
+}

@@ -1,0 +1,135 @@
+{% extends 'base.html' %} 
+
+{% block title %}📸 Nuestras Fotos{% endblock %}
+
+{% block encabezado %}📸 Nuestros Álbumes — Un pedacito de nuestros momentos{% endblock %}
+
+{% block content %}
+
+<style>
+body {
+    background-image: url('{{ url_for('static', filename='img/fondo_galeria.jpg') }}');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+/* Estilo para carpetas */
+.album-carpeta {
+    display: inline-block;
+    margin: 30px;
+    text-align: center;
+    transition: transform 0.2s ease-in-out;
+}
+.album-carpeta:hover {
+    transform: scale(1.05);
+}
+
+.icono-carpeta {
+    width: 150px;
+    height: auto;
+    border-radius: 16px;
+    box-shadow: 0 4px 8px rgba(255, 192, 203, 0.3);
+    transition: box-shadow 0.3s ease-in-out;
+}
+.icono-carpeta:hover {
+    box-shadow: 0 8px 16px rgba(255, 192, 203, 0.6);
+}
+
+.nombre-carpeta {
+    display: block;
+    margin-top: 10px;
+    font-family: 'Great Vibes', cursive;
+    font-size: 1.5rem;
+    color: #ffaad4;
+    text-shadow: 0 0 3px #fff, 0 0 6px #fba3d0;
+    text-decoration: none;
+}
+
+.album-carpeta a {
+    text-decoration: none !important;
+}
+
+/* Botones de acciones */
+.galeria-botones {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.boton-galeria {
+    background: linear-gradient(145deg, #ffb6c1, #f08080);
+    color: white;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 14px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+.boton-galeria:hover {
+    transform: scale(1.05);
+    background: #ff7f9c;
+}
+
+/* RESPONSIVE para celulares */
+@media (max-width: 768px) {
+    .album-carpeta {
+        margin: 15px;
+    }
+
+    .icono-carpeta {
+        width: 100px;
+    }
+
+    .nombre-carpeta {
+        font-size: 1.2rem;
+    }
+
+    .galeria-botones {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .boton-galeria {
+        width: 90%;
+        font-size: 15px;
+        padding: 12px;
+    }
+
+    p {
+        padding: 0 15px;
+    }
+}
+</style>
+
+<div class="galeria-contenido">
+    {% if session.get('logueado') %}
+    <div class="galeria-botones">
+        <a href="{{ url_for('crear_album') }}" class="boton-galeria"><i class="fas fa-plus"></i> Crear Carpeta</a>
+        <a href="{{ url_for('upload') }}" class="boton-galeria"><i class="fas fa-upload"></i> Subir Fotos</a>
+        <a href="{{ url_for('eliminar_fotos') }}" class="boton-galeria"><i class="fas fa-trash-alt"></i> Eliminar Fotos o Carpetas</a>
+    </div>
+    {% endif %}
+
+    {% if galeria %}
+        {% for carpeta in galeria.keys() %}
+        <div class="album-carpeta">
+            <a href="{{ url_for('ver_album', carpeta=carpeta) }}">
+                <img src="{{ url_for('static', filename='img/folder_icon.png') }}" alt="Carpeta {{ carpeta }}" class="icono-carpeta">
+                <p class="nombre-carpeta">{{ carpeta }}</p>
+            </a>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p style="text-align: center; color: white;">No hay álbumes todavía.</p>
+    {% endif %}
+</div>
+
+{% endblock %}

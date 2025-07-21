@@ -1,0 +1,144 @@
+{% extends 'base_notas.html' %}
+{% block title %}💌 Notitas de Amor{% endblock %}
+{% block encabezado_titulo %}Mensajes que se quedan en el corazón{% endblock %}
+{% block encabezado_subtitulo %}📄✨{% endblock %}
+
+{% block extra_head %}
+<style>
+.titulo-subir {
+    text-align: center;
+    color: rgba(220, 20, 60, 0.85);
+    font-size: 2.3em;
+    margin-bottom: 20px;
+}
+
+.formulario-subir input,
+.formulario-subir textarea {
+    display: block;
+    margin: 0 auto 15px auto;
+    width: 80%;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
+.formulario-subir button {
+    display: block;
+    margin: 0 auto 25px auto;
+    background-color: rgba(220, 20, 60, 0.85);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-weight: bold;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.formulario-subir button:hover {
+    background-color: #c0143c;
+}
+
+.nota {
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.85);
+    padding: 15px 50px 15px 15px;
+    border-radius: 16px;
+    margin-bottom: 20px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+}
+
+.icono-basura {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+.icono-basura:hover {
+    transform: scale(1.1);
+}
+
+.contenedor-subir {
+    background-color: rgba(255, 255, 255, 0.85);
+    padding: 30px;
+    border-radius: 16px;
+    width: 90%;
+    margin: 0 auto;
+}
+
+
+
+/* === RESPONSIVE PARA CELULARES === */
+@media screen and (max-width: 768px) {
+    .titulo-subir {
+        font-size: 1.7em;
+    }
+
+    .formulario-subir input,
+    .formulario-subir textarea {
+        width: 95%;
+        font-size: 15px;
+    }
+
+    .nota {
+        width: 95%;
+        font-size: 15px;
+        padding: 15px 40px 15px 15px;
+    }
+
+    .icono-basura {
+        width: 18px;
+        height: 18px;
+        top: 12px;
+        right: 12px;
+    }
+
+    .contenedor-subir {
+        padding: 20px;
+        width: 95%;
+    }
+
+    .boton-volver {
+        font-size: 20px;
+        padding: 8px 12px;
+    }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<main class="subir-fotos-fondo" style="background-image: url('{{ url_for('static', filename='img/fondo_notitas.png') }}'); background-size: cover; background-position: center; background-repeat: no-repeat; min-height: 100vh; padding: 60px 0 40px 0; position: relative;">
+
+    <a href="{{ url_for('index') }}" class="boton-volver">
+        <i class="fas fa-heart"></i>
+    </a>
+
+    <div class="contenedor-subir">
+        <h1 class="titulo-subir">💌 Notitas de Amor</h1>
+
+        <form method="POST" class="formulario-subir">
+            <input type="text" name="autor" placeholder="Tu nombre" required>
+            <textarea name="mensaje" placeholder="Escribí tu mensaje..." required></textarea>
+            <button type="submit">Guardar notita</button>
+        </form>
+
+        {% for nota in notas %}
+        <div class="nota">
+            <p><strong>{{ nota.autor }}</strong> dijo:</p>
+            <p>{{ nota.mensaje }}</p>
+            <form method="POST" action="{{ url_for('eliminar_nota', indice=loop.index0) }}">
+                <button type="submit" style="background: none; border: none; padding: 0;">
+                    <img src="{{ url_for('static', filename='icons/trash_icon.png') }}" alt="Eliminar" class="icono-basura">
+                </button>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+</main>
+{% endblock %}

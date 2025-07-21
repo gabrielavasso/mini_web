@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block title %}➕ Crear nuevo álbum{% endblock %}
+
+{% block content %}
+
+<style>
+body {
+    background-image: url('{{ url_for('static', filename='img/fondo_galeria.jpg') }}');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+    
+{
+    background: linear-gradient(to bottom, #ffe0eb, #fad6e0);
+    font-family: 'Quicksand', sans-serif;
+}
+
+.crear-album-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
+    text-align: center;
+}
+
+.crear-album-container h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.crear-album-container input[type="text"] {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 25px;
+    width: 300px;
+    max-width: 80%;
+    font-size: 16px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    outline: none;
+    margin-bottom: 20px;
+}
+
+.boton-crear {
+    background: linear-gradient(145deg, #ffb6c1, #f08080);
+    color: white;
+    padding: 10px 24px;
+    border: none;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease;
+}
+
+.boton-crear:hover {
+    transform: scale(1.05);
+    background: #ff7f9c;
+}
+
+.volver-galeria {
+    margin-top: 30px;
+    font-size: 14px;
+    display: inline-block;
+    color: #7f1d1d;
+    text-decoration: none;
+}
+
+.volver-galeria:hover {
+    text-decoration: underline;
+}
+</style>
+
+<div class="crear-album-container">
+    <h2>➕ Crear nuevo álbum</h2>
+    <form method="POST">
+        <label for="nombre">Nombre del nuevo álbum:</label><br>
+        <input type="text" id="nombre" name="nombre" placeholder="Ej: Fiesta, Aniversario, Cumpleaños..."><br>
+        <button class="boton-crear" type="submit">Crear Carpeta</button>
+    </form>
+    <a class="volver-galeria" href="{{ url_for('galeria') }}">← Volver a la galería</a>
+</div>
+
+{% endblock %}

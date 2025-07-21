@@ -1,0 +1,22 @@
+{% extends 'base_admin.html' %}
+
+{% block title %}📜 Ver Notitas{% endblock %}
+
+{% block content %}
+<h2 class="titulo-ver-notas">📜 Nuestras notitas de amor</h2>
+
+<div class="contenedor-notitas">
+    {% if notas %}
+        {% for nota in notas %}
+            <div class="notita">
+                <p class="mensaje-notita">"{{ nota.mensaje }}"</p>
+                <p class="autor-notita">— {{ nota.autor }}</p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="mensaje-vacio">
+            📝 Se han dejado 0 notitas de amor
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

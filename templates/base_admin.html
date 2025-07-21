@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Panel Admin{% endblock %}</title>
+    
+    <!-- Fuentes más sobrias -->
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- Estilos base -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+   
+    {% block extra_head %}{% endblock %}
+</head>
+<body class="admin-fondo">
+
+    <!-- Encabezado del panel -->
+    <header class="admin-header">
+        <h1 class="admin-titulo">🔧 Panel Privado</h1>
+        <nav class="admin-nav">
+            <a href="{{ url_for('index') }}">🏠 Inicio</a>
+            <a href="{{ url_for('logout') }}">🔒 Cerrar sesión</a>
+        </nav>
+    </header>
+
+    <!-- Contenido -->
+    <main class="admin-contenido">
+        {% block content %}{% endblock %}
+    </main>
+
+    {% block extra_scripts %}{% endblock %}
+</body>
+</html>

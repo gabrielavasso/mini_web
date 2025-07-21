@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}💔 Cierre de sesión{% endblock %}
+
+{% block content %}
+<main class="logout-body">
+    <div class="mensaje-despedida">
+        💖 Hasta pronto Gaby y Miqueas 💖<br>
+        <span>Nos vemos dentro de nuestro rinconcito mágico</span>
+    </div>
+</main>
+
+<style>
+.logout-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(180deg, #fcd5ce, #ffe4ec);
+    text-align: center;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.mensaje-despedida {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #d81b60;
+    background: rgba(255, 255, 255, 0.6);
+    padding: 40px;
+    border-radius: 25px;
+    animation: fadeInUp 1s ease-out forwards;
+}
+
+.mensaje-despedida span {
+    display: block;
+    font-size: 1rem;
+    margin-top: 15px;
+    color: #6b2945;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+</style>
+
+<script>
+setTimeout(() => {
+    window.location.href = "{{ url_for('index') }}";
+}, 3000);
+</script>
+{% endblock %}

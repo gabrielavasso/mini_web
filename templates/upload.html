@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+
+{% block title %}📤 Subir Fotos{% endblock %}
+
+{% block encabezado %}📤 Subir nuevas fotos{% endblock %}
+
+{% block content %}
+<style>
+
+body {
+    background-image: url('{{ url_for('static', filename='img/fondo_galeria.jpg') }}');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+}
+    .formulario-subida {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        padding: 30px;
+        border-radius: 15px;
+        max-width: 500px;
+        margin: auto;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        text-align: center;
+    }
+
+    .formulario-subida input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        margin-top: 15px;
+        margin-bottom: 20px;
+        border-radius: 10px;
+        border: none;
+        outline: none;
+        font-family: 'Quicksand', sans-serif;
+    }
+
+    .formulario-subida label {
+        display: block;
+        margin-top: 20px;
+        font-weight: bold;
+    }
+
+    .custom-file-upload {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #ffb6c1;
+        color: white;
+        border-radius: 25px;
+        cursor: pointer;
+        font-weight: bold;
+        margin-top: 10px;
+        transition: background-color 0.2s ease;
+    }
+
+    .custom-file-upload:hover {
+        background-color: #ff8fa3;
+    }
+
+    .formulario-subida input[type="file"] {
+        display: none;
+    }
+
+    .formulario-subida button {
+        background-color: #ff8fa3;
+        color: white;
+        border: none;
+        padding: 12px 25px;
+        border-radius: 25px;
+        cursor: pointer;
+        font-weight: bold;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        margin-top: 20px;
+        transition: transform 0.2s ease;
+    }
+
+    .formulario-subida button:hover {
+        transform: scale(1.05);
+        background-color: #ff7090;
+    }
+
+    .volver-links {
+        text-align: center;
+        margin-top: 30px;
+        font-size: 14px;
+    }
+
+    .volver-links a {
+        color: #d63384;
+        text-decoration: none;
+        margin: 0 10px;
+    }
+
+    .volver-links a:hover {
+        text-decoration: underline;
+    }
+
+    .logout-separado {
+        display: block;
+        text-align: center;
+        margin-top: 10px;
+    }
+</style>
+
+<div class="formulario-subida">
+    <form method="POST" enctype="multipart/form-data">
+        <label>Nombre de la carpeta:</label>
+        <input type="text" name="carpeta" placeholder="Ej: Viaje2023 o Aniversario" required>
+
+        <label>Seleccionar fotos:</label>
+        <label for="file-upload" class="custom-file-upload">
+            📸 Elegir fotos
+        </label>
+        <input id="file-upload" type="file" name="fotos" multiple required>
+
+        <button type="submit">Subir</button>
+    </form>
+</div>
+
+<div class="volver-links">
+    <a href="{{ url_for('galeria') }}">← Volver a la galería</a>
+</div>
+
+{% endblock %}

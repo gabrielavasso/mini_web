@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block title %}💌 Carta de amor{% endblock %}
+
+{% block content %}
+<a href="{{ url_for('index') }}" class="boton-volver">
+    <i class="fas fa-heart"></i> Volver al comienzo
+</a>
+
+<div class="carta-fondo">
+    <div class="carta-contenido">
+        <div class="carta-texto">
+            <p>Hola amor,</p>
+
+            <p>Quería aprovechar este espacio para recordarte cuánto te quiero y lo mucho que significás para mí. No importa cuántos días pasen, siempre voy a agradecer tenerte en mi vida.</p>
+
+            <p>Cada recuerdo, cada risa, cada abrazo que compartimos se queda guardado en mi corazón. Y aunque a veces la vida se vuelva un poco caótica, vos sos mi lugar seguro.</p>
+
+            <p>Gracias por ser como sos, por acompañarme, por hacerme reír incluso cuando no tengo ganas, y por quedarte a mi lado en los momentos difíciles.</p>
+
+            <p>Esta carta es solo una forma más de dejar guardado todo lo que siento por vos, para que siempre puedas volver a leerlo cuando lo necesites.</p>
+
+            <p>Te amo con todo mi corazón 💖</p>
+
+            <p>Con amor,<br>Gaby</p>
+        </div>
+    </div>
+</div>
+
+<style>
+.carta-fondo {
+    background-image: url("{{ url_for('static', filename='img/fondo_carta.jpg') }}");
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    padding: 60px 15px 40px;
+}
+
+.carta-contenido {
+    background-color: rgba(255, 255, 255, 0.85);
+    border-radius: 16px;
+    padding: 40px;
+    max-width: 800px;
+    margin: auto;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+.carta-texto p {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+/* RESPONSIVE para celulares */
+@media screen and (max-width: 768px) {
+    .carta-contenido {
+        padding: 25px;
+        font-size: 1rem;
+    }
+
+    .boton-volver {
+        font-size: 20px;
+        padding: 8px 12px;
+    }
+}
+</style>
+{% endblock %}

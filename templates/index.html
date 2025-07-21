@@ -1,0 +1,115 @@
+{% extends 'base.html' %} 
+{% block title %}Miqueas & Gaby{% endblock %}
+
+{% block content %}
+<main class="contenido-principal fondo-portada">
+
+    {% if session.get('logueado') %}
+    <div class="mensaje-login">✨ ¡Bienvenido Amor ! ✨</div>
+    {% endif %}
+
+    <div class="botonera">
+        <div class="boton-con-imagen">
+            <img src="{{ url_for('static', filename='img/boton1.jpg') }}" alt="boton1">
+            <a href="{{ url_for('carta') }}">💌 Lo que quiero que sepas</a>
+        </div>
+        <div class="boton-con-imagen">
+            <img src="{{ url_for('static', filename='img/boton2.jpg') }}" alt="boton2">
+            <a href="{{ url_for('notas') }}">📝 Ver Notitas</a>
+        </div>
+        <div class="boton-con-imagen">
+            <img src="{{ url_for('static', filename='img/boton3.jpg') }}" alt="boton3">
+            <a href="{{ url_for('canciones') }}">🎵 Canciones con video</a>
+        </div>
+        <div class="boton-con-imagen">
+            <img src="{{ url_for('static', filename='img/boton4.jpg') }}" alt="boton4">
+            <a href="{{ url_for('galeria') }}">📸 Nuestras fotos</a>
+        </div>
+    </div>
+
+    {% if session.get('logueado') %}
+    <a href="{{ url_for('logout') }}" class="boton-login-separado boton-estilo">
+        <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+    </a>
+    {% endif %}
+
+    {% if not session.get('logueado') %}
+    <div class="login-boton-individual">
+        <a href="{{ url_for('login') }}">
+            <img src="{{ url_for('static', filename='img/boton5.jpg') }}" alt="Iniciar sesión">
+        </a>
+    </div>
+    {% endif %}
+
+</main>
+{% endblock %}
+
+{% block extra_scripts %}
+<style>
+.heart {
+  position: fixed;
+  top: -10px;
+  font-size: 20px;
+  animation: fall 6s linear infinite;
+  color: #ff99cc;
+  opacity: 0.8;
+  pointer-events: none;
+}
+@keyframes fall {
+  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+}
+
+.login-boton-individual {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 999;
+}
+
+.login-boton-individual img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@media screen and (max-width: 768px) {
+  .boton-con-imagen img {
+    width: 80px;
+    height: 80px;
+  }
+  .boton-con-imagen a {
+    font-size: 0.85rem;
+    padding: 8px 12px;
+  }
+  .mensaje-login {
+    font-size: 1rem;
+    padding: 10px;
+  }
+  .botonera {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+</style>
+
+<script>
+function createHeart() {
+  const heart = document.createElement('div');
+  heart.classList.add('heart');
+  heart.textContent = '❤️';
+  heart.style.left = Math.random() * 100 + 'vw';
+  heart.style.animationDuration = 3 + Math.random() * 2 + 's';
+  document.body.appendChild(heart);
+  setTimeout(() => { heart.remove(); }, 5000);
+}
+setInterval(createHeart, 500);
+</script>
+{% endblock %}

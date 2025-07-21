@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    
+    <meta charset="UTF-8">
+    <title>{% block title %}Miqueas & Gaby{% endblock %}</title>
+
+    <!-- Fuentes románticas -->
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- Estilos -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/x-icon">
+
+
+    <!-- Íconos Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    {% block extra_head %}{% endblock %}
+</head>
+
+    <!-- Encabezado especial -->
+    <header class="encabezado">
+        <h1 class="titulo-principal">
+            {% block encabezado_titulo %}💖 Miqueas & Gaby{% endblock %}
+        </h1>
+        <p class="subtitulo">
+            {% block encabezado_subtitulo %}Nuestra historia de amor ✨{% endblock %}
+        </p>
+    </header>
+
+    <!-- Contenido individual -->
+    {% block content %}{% endblock %}
+
+    {% block extra_scripts %}{% endblock %}
+
+
+
+    {% if request.endpoint != 'index' %}
+<a href="{{ url_for('index') }}" class="boton-volver">
+    <i class="fas fa-heart"></i> Volver al comienzo
+</a>
+{% endif %}
+
+</body>
+</html>
