@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -5,106 +6,51 @@
   <title>Miqueas & Gaby</title>
   <link rel="stylesheet" href="static/css/styles.css">
   <link rel="icon" href="static/img/favicon.ico" type="image/x-icon">
-  <style>
-    .heart {
-      position: fixed;
-      top: -10px;
-      font-size: 20px;
-      animation: fall 6s linear infinite;
-      color: #ff99cc;
-      opacity: 0.8;
-      pointer-events: none;
-    }
-    @keyframes fall {
-      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-      100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
-    }
-
-    .login-boton-individual {
-      position: fixed;
-      bottom: 20px;
-      left: 20px;
-      z-index: 999;
-    }
-
-    .login-boton-individual img {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      animation: pulse 2s infinite;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    }
-
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-    }
-
-    @media screen and (max-width: 768px) {
-      .boton-con-imagen img {
-        width: 80px;
-        height: 80px;
-      }
-      .boton-con-imagen a {
-        font-size: 0.85rem;
-        padding: 8px 12px;
-      }
-      .mensaje-login {
-        font-size: 1rem;
-        padding: 10px;
-      }
-      .botonera {
-        flex-direction: column;
-        gap: 20px;
-      }
-    }
-  </style>
 </head>
 <body>
 
-  <main class="contenido-principal fondo-portada">
+  <div class="mensaje-login">✨ ¡Bienvenido Amor ! ✨</div>
 
-    <div class="mensaje-login">✨ ¡Bienvenido Amor ! ✨</div>
-
-    <div class="botonera">
-      <div class="boton-con-imagen">
-        <img src="static/img/boton1.jpg" alt="boton1">
-        <a href="#">💌 Lo que quiero que sepas</a>
-      </div>
-      <div class="boton-con-imagen">
-        <img src="static/img/boton2.jpg" alt="boton2">
-        <a href="#">📝 Ver Notitas</a>
-      </div>
-      <div class="boton-con-imagen">
-        <img src="static/img/boton3.jpg" alt="boton3">
-        <a href="#">🎵 Canciones con video</a>
-      </div>
-      <div class="boton-con-imagen">
-        <img src="static/img/boton4.jpg" alt="boton4">
-        <a href="#">📸 Nuestras fotos</a>
-      </div>
+  <div class="botonera">
+    <div class="boton-con-imagen">
+      <img src="static/img/boton1.jpg" alt="boton1">
+      <a href="#carta">💌 Lo que quiero que sepas</a>
     </div>
-
-    <div class="login-boton-individual">
-      <a href="#">
-        <img src="static/img/boton5.jpg" alt="Iniciar sesión">
-      </a>
+    <div class="boton-con-imagen">
+      <img src="static/img/boton2.jpg" alt="boton2">
+      <a href="#notas">📝 Ver Notitas</a>
     </div>
+    <div class="boton-con-imagen">
+      <img src="static/img/boton3.jpg" alt="boton3">
+      <a href="#canciones">🎵 Canciones con video</a>
+    </div>
+    <div class="boton-con-imagen">
+      <img src="static/img/boton4.jpg" alt="boton4">
+      <a href="#fotos">📸 Nuestras fotos</a>
+    </div>
+  </div>
 
-  </main>
+  <div id="carta">
+    <h2>💌 Lo que quiero que sepas</h2>
+    <p>Mi amor, esto es para recordarte lo especial que sos para mí…</p>
+  </div>
 
-  <script>
-    function createHeart() {
-      const heart = document.createElement('div');
-      heart.classList.add('heart');
-      heart.textContent = '❤️';
-      heart.style.left = Math.random() * 100 + 'vw';
-      heart.style.animationDuration = 3 + Math.random() * 2 + 's';
-      document.body.appendChild(heart);
-      setTimeout(() => { heart.remove(); }, 5000);
-    }
-    setInterval(createHeart, 500);
-  </script>
+  <div id="notas">
+    <h2>📝 Notitas de Amor</h2>
+    <p>Eres mi razón para sonreír ❤️<br>Te amo con todo mi ser ❤️</p>
+  </div>
+
+  <div id="canciones">
+    <h2>🎵 Canciones</h2>
+    <ul>
+      <li><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">Nuestra canción favorita 💖</a></li>
+    </ul>
+  </div>
+
+  <div id="fotos">
+    <h2>📸 Galería</h2>
+    <p>Aquí estarán nuestras fotos más lindas juntos 🥰</p>
+  </div>
 
 </body>
 </html>
