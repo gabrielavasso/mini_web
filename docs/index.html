@@ -1,56 +1,100 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Miqueas & Gaby</title>
-  <link rel="stylesheet" href="static/css/styles.css">
-  <link rel="icon" href="static/img/favicon.ico" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miqueas & Gaby</title>
+    <link rel="stylesheet" href="static/css/styles.css">
+    <link rel="icon" href="static/img/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 
-  <div class="mensaje-login">✨ ¡Bienvenido Amor ! ✨</div>
+<!-- Reproductor global -->
+<audio id="musicaFondo" autoplay loop>
+    <source src="static/music/te_amo_tanto.mp3" type="audio/mpeg">
+</audio>
+<button class="btn-musica" onclick="toggleMusica()">
+    <i id="iconoMusica" class="fas fa-volume-up"></i>
+</button>
 
-  <div class="botonera">
+<!-- Corazoncitos -->
+<script>
+    function createHeart() {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.textContent = '❤️';
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animationDuration = 3 + Math.random() * 2 + 's';
+        document.body.appendChild(heart);
+        setTimeout(() => { heart.remove(); }, 5000);
+    }
+    setInterval(createHeart, 500);
+</script>
+
+<!-- Encabezado -->
+<header class="encabezado-romantico">
+    <div class="mensaje-login">✨ ¡Bienvenido Amor ! ✨</div>
+</header>
+
+<!-- Botonera -->
+<section class="botonera">
     <div class="boton-con-imagen">
-      <img src="static/img/boton1.jpg" alt="boton1">
-      <a href="#carta">💌 Lo que quiero que sepas</a>
+        <img src="static/img/boton1.jpg" alt="boton1">
+        <a href="#carta">💌 Lo que quiero que sepas</a>
     </div>
     <div class="boton-con-imagen">
-      <img src="static/img/boton2.jpg" alt="boton2">
-      <a href="#notas">📝 Ver Notitas</a>
+        <img src="static/img/boton2.jpg" alt="boton2">
+        <a href="#notas">📝 Ver Notitas</a>
     </div>
     <div class="boton-con-imagen">
-      <img src="static/img/boton3.jpg" alt="boton3">
-      <a href="#canciones">🎵 Canciones con video</a>
+        <img src="static/img/boton3.jpg" alt="boton3">
+        <a href="#canciones">🎵 Canciones con video</a>
     </div>
     <div class="boton-con-imagen">
-      <img src="static/img/boton4.jpg" alt="boton4">
-      <a href="#fotos">📸 Nuestras fotos</a>
+        <img src="static/img/boton4.jpg" alt="boton4">
+        <a href="#galeria">📸 Nuestras fotos</a>
     </div>
-  </div>
+</section>
 
-  <div id="carta">
-    <h2>💌 Lo que quiero que sepas</h2>
-    <p>Mi amor, esto es para recordarte lo especial que sos para mí…</p>
-  </div>
+<!-- Secciones -->
+<main>
+    <section id="carta" class="seccion-romantica">
+        <h2>💌 Lo que quiero que sepas</h2>
+        <p>Mi amor, esto es para recordarte lo especial que sos para mí...</p>
+    </section>
 
-  <div id="notas">
-    <h2>📝 Notitas de Amor</h2>
-    <p>Eres mi razón para sonreír ❤️<br>Te amo con todo mi ser ❤️</p>
-  </div>
+    <section id="notas" class="seccion-romantica">
+        <h2>📝 Notitas de Amor</h2>
+        <p>Eres mi razón para sonreír ❤️<br>Te amo con todo mi ser 💕</p>
+    </section>
 
-  <div id="canciones">
-    <h2>🎵 Canciones</h2>
-    <ul>
-      <li><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">Nuestra canción favorita 💖</a></li>
-    </ul>
-  </div>
+    <section id="canciones" class="seccion-romantica">
+        <h2>🎵 Canciones</h2>
+        <a href="https://youtu.be/XyNVoqU5y00" target="_blank">Nuestra canción favorita 💘</a>
+    </section>
 
-  <div id="fotos">
-    <h2>📸 Galería</h2>
-    <p>Aquí estarán nuestras fotos más lindas juntos 🥰</p>
-  </div>
+    <section id="galeria" class="seccion-romantica">
+        <h2>📸 Nuestras Fotos</h2>
+        <p>Aquí van a estar todas nuestras fotos más lindas juntas 💞</p>
+    </section>
+</main>
+
+<script>
+    function toggleMusica() {
+        const audio = document.getElementById('musicaFondo');
+        const icono = document.getElementById('iconoMusica');
+        if (audio.paused) {
+            audio.play();
+            icono.classList.remove('fa-volume-mute');
+            icono.classList.add('fa-volume-up');
+        } else {
+            audio.pause();
+            icono.classList.remove('fa-volume-up');
+            icono.classList.add('fa-volume-mute');
+        }
+    }
+</script>
 
 </body>
 </html>

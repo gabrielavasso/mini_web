@@ -1,18 +1,29 @@
-
-body {
-    font-family: 'Quicksand', sans-serif;
-    background: linear-gradient(to bottom, #ffe4ec, #fcd5ce, #fff);
-    background-size: cover;
+/* ======= RESET GENERAL ======= */
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+/* ======= FUENTE Y FONDO GENERAL ======= */
+body {
+    font-family: 'Quicksand', sans-serif;
+    background: linear-gradient(180deg, #ffe4ec, #fcd5ce, #fff);
+    background-attachment: fixed;
+    background-size: cover;
     color: #333;
 }
+
+/* ======= ENCABEZADO DE BIENVENIDA ======= */
 .mensaje-login {
     text-align: center;
     font-size: 1.8rem;
     padding: 1rem;
     color: #b30059;
+    animation: fadeIn 2s ease;
 }
+
+/* ======= BOTONERA ======= */
 .botonera {
     display: flex;
     justify-content: center;
@@ -20,14 +31,25 @@ body {
     flex-wrap: wrap;
     margin-top: 20px;
 }
+
+/* ======= BOTONES CON IMAGEN ======= */
 .boton-con-imagen {
     text-align: center;
 }
+
 .boton-con-imagen img {
     width: 100px;
     height: 100px;
     border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    animation: pulse 2s infinite;
+    transition: transform 0.3s;
 }
+
+.boton-con-imagen img:hover {
+    transform: scale(1.05);
+}
+
 .boton-con-imagen a {
     display: block;
     margin-top: 10px;
@@ -37,14 +59,85 @@ body {
     background-color: #ff4d88;
     padding: 10px 15px;
     border-radius: 12px;
+    transition: background-color 0.3s;
 }
+
+.boton-con-imagen a:hover {
+    background-color: #e60073;
+}
+
+/* ======= BOTÓN FLOTANTE DE LOGIN ======= */
+.login-boton-individual {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 999;
+}
+
+.login-boton-individual img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* ======= EFECTO CORAZONES ======= */
+.heart {
+    position: fixed;
+    top: -10px;
+    font-size: 20px;
+    animation: fall 6s linear infinite;
+    color: #ff99cc;
+    opacity: 0.8;
+    pointer-events: none;
+}
+
+@keyframes fall {
+    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+}
+
+/* ======= ANIMACIONES ======= */
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* ======= TEXTO SECUNDARIO ======= */
 h2 {
     text-align: center;
     color: #c2185b;
     margin-top: 40px;
 }
+
 p, ul {
     text-align: center;
     margin-top: 10px;
     padding: 0 20px;
+}
+
+/* ======= RESPONSIVE ======= */
+@media screen and (max-width: 768px) {
+    .boton-con-imagen img {
+        width: 80px;
+        height: 80px;
+    }
+    .boton-con-imagen a {
+        font-size: 0.85rem;
+        padding: 8px 12px;
+    }
+    .mensaje-login {
+        font-size: 1.2rem;
+        padding: 10px;
+    }
+    .botonera {
+        flex-direction: column;
+        align-items: center;
+    }
 }
