@@ -15,34 +15,39 @@ body {
 /* ======= HEADER / ZÓCALO CON ENCABEZADO.JPG ======= */
 header {
     width: 100%;
-    height: 110px;
+    height: 140px;
     background-image: url('../img/encabezado.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     position: relative;
-    z-index: 999;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    padding-bottom: 10px;
 }
 
 /* ======= PORTADA CON FONDO E ICONOS ======= */
 .contenido-principal {
     min-height: 100vh;
+    background-size: cover;
+    background-position: center;
     padding: 40px 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
 }
 
-/* ======= BOTONERA 2x2 GRANDE Y CENTRADA ======= */
+/* ======= BOTONERA 2x2 AJUSTADA ======= */
 .botonera {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 30px;
-    margin-top: 40px;
-    width: 100%;
-    max-width: 600px;
+    grid-template-columns: repeat(2, auto);
+    gap: 30px 25px;
+    margin-top: 30px;
+    justify-content: center;
 }
 
 .boton-con-imagen {
@@ -50,13 +55,15 @@ header {
     background-color: #fff0f3;
     border: 2px solid #fcd5ce;
     border-radius: 20px;
-    padding: 25px 10px;
+    padding: 20px;
+    width: 150px;
+    height: auto;
     box-shadow: 0 6px 12px rgba(255, 192, 203, 0.3);
     transition: transform 0.3s ease;
 }
 
 .boton-con-imagen:hover {
-    transform: scale(1.08);
+    transform: scale(1.05);
 }
 
 .boton-con-imagen img {
@@ -64,14 +71,13 @@ header {
     height: 100px;
     object-fit: cover;
     border-radius: 15px;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
 .boton-con-imagen a {
     text-decoration: none;
     color: #c06c84;
     font-weight: bold;
-    font-size: 18px;
     display: block;
 }
 
@@ -100,9 +106,9 @@ header {
     background-color: #f8a5c2;
 }
 
-/* ======= MENSAJE DE BIENVENIDA ======= */
+/* ======= MENSAJE DE BIENVENIDA (si está logueada) ======= */
 .mensaje-login {
-    font-size: 22px;
+    font-size: 20px;
     font-weight: bold;
     color: #ff6b81;
     margin-top: 20px;
@@ -120,16 +126,17 @@ header {
 @media (max-width: 600px) {
     .botonera {
         grid-template-columns: 1fr 1fr;
-        gap: 15px;
+        gap: 20px;
+    }
+
+    .boton-con-imagen {
+        width: 120px;
+        padding: 15px;
     }
 
     .boton-con-imagen img {
-        width: 70px;
-        height: 70px;
-    }
-
-    .boton-con-imagen a {
-        font-size: 16px;
+        width: 80px;
+        height: 80px;
     }
 
     .boton-login {
