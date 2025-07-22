@@ -164,3 +164,15 @@ header {
         height: 30px;
     }
 }
+.gif-decorativo {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.gif-decorativo img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(255, 192, 203, 0.3);
+}
