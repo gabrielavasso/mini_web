@@ -288,7 +288,9 @@ def bienvenida():
         return redirect(url_for("login"))
     return render_template("bienvenida.html")
 
+import os
 
 # 🔚 ESTA LÍNEA DEBE SER SIEMPRE LA ÚLTIMA
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port)
