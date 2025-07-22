@@ -10,6 +10,7 @@ body {
     background: linear-gradient(180deg, #ffe4ec, #fcd5ce, #fff);
     background-attachment: fixed;
     background-size: cover;
+    padding-bottom: 80px;
 }
 
 /* ======= HEADER CON ESTILO MEJORADO ======= */
@@ -42,13 +43,16 @@ header {
 }
 
 /* ======= BOTONERA 2x2 CENTRADA ======= */
+
 .botonera {
     display: grid;
-    grid-template-columns: repeat(2, auto);
-    gap: 35px 30px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
     margin-top: 40px;
-    justify-content: center;
+    width: 90%;
+    max-width: 600px;
 }
+
 
 .boton-con-imagen {
     text-align: center;
@@ -56,11 +60,12 @@ header {
     border: 2px solid #fcd5ce;
     border-radius: 25px;
     padding: 20px;
-    width: 180px;
+    width: 100%;
     height: auto;
     box-shadow: 0 8px 14px rgba(255, 192, 203, 0.4);
     transition: transform 0.3s ease;
 }
+
 
 .boton-con-imagen:hover {
     transform: scale(1.07);
@@ -80,9 +85,13 @@ header {
     font-weight: bold;
     display: block;
     background: linear-gradient(90deg, gold, black);
+    background-clip: text;
     -webkit-background-clip: text;
+    color: transparent;
     -webkit-text-fill-color: transparent;
+    text-align: center;
 }
+
 
 /* ======= BOTÓN LOGIN FLOTANTE ======= */
 .boton-login {
