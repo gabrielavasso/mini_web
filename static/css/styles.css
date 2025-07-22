@@ -12,10 +12,10 @@ body {
     background-size: cover;
 }
 
-/* ======= HEADER CON TÍTULO ESTILO ROMÁNTICO ======= */
+/* ======= HEADER CON ESTILO MEJORADO ======= */
 header {
     width: 100%;
-    height: 180px;
+    height: 160px;
     background-image: url('../img/encabezado.jpg');
     background-size: cover;
     background-position: center;
@@ -24,35 +24,12 @@ header {
     position: relative;
     top: 0;
     display: flex;
-    flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: flex-end;
     padding-bottom: 10px;
 }
 
-header h1 {
-    font-family: 'Great Vibes', cursive;
-    font-size: 36px;
-    background: linear-gradient(to right, #000, #bfa46f);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
-    text-shadow: 1px 1px 3px #fff;
-    margin-bottom: 5px;
-}
-
-header p {
-    font-size: 16px;
-    background: linear-gradient(to right, #bfa46f, #000);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
-    font-weight: bold;
-}
-
-/* ======= PORTADA CON FONDO E ICONOS ======= */
+/* ======= CONTENIDO PRINCIPAL ======= */
 .contenido-principal {
     min-height: 100vh;
     background-size: cover;
@@ -64,13 +41,12 @@ header p {
     justify-content: center;
 }
 
-/* ======= BOTONERA 2x2 AJUSTADA Y AMPLIA ======= */
+/* ======= BOTONERA 2x2 CENTRADA ======= */
 .botonera {
     display: grid;
-    grid-template-columns: repeat(2, 160px);
-    grid-template-rows: repeat(2, 160px);
-    gap: 30px;
-    margin-top: 30px;
+    grid-template-columns: repeat(2, auto);
+    gap: 35px 30px;
+    margin-top: 40px;
     justify-content: center;
 }
 
@@ -78,38 +54,37 @@ header p {
     text-align: center;
     background-color: #fff0f3;
     border: 2px solid #fcd5ce;
-    border-radius: 20px;
+    border-radius: 25px;
     padding: 20px;
-    width: 150px;
+    width: 180px;
     height: auto;
-    box-shadow: 0 8px 16px rgba(255, 192, 203, 0.3);
+    box-shadow: 0 8px 14px rgba(255, 192, 203, 0.4);
     transition: transform 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
 }
 
 .boton-con-imagen:hover {
-    transform: scale(1.08);
+    transform: scale(1.07);
 }
 
 .boton-con-imagen img {
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
     object-fit: cover;
-    border-radius: 15px;
-    margin: 0 auto 10px;
+    border-radius: 20px;
+    margin-bottom: 12px;
 }
 
 .boton-con-imagen a {
     text-decoration: none;
-    color: #c06c84;
+    font-size: 18px;
     font-weight: bold;
     display: block;
-    font-size: 15px;
+    background: linear-gradient(90deg, gold, black);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
-/* ======= LOGIN FLOATING BUTTON ======= */
+/* ======= BOTÓN LOGIN FLOTANTE ======= */
 .boton-login {
     position: fixed;
     bottom: 20px;
@@ -134,9 +109,9 @@ header p {
     background-color: #f8a5c2;
 }
 
-/* ======= MENSAJE DE BIENVENIDA (si está logueada) ======= */
+/* ======= MENSAJE DE BIENVENIDA ======= */
 .mensaje-login {
-    font-size: 22px;
+    font-size: 20px;
     font-weight: bold;
     color: #ff6b81;
     margin-top: 20px;
@@ -144,7 +119,6 @@ header p {
     animation: latido 1s infinite alternate;
 }
 
-/* ======= EFECTO PALPITAR ======= */
 @keyframes latido {
     0% { transform: scale(1); }
     100% { transform: scale(1.08); }
@@ -152,35 +126,23 @@ header p {
 
 /* ======= RESPONSIVE ======= */
 @media (max-width: 600px) {
-    header {
-        height: 160px;
-    }
-
-    header h1 {
-        font-size: 28px;
-    }
-
-    header p {
-        font-size: 14px;
-    }
-
     .botonera {
         grid-template-columns: 1fr 1fr;
         gap: 20px;
     }
 
     .boton-con-imagen {
-        width: 130px;
+        width: 140px;
         padding: 15px;
     }
 
     .boton-con-imagen img {
-        width: 85px;
-        height: 85px;
+        width: 90px;
+        height: 90px;
     }
 
     .boton-con-imagen a {
-        font-size: 14px;
+        font-size: 16px;
     }
 
     .boton-login {
