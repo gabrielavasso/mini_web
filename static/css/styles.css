@@ -89,8 +89,11 @@ header {
     display: block;
     background: linear-gradient(90deg, gold, black);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
+    color: transparent;
 }
+
 
 
 /* ======= BOTÓN LOGIN FLOTANTE ======= */
