@@ -164,26 +164,31 @@ header {
         height: 30px;
     }
 }
+
 .gif-decorativo {
     margin-top: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
+    text-align: center; /* ← Esto asegura que todo el contenido se alinee al centro */
 }
 
-.gif-polaroid {
+.gif-decorativo .gif-polaroid {
     background: white;
     padding: 10px 10px 30px 10px;
     border-radius: 12px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     max-width: 90%;
     display: inline-block;
+    position: relative;
     animation: entradaSuave 1s ease-in-out;
+    margin: 0 auto; /* ← Esto lo centra dentro del contenedor */
 }
 
-.gif-decorativo img {
-    width: 100%;
+.gif-polaroid img {
+    width: auto;
+    max-width: 100%;
     height: auto;
     border-radius: 20px;
     box-shadow: 0 4px 10px rgba(255, 192, 203, 0.3);
@@ -192,7 +197,7 @@ header {
     filter: brightness(1.1) saturate(1.1);
 }
 
-/* Animación */
+/* Animación de entrada suave */
 @keyframes entradaSuave {
     from {
         opacity: 0;
@@ -203,3 +208,4 @@ header {
         transform: scale(1);
     }
 }
+
