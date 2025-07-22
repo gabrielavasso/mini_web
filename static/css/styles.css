@@ -180,18 +180,19 @@ header {
     max-width: 90%;
     display: inline-block;
     animation: entradaSuave 1s ease-in-out;
+}
+
+.gif-decorativo img {
+    width: 100%;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(255, 192, 203, 0.3);
+    display: block;
+    animation: entradaSuave 1s ease-in-out;
     filter: brightness(1.1) saturate(1.1);
 }
 
-.gif-polaroid img {
-    width: auto;
-    max-width: 100%;
-    height: auto;
-    border-radius: 10px;
-    display: block;
-}
-
-/* Animación de entrada suave */
+/* Animación */
 @keyframes entradaSuave {
     from {
         opacity: 0;
