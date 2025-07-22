@@ -10,7 +10,6 @@ body {
     background: linear-gradient(180deg, #ffe4ec, #fcd5ce, #fff);
     background-attachment: fixed;
     background-size: cover;
-    overflow-x: hidden;
 }
 
 /* ======= HEADER / ZÓCALO CON ENCABEZADO.JPG ======= */
@@ -22,99 +21,109 @@ header {
     background-position: center;
     background-repeat: no-repeat;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    position: relative;
+    top: 0;
 }
 
-/* ======= BOTONERA PRINCIPAL EN 2 FILAS ======= */
-.botonera {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    margin: 40px auto;
-    max-width: 600px;
-}
-
-/* ======= BOTONES CON IMÁGENES ======= */
-.boton-con-imagen {
+/* ======= PORTADA CON FONDO E ICONOS ======= */
+.contenido-principal {
+    min-height: 100vh;
+    background-size: cover;
+    background-position: center;
+    padding: 40px 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+/* ======= BOTONERA 2x2 ======= */
+.botonera {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.boton-con-imagen {
     text-align: center;
-    padding: 10px;
-    background: rgba(255, 255, 255, 0.7);
-    border: 2px solid #ffb6c1;
+    background-color: #fff0f3;
+    border: 2px solid #fcd5ce;
     border-radius: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    width: 130px;
+    padding: 15px;
+    box-shadow: 0 6px 12px rgba(255, 192, 203, 0.3);
+    transition: transform 0.3s ease;
 }
 
 .boton-con-imagen:hover {
     transform: scale(1.05);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
 }
 
 .boton-con-imagen img {
-    width: 100px;
-    height: 100px;
-    border-radius: 12px;
+    width: 80px;
+    height: 80px;
     object-fit: cover;
-    margin-bottom: 8px;
+    border-radius: 15px;
+    margin-bottom: 10px;
 }
 
 .boton-con-imagen a {
     text-decoration: none;
-    color: #b30059;
+    color: #c06c84;
     font-weight: bold;
-    font-size: 14px;
+    display: block;
 }
 
-/* ======= BOTÓN DE LOGIN FLOTANTE ======= */
+/* ======= LOGIN FLOATING BUTTON ======= */
 .boton-login {
     position: fixed;
     bottom: 20px;
-    right: 20px;
-    background-color: #ffc0cb;
+    left: 20px;
+    background-color: #fcd5ce;
     border: none;
     border-radius: 50%;
-    width: 55px;
-    height: 55px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    transition: background-color 0.3s ease;
+    width: 60px;
+    height: 60px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: background 0.3s ease;
+    z-index: 999;
+}
+
+.boton-login img {
+    width: 35px;
+    height: 35px;
 }
 
 .boton-login:hover {
-    background-color: #ff8fab;
+    background-color: #f8a5c2;
 }
 
-.boton-login i {
-    font-size: 24px;
-    color: white;
+/* ======= MENSAJE DE BIENVENIDA (si está logueada) ======= */
+.mensaje-login {
+    font-size: 20px;
+    font-weight: bold;
+    color: #ff6b81;
+    margin-top: 20px;
+    text-align: center;
+    animation: latido 1s infinite alternate;
 }
 
-/* ======= RESPONSIVE PARA CELULARES ======= */
-@media screen and (max-width: 480px) {
+/* ======= EFECTO PALPITAR ======= */
+@keyframes latido {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.08); }
+}
+
+/* ======= RESPONSIVE ======= */
+@media (max-width: 600px) {
     .botonera {
+        grid-template-columns: 1fr 1fr;
         gap: 15px;
     }
 
-    .boton-con-imagen {
-        width: 120px;
-        padding: 8px;
-    }
-
     .boton-con-imagen img {
-        width: 90px;
-        height: 90px;
-    }
-
-    .boton-con-imagen a {
-        font-size: 13px;
+        width: 60px;
+        height: 60px;
     }
 
     .boton-login {
@@ -122,7 +131,8 @@ header {
         height: 50px;
     }
 
-    .boton-login i {
-        font-size: 22px;
+    .boton-login img {
+        width: 30px;
+        height: 30px;
     }
 }
