@@ -9,9 +9,7 @@
     {% endif %}
 
     <div class="botonera">
-      <div class="gif-decorativo">
-    <img src="{{ url_for('static', filename='img/amor.gif') }}" alt="amor decorativo">
-</div>
+    
         <div class="boton-con-imagen">
             <img src="{{ url_for('static', filename='img/boton1.jpg') }}" alt="boton1">
             <a href="{{ url_for('carta') }}">💌 Lo que quiero que sepas</a>
@@ -28,6 +26,11 @@
             <img src="{{ url_for('static', filename='img/boton4.jpg') }}" alt="boton4">
             <a href="{{ url_for('galeria') }}">📸 Nuestras fotos</a>
         </div>
+    
+<div class="gif-romantico">
+    <img src="{{ url_for('static', filename='img/amor.gif') }}" alt="Nuestro amor">
+</div>
+
     </div>
 
     {% if session.get('logueado') %}
