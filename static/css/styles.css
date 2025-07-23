@@ -249,3 +249,21 @@ header {
     color: #d63384;
     animation: latido 1.2s infinite alternate;
 }
+
+
+
+@media screen and (max-width: 600px) {
+    html, body {
+        height: 100%;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+    body::after {
+        content: "";
+        display: block;
+        height: 0px !important;
+    }
+}
