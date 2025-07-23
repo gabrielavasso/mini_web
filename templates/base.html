@@ -13,7 +13,7 @@
 
     <!-- Íconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
+    
     {% block extra_head %}{% endblock %}
 </head>
 <body>
@@ -26,6 +26,16 @@
 
     <!-- Contenido de cada página -->
     {% block content %}{% endblock %}
+
+    <!-- GIF decorativo -->
+    <div class="gif-decorativo">
+        <img src="{{ url_for('static', filename='img/corazones.gif') }}" alt="Corazones animados">
+    </div>
+
+    <!-- Pie de página romántico -->
+    <footer class="footer-romantico">
+        <p>✨ Hecho con mucho amor por Gaby & Miqueas ✨</p>
+    </footer>
 
     <!-- Mensaje de cantidad de notitas si aplica -->
     {% if notas is defined and request.endpoint == 'ver_notitas' %}

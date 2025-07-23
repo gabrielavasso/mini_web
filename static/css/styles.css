@@ -258,9 +258,10 @@ header {
 
 @media screen and (max-width: 600px) {
     html, body {
-        height: 100dvh !important;
-        max-height: 100dvh !important;
-        overflow: hidden !important;
+        height: auto !important;
+        min-height: 100% !important;
+        overflow-x: hidden !important;
+        overflow-y: auto !important;
         margin: 0 !important;
         padding: 0 !important;
     }
@@ -274,21 +275,63 @@ header {
     body::after {
         content: none !important;
     }
+
+    /* Botón música más grande en móvil */
     #boton-musica {
-    width: 65px;
-    height: 65px;
-    font-size: 30px;
+        width: 65px;
+        height: 65px;
+        font-size: 30px;
+    }
+
+    /* Botón login más grande en móvil */
+    .boton-login {
+        width: 120px;
+        height: 120px;
+    }
+
+    .boton-login img {
+        width: 100px;
+        height: 100px;
+    }
+}
+/* === GIF decorativo === */
+.gif-decorativo {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
 }
 
-.boton-login {
+.gif-decorativo img {
     width: 120px;
-    height: 120px;
+    height: auto;
+    animation: bounce 2s infinite ease-in-out;
 }
 
-.boton-login img {
-    width: 100px;
-    height: 100px;
+/* Animación suave del GIF */
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
 }
 
+/* === Footer romántico === */
+.footer-romantico {
+    text-align: center;
+    font-size: 14px;
+    color: #d63384;
+    padding: 12px 10px;
+    background: rgba(255, 240, 243, 0.7);
+    backdrop-filter: blur(3px);
+    border-top: 1px solid #fcd5ce;
+    margin-top: 10px;
+}
+
+@media screen and (max-width: 600px) {
+    .gif-decorativo img {
+        width: 90px;
+    }
+    .footer-romantico {
+        font-size: 12px;
+        padding: 8px;
+    }
 }
 
