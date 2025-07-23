@@ -10,7 +10,7 @@ body {
     background: linear-gradient(180deg, #ffe4ec, #fcd5ce, #fff);
     background-attachment: fixed;
     background-size: cover;
-    padding-bottom: 80px;
+    padding-bottom: 10px;
 }
 
 /* ======= HEADER CON ESTILO MEJORADO ======= */
