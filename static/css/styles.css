@@ -227,3 +227,20 @@ html, body {
     padding-bottom: 0 !important;
   }
 }
+
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow-x: hidden;
+}
+
+main.contenido-principal {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+.contenedor-gif {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
