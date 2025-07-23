@@ -8,6 +8,7 @@
         <div class="mensaje-login">✨ ¡Bienvenido Amor ! ✨</div>
     {% endif %}
 
+    <!-- Botonera principal -->
     <div class="botonera">
         <div class="boton-con-imagen">
             <img src="{{ url_for('static', filename='img/boton1.jpg') }}" alt="boton1">
@@ -27,15 +28,21 @@
         </div>
     </div>
 
-    <div style="height: 1px;"></div> <!-- Anti-salto visual -->
+    <!-- GIF decorativo SOLO en index -->
+    <div class="gif-decorativo">
+        <img src="{{ url_for('static', filename='img/corazones.gif') }}" alt="Corazones animados">
+    </div>
+
 </main>
 
+<!-- Botón de cerrar sesión -->
 {% if session.get('logueado') %}
     <a href="{{ url_for('logout') }}" class="boton-login-separado boton-estilo">
         <i class="fas fa-sign-out-alt"></i> Cerrar sesión
     </a>
 {% endif %}
 
+<!-- Botón de login si no está logueado -->
 {% if not session.get('logueado') %}
     <div class="login-boton-individual">
         <a href="{{ url_for('login') }}">

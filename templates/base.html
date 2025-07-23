@@ -2,18 +2,19 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Mejora para móviles -->
     <title>{% block title %}Miqueas & Gaby{% endblock %}</title>
 
-    <!-- Fuentes -->
+    <!-- Fuentes románticas -->
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
 
-    <!-- Estilos -->
+    <!-- Estilos principales -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/x-icon">
 
-    <!-- Íconos -->
+    <!-- Íconos Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    
+
     {% block extra_head %}{% endblock %}
 </head>
 <body>
@@ -26,11 +27,6 @@
 
     <!-- Contenido de cada página -->
     {% block content %}{% endblock %}
-
-    <!-- GIF decorativo -->
-    <div class="gif-decorativo">
-        <img src="{{ url_for('static', filename='img/corazones.gif') }}" alt="Corazones animados">
-    </div>
 
     <!-- Pie de página romántico -->
     <footer class="footer-romantico">

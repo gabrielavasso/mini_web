@@ -2,13 +2,13 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Mejora para móviles -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Mejora móvil -->
     <title>{% block title %}Miqueas & Gaby{% endblock %}</title>
 
     <!-- Fuentes románticas -->
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
 
-    <!-- Estilos principales -->
+    <!-- Estilos -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/x-icon">
 
@@ -19,8 +19,8 @@
 </head>
 <body>
 
-    <!-- Encabezado especial para sección de notitas -->
-    <header class="encabezado-notas">
+    <!-- Encabezado especial -->
+    <header>
         <h1 class="titulo-principal">
             {% block encabezado_titulo %}💖 Miqueas & Gaby{% endblock %}
         </h1>
@@ -29,12 +29,12 @@
         </p>
     </header>
 
-    <!-- Contenido personalizado -->
+    <!-- Contenido individual -->
     {% block content %}{% endblock %}
 
     {% block extra_scripts %}{% endblock %}
 
-    <!-- Botón volver al inicio -->
+    <!-- Botón de volver al inicio -->
     {% if request.endpoint != 'index' %}
     <a href="{{ url_for('index') }}" class="boton-volver">
         <i class="fas fa-heart"></i> Volver al comienzo

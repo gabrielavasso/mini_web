@@ -31,7 +31,7 @@ header {
 }
 
 .encabezado-notas {
-    height: 180px; /* Altura menor para secciones especiales */
+    height: 180px;
 }
 
 /* ======= CONTENIDO PRINCIPAL ======= */
@@ -47,7 +47,7 @@ header {
     flex-grow: 1;
 }
 
-/* ======= BOTONERA 2x2 MUY GRANDE ======= */
+/* ======= BOTONERA 2x2 ======= */
 .botonera {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -167,7 +167,7 @@ header {
     100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
 }
 
-/* ======= BOTÓN LOGIN INDIVIDUAL (NO LOGUEADA) ======= */
+/* ======= BOTÓN LOGIN INDIVIDUAL ======= */
 .login-boton-individual {
     position: fixed;
     bottom: 20px;
@@ -220,13 +220,13 @@ header {
     }
 
     .boton-login {
-        width: 60px;
-        height: 60px;
+        width: 120px;
+        height: 120px;
     }
 
     .boton-login img {
-        width: 35px;
-        height: 35px;
+        width: 100px;
+        height: 100px;
     }
 
     .contenido-principal {
@@ -236,14 +236,10 @@ header {
     }
 
     html, body {
-        height: 100dvh !important;
+        height: auto !important;
         overflow-y: auto !important;
         margin: 0 !important;
         padding: 0 !important;
-    }
-
-    body::after {
-        content: none !important;
     }
 }
 
@@ -256,44 +252,6 @@ header {
     animation: latido 1.2s infinite alternate;
 }
 
-@media screen and (max-width: 600px) {
-    html, body {
-        height: auto !important;
-        min-height: 100% !important;
-        overflow-x: hidden !important;
-        overflow-y: auto !important;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-
-    .contenido-principal {
-        padding-bottom: 0 !important;
-        margin-bottom: 0 !important;
-        min-height: unset !important;
-    }
-
-    body::after {
-        content: none !important;
-    }
-
-    /* Botón música más grande en móvil */
-    #boton-musica {
-        width: 65px;
-        height: 65px;
-        font-size: 30px;
-    }
-
-    /* Botón login más grande en móvil */
-    .boton-login {
-        width: 120px;
-        height: 120px;
-    }
-
-    .boton-login img {
-        width: 100px;
-        height: 100px;
-    }
-}
 /* === GIF decorativo === */
 .gif-decorativo {
     display: flex;
@@ -325,17 +283,17 @@ header {
     margin-top: 10px;
 }
 
-/* Ajuste solo para celular */
+/* ===== Ajuste para móvil: GIF gigante ===== */
 @media screen and (max-width: 600px) {
     .gif-decorativo {
-        margin: 20px 0 10px 0; /* Espacio reducido para pegarlo a botones y footer */
+        margin: 20px 0 10px 0;
         display: flex;
         justify-content: center;
         align-items: center;
     }
 
     .gif-decorativo img {
-        width: 300px;  /* 4 veces más grande en móvil */
+        width: 300px !important; /* 4 veces más grande */
         height: auto;
         border: 4px solid #fcd5ce;
         border-radius: 20px;
