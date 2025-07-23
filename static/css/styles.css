@@ -325,41 +325,30 @@ header {
     margin-top: 10px;
 }
 
-@media screen and (max-width: 600px) {
-    .gif-decorativo img {
-        width: 90px;
-    }
-    .footer-romantico {
-        font-size: 12px;
-        padding: 8px;
-    }
-}
-
-/* Ajustar footer y GIF en celular */
+/* Ajuste solo para celular */
 @media screen and (max-width: 600px) {
     .gif-decorativo {
-        margin: 25px 0;
-        min-height: 180px; /* Más espacio reservado */
+        margin: 20px 0 10px 0; /* Espacio reducido para pegarlo a botones y footer */
         display: flex;
         justify-content: center;
+        align-items: center;
     }
 
     .gif-decorativo img {
-        width: 180px;          /* Bien grande */
+        width: 300px;  /* 4 veces más grande en móvil */
         height: auto;
-        border: 4px solid #fcd5ce; /* Borde suave */
-        border-radius: 20px;       /* Esquinas redondeadas */
-        background: #fff0f3;       /* Fondo rosado claro */
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25); /* Sombra */
-        padding: 8px;              /* Separación interna del borde */
+        border: 4px solid #fcd5ce;
+        border-radius: 20px;
+        background: #fff0f3;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        padding: 6px;
         animation: bounce 2s infinite ease-in-out;
     }
 
     .footer-romantico {
-        font-size: 15px;
-        padding: 20px 10px;
+        font-size: 14px;
+        padding: 16px 10px;
         background: rgba(255, 240, 243, 0.95);
         border-top: 2px solid #fcd5ce;
-        box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1); /* Sombras arriba del footer */
     }
 }
