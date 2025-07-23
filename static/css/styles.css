@@ -169,18 +169,32 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 40px;
-    margin-bottom: 40px;
+    margin-top: 30px;
     width: 100%;
+    animation: entradaSuave 1s ease-in-out;
 }
 
 .contenedor-gif img {
     max-width: 90%;
     height: auto;
-    border-radius: 15px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(255, 192, 203, 0.5); /* sombra rosada romántica */
+    background: white;
+    padding: 10px 10px 30px 10px; /* estilo polaroid */
+    border: 1px solid #f0f0f0;
+    filter: brightness(1.05) saturate(1.1); /* filtro suave */
     animation: entradaSuave 1s ease-in-out;
-    filter: brightness(1.1) saturate(1.1);
+}
+
+@keyframes entradaSuave {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
 
