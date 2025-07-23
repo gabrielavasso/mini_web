@@ -5,12 +5,13 @@
     box-sizing: border-box;
 }
 
-body {
+html, body {
+    height: 100%;
+    overflow-x: hidden;
     font-family: 'Quicksand', sans-serif;
     background: linear-gradient(180deg, #ffe4ec, #fcd5ce, #fff);
     background-attachment: fixed;
     background-size: cover;
-    padding-bottom: 10px;
 }
 
 /* ======= HEADER CON ESTILO MEJORADO ======= */
@@ -39,9 +40,9 @@ header {
     align-items: center;
     justify-content: flex-start;
     flex-grow: 1;
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
 }
-
-
 
 /* ======= BOTONERA 2x2 MUY GRANDE ======= */
 .botonera {
@@ -141,6 +142,8 @@ header {
     margin-top: 30px;
     width: 100%;
     animation: entradaSuave 1s ease-in-out;
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
 }
 
 .contenedor-gif img {
@@ -153,6 +156,9 @@ header {
     border: 1px solid #f0f0f0;
     filter: brightness(1.05) saturate(1.1);
     animation: entradaSuave 1s ease-in-out;
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+    display: block;
 }
 
 @keyframes entradaSuave {
@@ -166,8 +172,60 @@ header {
     }
 }
 
-/* ======= RESPONSIVE ======= */
-@media (max-width: 600px) {
+/* ======= BOTÓN VOLVER ======= */
+.boton-volver {
+    display: inline-block;
+    margin: 10px auto;
+    padding: 10px 20px;
+    background-color: #ffe4ec;
+    border-radius: 20px;
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    text-align: center;
+    position: relative;
+}
+
+/* ======= EFECTO CORAZONES VOLANDO ======= */
+.heart {
+    position: fixed;
+    top: -10px;
+    font-size: 20px;
+    animation: fall 6s linear infinite;
+    color: #ff99cc;
+    opacity: 0.8;
+    pointer-events: none;
+}
+
+@keyframes fall {
+    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+}
+
+/* ======= BOTÓN LOGIN INDIVIDUAL (NO LOGUEADA) ======= */
+.login-boton-individual {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 999;
+}
+
+.login-boton-individual img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+/* ======= RESPONSIVE CELULAR ======= */
+@media screen and (max-width: 600px) {
     .botonera {
         grid-template-columns: 1fr 1fr;
         gap: 20px;
@@ -199,92 +257,21 @@ header {
 
     .contenido-principal {
         min-height: auto;
-        padding-bottom: 30px;
+        padding-bottom: 0 !important;
     }
-}
-html, body {
-    height: 100%;
-    overflow-x: hidden;
-}
 
-.boton-volver {
-    display: inline-block;
-    margin: 10px auto;
-    padding: 10px 20px;
-    background-color: #ffe4ec;
-    border-radius: 20px;
-    color: #333;
-    text-decoration: none;
-    font-weight: bold;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    text-align: center;
-    position: relative;
-}
+    .contenedor-gif,
+    .contenedor-gif img {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
 
-@media screen and (max-width: 600px) {
-  .boton-volver {
-    margin-bottom: 0 !important;
-    padding-bottom: 0 !important;
-  }
-}
+    .boton-volver {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
 
-body, html {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    overflow-x: hidden;
-}
-
-main.contenido-principal {
-    margin-bottom: 0 !important;
-    padding-bottom: 0 !important;
-}
-
-.contenedor-gif {
-    margin-bottom: 0 !important;
-    padding-bottom: 0 !important;
-}
-
-/* ======= EFECTO CORAZONES VOLANDO ======= */
-.heart {
-  position: fixed;
-  top: -10px;
-  font-size: 20px;
-  animation: fall 6s linear infinite;
-  color: #ff99cc;
-  opacity: 0.8;
-  pointer-events: none;
-}
-
-@keyframes fall {
-  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-  100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
-}
-
-/* ======= BOTÓN LOGIN INDIVIDUAL (NO LOGUEADA) ======= */
-.login-boton-individual {
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  z-index: 999;
-}
-
-.login-boton-individual img {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  animation: pulse 2s infinite;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-}
-
-@keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-}
-
-/* ======= AJUSTE GIF FINAL ======= */
-.contenedor-gif img {
-  margin-bottom: 0 !important;
-  padding-bottom: 0 !important;
-  display: block;
+    body {
+        padding-bottom: 0 !important;
+    }
 }
