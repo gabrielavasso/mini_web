@@ -206,3 +206,24 @@ html, body {
     height: 100%;
     overflow-x: hidden;
 }
+
+.boton-volver {
+    display: inline-block;
+    margin: 10px auto;
+    padding: 10px 20px;
+    background-color: #ffe4ec;
+    border-radius: 20px;
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    text-align: center;
+    position: relative;
+}
+
+@media screen and (max-width: 600px) {
+  .boton-volver {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+  }
+}
