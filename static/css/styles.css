@@ -105,8 +105,8 @@ header {
     background-color: #fcd5ce;
     border: none;
     border-radius: 50%;
-    width: 60px;
-    height: 60px;
+    width: 70px;
+    height: 70px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     cursor: pointer;
     transition: background 0.3s ease;
@@ -114,8 +114,8 @@ header {
 }
 
 .boton-login img {
-    width: 35px;
-    height: 35px;
+    width: 40px;
+    height: 40px;
 }
 
 .boton-login:hover {
@@ -274,5 +274,21 @@ header {
     body::after {
         content: none !important;
     }
+    #boton-musica {
+    width: 65px;
+    height: 65px;
+    font-size: 30px;
+}
+
+.boton-login {
+    width: 70px;
+    height: 70px;
+}
+
+.boton-login img {
+    width: 40px;
+    height: 40px;
+}
+
 }
 
