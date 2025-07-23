@@ -38,7 +38,10 @@ header {
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
+    flex-grow: 1;
 }
+
+
 
 /* ======= BOTONERA 2x2 MUY GRANDE ======= */
 .botonera {
@@ -198,4 +201,8 @@ header {
         min-height: auto;
         padding-bottom: 30px;
     }
+}
+html, body {
+    height: 100%;
+    overflow-x: hidden;
 }
