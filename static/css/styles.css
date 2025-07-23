@@ -275,3 +275,24 @@ header {
         padding-bottom: 0 !important;
     }
 }
+@media screen and (max-width: 600px) {
+    body, html {
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    main.contenido-principal,
+    .contenedor-gif,
+    .contenedor-gif img {
+        padding-bottom: 0 !important;
+        margin-bottom: 0 !important;
+    }
+
+    main::after {
+        content: "";
+        display: block;
+        height: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+}
