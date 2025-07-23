@@ -22,8 +22,6 @@ header {
     background-position: center;
     background-repeat: no-repeat;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    position: relative;
-    top: 0;
     display: flex;
     justify-content: center;
     align-items: flex-end;
@@ -41,7 +39,6 @@ header {
     align-items: center;
     justify-content: flex-start;
 }
-
 
 /* ======= BOTONERA 2x2 MUY GRANDE ======= */
 .botonera {
@@ -133,6 +130,39 @@ header {
     100% { transform: scale(1.08); }
 }
 
+/* ======= CONTENEDOR DE GIF ======= */
+.contenedor-gif {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    width: 100%;
+    animation: entradaSuave 1s ease-in-out;
+}
+
+.contenedor-gif img {
+    max-width: 90%;
+    height: auto;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(255, 192, 203, 0.5);
+    background: white;
+    padding: 10px 10px 30px 10px;
+    border: 1px solid #f0f0f0;
+    filter: brightness(1.05) saturate(1.1);
+    animation: entradaSuave 1s ease-in-out;
+}
+
+@keyframes entradaSuave {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
 /* ======= RESPONSIVE ======= */
 @media (max-width: 600px) {
     .botonera {
@@ -163,85 +193,9 @@ header {
         width: 30px;
         height: 30px;
     }
-}
 
-.contenedor-gif {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 30px;
-    width: 100%;
-    animation: entradaSuave 1s ease-in-out;
-}
-
-.contenedor-gif img {
-    max-width: 90%;
-    height: auto;
-    border-radius: 16px;
-    box-shadow: 0 8px 24px rgba(255, 192, 203, 0.5); /* sombra rosada romántica */
-    background: white;
-    padding: 10px 10px 30px 10px; /* estilo polaroid */
-    border: 1px solid #f0f0f0;
-    filter: brightness(1.05) saturate(1.1); /* filtro suave */
-    animation: entradaSuave 1s ease-in-out;
-}
-
-@keyframes entradaSuave {
-    from {
-        opacity: 0;
-        transform: translateY(20px) scale(0.98);
+    .contenido-principal {
+        min-height: auto;
+        padding-bottom: 30px;
     }
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
-
-
-.gif-decorativo {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 30px;
-    width: 100%;
-}
-
-.gif-polaroid {
-    background: white;
-    padding: 10px 10px 30px 10px;
-    border-radius: 12px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    max-width: 90%;
-    animation: entradaSuave 1s ease-in-out;
-    display: flex;
-    justify-content: center;
-}
-
-.gif-polaroid img {
-    display: block;
-    max-width: 100%;
-    height: auto;
-    border-radius: 20px;
-    box-shadow: 0 4px 10px rgba(255, 192, 203, 0.3);
-    animation: entradaSuave 1s ease-in-out;
-    filter: brightness(1.1) saturate(1.1);
-}
-
-/* Animación de entrada */
-@keyframes entradaSuave {
-    from {
-        opacity: 0;
-        transform: scale(0.95);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-@media screen and (max-width: 600px) {
-  .contenido-principal {
-    min-height: auto;
-    padding-bottom: 30px; /* Ajustás según el espacio que querés */
-  }
 }
