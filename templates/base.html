@@ -1,44 +1,98 @@
-{% if request.endpoint == 'index' and not session.get('logueado') %}
-<audio id="musica" autoplay loop>
-    <source src="{{ url_for('static', filename='music/te_amo_tanto.mp3') }}" type="audio/mpeg">
-    Tu navegador no soporta el audio HTML5.
-</audio>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Miqueas & Gaby{% endblock %}</title>
 
-<button onclick="toggleMusica()" id="boton-musica" title="Silenciar / Activar">
-    🔈
-</button>
+    <!-- Fuentes -->
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
 
-<style>
-    #boton-musica {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        width: 50px;
-        height: 50px;
-        font-size: 22px;
-        background-color: #f8d7da;
-        border: none;
-        border-radius: 50%;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        cursor: pointer;
-        z-index: 9999;
-    }
-</style>
+    <!-- Estilos -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/x-icon">
 
-<script>
-    const musica = document.getElementById('musica');
-    const boton = document.getElementById('boton-musica');
-    let estaSonando = true;
+    <!-- Íconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-    function toggleMusica() {
-        if (estaSonando) {
-            musica.pause();
-            boton.textContent = '🔇';
-        } else {
-            musica.play();
-            boton.textContent = '🔈';
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+
+    <!-- Encabezado común -->
+    <header class="encabezado">
+        <h1 class="titulo-principal">Miqueas & Gaby</h1>
+        <p class="subtitulo">Desde el 06/11/2022</p>
+    </header>
+
+    <!-- Contenido de cada página -->
+    {% block content %}{% endblock %}
+
+    <!-- Mensaje de cantidad de notitas si aplica -->
+    {% if notas is defined and request.endpoint == 'ver_notitas' %}
+    <p style="text-align: center; margin-top: 15px;">
+        📝 Se han dejado {{ notas|length }} notitas de amor
+    </p>
+    {% endif %}
+
+    <!-- Botón para volver si no estamos en index -->
+    {% if request.endpoint != 'index' %}
+    <a href="{{ url_for('index') }}" class="boton-volver">
+        <i class="fas fa-heart"></i> Volver al comienzo
+    </a>
+    {% endif %}
+
+    <!-- Scripts de cada página -->
+    {% block extra_scripts %}{% endblock %}
+
+    <!-- Música solo en index y si no está logueada -->
+    {% if request.endpoint == 'index' and not session.get('logueado') %}
+    <audio id="musica" autoplay loop>
+        <source src="{{ url_for('static', filename='music/te_amo_tanto.mp3') }}" type="audio/mpeg">
+        Tu navegador no soporta el audio HTML5.
+    </audio>
+
+    <button onclick="toggleMusica()" id="boton-musica" title="Silenciar / Activar">
+        🔈
+    </button>
+
+    <style>
+        #boton-musica {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            font-size: 22px;
+            background-color: #f8d7da;
+            border: none;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            cursor: pointer;
+            z-index: 9999;
         }
-        estaSonando = !estaSonando;
-    }
-</script>
-{% endif %}
+    </style>
+
+    <script>
+        const musica = document.getElementById('musica');
+        const boton = document.getElementById('boton-musica');
+        let estaSonando = true;
+
+        function toggleMusica() {
+            if (estaSonando) {
+                musica.pause();
+                boton.textContent = '🔇';
+            } else {
+                musica.play();
+                boton.textContent = '🔈';
+            }
+            estaSonando = !estaSonando;
+        }
+    </script>
+    {% endif %}
+
+    {% if request.endpoint == 'index' %}
+    <script src="{{ url_for('static', filename='js/heart.js') }}"></script>
+    {% endif %}
+
+</body>
+</html>
