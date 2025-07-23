@@ -152,7 +152,7 @@ header {
     border-radius: 16px;
     box-shadow: 0 8px 24px rgba(255, 192, 203, 0.5);
     background: white;
-    padding: 10px 10px 30px 10px;
+    padding: 10px;
     border: 1px solid #f0f0f0;
     filter: brightness(1.05) saturate(1.1);
     animation: entradaSuave 1s ease-in-out;
@@ -275,6 +275,7 @@ header {
         padding-bottom: 0 !important;
     }
 }
+
 @media screen and (max-width: 600px) {
     body, html {
         padding: 0 !important;
