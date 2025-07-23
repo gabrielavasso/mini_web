@@ -238,3 +238,10 @@ header {
         transform: scale(1);
     }
 }
+
+@media screen and (max-width: 600px) {
+  .contenido-principal {
+    min-height: auto;
+    padding-bottom: 30px; /* Ajustás según el espacio que querés */
+  }
+}
