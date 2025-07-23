@@ -2,6 +2,8 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 🧡 Para móviles -->
+
     <title>{% block title %}Panel Admin{% endblock %}</title>
     
     <!-- Fuentes más sobrias -->
@@ -17,7 +19,7 @@
     <!-- Encabezado del panel -->
     <header class="admin-header">
         <h1 class="admin-titulo">🔧 Panel Privado</h1>
-        <nav class="admin-nav">
+        <nav class="admin-nav" role="navigation">
             <a href="{{ url_for('index') }}">🏠 Inicio</a>
             <a href="{{ url_for('logout') }}">🔒 Cerrar sesión</a>
         </nav>

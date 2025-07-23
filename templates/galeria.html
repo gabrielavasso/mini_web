@@ -1,18 +1,42 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
 
 {% block title %}📸 Nuestras Fotos{% endblock %}
 
-{% block encabezado %}📸 Nuestros Álbumes — Un pedacito de nuestros momentos{% endblock %}
-
 {% block content %}
+<main class="galeria-fondo">
+    <div class="galeria-contenido">
+        {% if session.get('logueado') %}
+        <div class="galeria-botones">
+            <a href="{{ url_for('crear_album') }}" class="boton-galeria"><i class="fas fa-plus"></i> Crear Carpeta</a>
+            <a href="{{ url_for('upload') }}" class="boton-galeria"><i class="fas fa-upload"></i> Subir Fotos</a>
+            <a href="{{ url_for('eliminar_fotos') }}" class="boton-galeria"><i class="fas fa-trash-alt"></i> Eliminar Fotos o Carpetas</a>
+        </div>
+        {% endif %}
+
+        {% if galeria %}
+            {% for carpeta in galeria.keys() %}
+            <div class="album-carpeta">
+                <a href="{{ url_for('ver_album', carpeta=carpeta) }}">
+                    <img src="{{ url_for('static', filename='img/folder_icon.png') }}" alt="Carpeta {{ carpeta }}" class="icono-carpeta">
+                    <p class="nombre-carpeta">{{ carpeta }}</p>
+                </a>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p style="text-align: center; color: white;">No hay álbumes todavía.</p>
+        {% endif %}
+    </div>
+</main>
 
 <style>
-body {
+.galeria-fondo {
     background-image: url('{{ url_for('static', filename='img/fondo_galeria.jpg') }}');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
     background-attachment: fixed;
+    min-height: 100vh;
+    padding: 60px 20px 40px;
 }
 
 /* Estilo para carpetas */
@@ -78,7 +102,7 @@ body {
     background: #ff7f9c;
 }
 
-/* RESPONSIVE para celulares */
+/* Responsive */
 @media (max-width: 768px) {
     .album-carpeta {
         margin: 15px;
@@ -108,28 +132,4 @@ body {
     }
 }
 </style>
-
-<div class="galeria-contenido">
-    {% if session.get('logueado') %}
-    <div class="galeria-botones">
-        <a href="{{ url_for('crear_album') }}" class="boton-galeria"><i class="fas fa-plus"></i> Crear Carpeta</a>
-        <a href="{{ url_for('upload') }}" class="boton-galeria"><i class="fas fa-upload"></i> Subir Fotos</a>
-        <a href="{{ url_for('eliminar_fotos') }}" class="boton-galeria"><i class="fas fa-trash-alt"></i> Eliminar Fotos o Carpetas</a>
-    </div>
-    {% endif %}
-
-    {% if galeria %}
-        {% for carpeta in galeria.keys() %}
-        <div class="album-carpeta">
-            <a href="{{ url_for('ver_album', carpeta=carpeta) }}">
-                <img src="{{ url_for('static', filename='img/folder_icon.png') }}" alt="Carpeta {{ carpeta }}" class="icono-carpeta">
-                <p class="nombre-carpeta">{{ carpeta }}</p>
-            </a>
-        </div>
-        {% endfor %}
-    {% else %}
-        <p style="text-align: center; color: white;">No hay álbumes todavía.</p>
-    {% endif %}
-</div>
-
 {% endblock %}

@@ -2,96 +2,114 @@
 
 {% block title %}🗑️ Eliminar Fotos o Carpetas{% endblock %}
 
-{% block encabezado %}🗑️ Eliminar Fotos o Carpetas{% endblock %}
-
 {% block content %}
-<style>
+<main class="eliminar-fondo">
+    {% with mensajes = get_flashed_messages() %}
+      {% if mensajes %}
+        <div class="alerta-flash">
+          {% for msg in mensajes %}
+            <p>{{ msg }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
 
-body {
+    <div class="formulario-eliminar">
+        <form method="POST">
+            <label for="carpeta">Carpeta:</label>
+            <input type="text" name="carpeta" placeholder="Ej: Viaje a Brasil" required>
+
+            <label for="foto">Nombre de la foto (opcional):</label>
+            <input type="text" name="foto" placeholder="Ej: foto1.jpg">
+
+            <div class="advertencia"><i>⚠️</i>Si no escribís un nombre de foto, se eliminará toda la carpeta.</div>
+
+            <br>
+            <button type="submit" class="boton-eliminar">Eliminar</button>
+        </form>
+
+        <a class="volver-link" href="{{ url_for('galeria') }}">← Volver a la galería</a>
+    </div>
+</main>
+
+<style>
+.eliminar-fondo {
     background-image: url('{{ url_for('static', filename='img/fondo_galeria.jpg') }}');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
     background-attachment: fixed;
+    min-height: 100vh;
+    padding: 60px 15px 40px;
 }
 
-    .formulario-eliminar {
-        background: linear-gradient(to bottom, #ffe3ed, #fcd5ce);
-        max-width: 600px;
-        margin: 0 auto;
-        padding: 30px;
-        border-radius: 15px;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-        text-align: center;
-    }
+.formulario-eliminar {
+    background: linear-gradient(to bottom, #ffe3ed, #fcd5ce);
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
 
-    .formulario-eliminar input[type="text"] {
-        width: 100%;
-        padding: 12px;
-        margin-bottom: 20px;
-        border: none;
-        border-radius: 10px;
-        font-size: 1rem;
-    }
+.formulario-eliminar input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+}
 
-    .advertencia {
-        color: #b30000;
-        font-weight: bold;
-        margin-top: 10px;
-        font-size: 0.9rem;
-    }
+.advertencia {
+    color: #b30000;
+    font-weight: bold;
+    margin-top: 10px;
+    font-size: 0.9rem;
+}
 
-    .advertencia i {
-        margin-right: 5px;
-    }
+.advertencia i {
+    margin-right: 5px;
+}
 
-    .boton-eliminar {
-        background-color: #ff7e98;
-        color: white;
-        border: none;
-        padding: 12px 30px;
-        border-radius: 25px;
-        font-size: 1rem;
-        cursor: pointer;
-        transition: background 0.3s ease;
-    }
+.boton-eliminar {
+    background-color: #ff7e98;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
 
-    .boton-eliminar:hover {
-        background-color: #ff5e7a;
-    }
+.boton-eliminar:hover {
+    background-color: #ff5e7a;
+}
 
-    .volver-link {
-        display: inline-block;
-        margin-top: 20px;
-        font-size: 0.9rem;
-        color: #60003d;
-    }
+.volver-link {
+    display: inline-block;
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: #60003d;
+    text-decoration: none;
+}
+
+.volver-link:hover {
+    text-decoration: underline;
+}
+
+.alerta-flash {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 10px;
+    background-color: #ffe4ec;
+    border-left: 4px solid #e91e63;
+    color: #c2185b;
+    font-weight: bold;
+    border-radius: 10px;
+    text-align: center;
+}
 </style>
-
-{% with mensajes = get_flashed_messages() %}
-  {% if mensajes %}
-    <div class="alerta-flash">
-      {% for msg in mensajes %}
-        <p>{{ msg }}</p>
-      {% endfor %}
-    </div>
-  {% endif %}
-{% endwith %}
-
-<div class="formulario-eliminar">
-    <form method="POST">
-        <label for="carpeta">Carpeta:</label>
-        <input type="text" name="carpeta" placeholder="Ej: Viaje a Brasil" required>
-
-        <label for="foto">Nombre de la foto (opcional):</label>
-        <input type="text" name="foto" placeholder="Ej: foto1.jpg">
-
-        <div class="advertencia"><i>⚠️</i>Si no escribís un nombre de foto, se eliminará toda la carpeta.</div>
-
-        <br>
-        <button type="submit" class="boton-eliminar">Eliminar</button>
-    </form>
-
-    <a class="volver-link" href="{{ url_for('galeria') }}">← Volver a la galería</a>
-</div>
 {% endblock %}

@@ -27,19 +27,20 @@
         </div>
     </div>
 
-    {% if session.get('logueado') %}
-        <a href="{{ url_for('logout') }}" class="boton-login-separado boton-estilo">
-            <i class="fas fa-sign-out-alt"></i> Cerrar sesión
-        </a>
-    {% endif %}
-
-    {% if not session.get('logueado') %}
-        <div class="login-boton-individual">
-            <a href="{{ url_for('login') }}">
-                <img src="{{ url_for('static', filename='img/boton5.jpg') }}" alt="Iniciar sesión">
-            </a>
-        </div>
-    {% endif %}
-
+    <div style="height: 1px;"></div> <!-- Anti-salto visual -->
 </main>
+
+{% if session.get('logueado') %}
+    <a href="{{ url_for('logout') }}" class="boton-login-separado boton-estilo">
+        <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+    </a>
+{% endif %}
+
+{% if not session.get('logueado') %}
+    <div class="login-boton-individual">
+        <a href="{{ url_for('login') }}">
+            <img src="{{ url_for('static', filename='img/boton5.jpg') }}" alt="Iniciar sesión">
+        </a>
+    </div>
+{% endif %}
 {% endblock %}

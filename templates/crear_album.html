@@ -3,20 +3,27 @@
 {% block title %}➕ Crear nuevo álbum{% endblock %}
 
 {% block content %}
+<main class="crear-album-fondo">
+    <div class="crear-album-container">
+        <h2>➕ Crear nuevo álbum</h2>
+        <form method="POST">
+            <label for="nombre">Nombre del nuevo álbum:</label><br>
+            <input type="text" id="nombre" name="nombre" placeholder="Ej: Fiesta, Aniversario, Cumpleaños..." required><br>
+            <button class="boton-crear" type="submit">Crear Carpeta</button>
+        </form>
+        <a class="volver-galeria" href="{{ url_for('galeria') }}">← Volver a la galería</a>
+    </div>
+</main>
 
 <style>
-body {
+.crear-album-fondo {
     background-image: url('{{ url_for('static', filename='img/fondo_galeria.jpg') }}');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
     background-attachment: fixed;
-}
-
-    
-{
-    background: linear-gradient(to bottom, #ffe0eb, #fad6e0);
-    font-family: 'Quicksand', sans-serif;
+    min-height: 100vh;
+    padding: 60px 15px 40px;
 }
 
 .crear-album-container {
@@ -25,6 +32,13 @@ body {
     align-items: center;
     margin-top: 40px;
     text-align: center;
+    background-color: rgba(255, 255, 255, 0.85);
+    padding: 30px;
+    border-radius: 20px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
 }
 
 .crear-album-container h2 {
@@ -38,7 +52,7 @@ body {
     border: none;
     border-radius: 25px;
     width: 300px;
-    max-width: 80%;
+    max-width: 100%;
     font-size: 16px;
     box-shadow: 0 3px 8px rgba(0,0,0,0.1);
     outline: none;
@@ -74,16 +88,25 @@ body {
 .volver-galeria:hover {
     text-decoration: underline;
 }
+
+/* Responsive */
+@media screen and (max-width: 600px) {
+    .crear-album-container {
+        padding: 20px;
+    }
+
+    .crear-album-container h2 {
+        font-size: 20px;
+    }
+
+    .boton-crear {
+        font-size: 13px;
+        padding: 10px 20px;
+    }
+
+    .volver-galeria {
+        font-size: 13px;
+    }
+}
 </style>
-
-<div class="crear-album-container">
-    <h2>➕ Crear nuevo álbum</h2>
-    <form method="POST">
-        <label for="nombre">Nombre del nuevo álbum:</label><br>
-        <input type="text" id="nombre" name="nombre" placeholder="Ej: Fiesta, Aniversario, Cumpleaños..."><br>
-        <button class="boton-crear" type="submit">Crear Carpeta</button>
-    </form>
-    <a class="volver-galeria" href="{{ url_for('galeria') }}">← Volver a la galería</a>
-</div>
-
 {% endblock %}

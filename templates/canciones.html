@@ -1,8 +1,6 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
 
 {% block title %}🎶 Canciones{% endblock %}
-
-{% block encabezado %}🎶 Canciones que cuentan nuestra historia{% endblock %}
 
 {% block content %}
 <main class="body-canciones">
@@ -41,7 +39,12 @@
         <div class="lista-canciones">
             {% for link in canciones %}
             <div class="cancion-item">
-                <iframe src="https://www.youtube.com/embed/{{ link | youtube_id }}" frameborder="0" allowfullscreen></iframe>
+                <iframe 
+                    src="https://www.youtube.com/embed/{{ link | youtube_id }}" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
 
                 {% if session.get('logueado') %}
                 <form method="POST" action="{{ url_for('eliminar_cancion') }}" class="form-eliminar-lateral">
@@ -69,6 +72,7 @@
     pointer-events: none;
     background-image: url('/static/img/fondo_canciones.png');
     background-size: cover;
+    background-position: center;
     opacity: 0.25;
 }
 
@@ -86,10 +90,85 @@
     margin: auto;
 }
 
+.lista-canciones {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.cancion-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    background: #fff8f9;
+    border: 1px solid #fcd5ce;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(255, 182, 193, 0.3);
+}
+
+.cancion-item iframe {
+    width: 100%;
+    max-width: 600px;
+    height: 315px;
+    border-radius: 10px;
+}
+
+.formulario-subir {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.formulario-subir input {
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+.formulario-subir .boton5 {
+    background-color: #ffc0cb;
+    border: none;
+    padding: 12px;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.formulario-subir .boton5:hover {
+    background-color: #ffa6c9;
+}
+
+.btn-eliminar-lateral {
+    background: none;
+    border: none;
+    color: #dc3545;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.btn-eliminar-lateral:hover {
+    color: #a71d2a;
+}
+
+.mensaje-flash {
+    background-color: #ffe4ec;
+    color: #d63384;
+    padding: 10px 15px;
+    border-radius: 10px;
+    margin-top: 20px;
+    font-weight: bold;
+}
+
 /* RESPONSIVE para móviles */
 @media screen and (max-width: 768px) {
     .formulario-subir input {
-        width: 95%;
+        width: 100%;
         font-size: 15px;
         padding: 10px;
     }

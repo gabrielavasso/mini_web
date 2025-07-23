@@ -15,10 +15,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
+    overflow-x: hidden;
     background: linear-gradient(180deg, #fcd5ce, #ffe4ec);
     text-align: center;
     font-family: 'Quicksand', sans-serif;
+    padding: 20px;
 }
 
 .mensaje-despedida {
@@ -29,6 +31,7 @@
     padding: 40px;
     border-radius: 25px;
     animation: fadeInUp 1s ease-out forwards;
+    max-width: 90%;
 }
 
 .mensaje-despedida span {
@@ -46,6 +49,18 @@
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+    .mensaje-despedida {
+        font-size: 1.4rem;
+        padding: 30px;
+    }
+
+    .mensaje-despedida span {
+        font-size: 0.95rem;
     }
 }
 </style>

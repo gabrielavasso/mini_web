@@ -3,11 +3,12 @@
 {% block title %}💌 Carta de amor{% endblock %}
 
 {% block content %}
-<a href="{{ url_for('index') }}" class="boton-volver">
-    <i class="fas fa-heart"></i> Volver al comienzo
-</a>
+<main class="carta-fondo">
 
-<div class="carta-fondo">
+    <a href="{{ url_for('index') }}" class="boton-volver">
+        <i class="fas fa-heart"></i> Volver al comienzo
+    </a>
+
     <div class="carta-contenido">
         <div class="carta-texto">
             <p>Hola amor,</p>
@@ -25,7 +26,8 @@
             <p>Con amor,<br>Gaby</p>
         </div>
     </div>
-</div>
+
+</main>
 
 <style>
 .carta-fondo {
@@ -34,6 +36,7 @@
     background-position: center;
     min-height: 100vh;
     padding: 60px 15px 40px;
+    overflow-x: hidden;
 }
 
 .carta-contenido {
@@ -51,6 +54,7 @@
 .carta-texto p {
     margin-bottom: 15px;
     color: #333;
+    text-align: justify;
 }
 
 /* RESPONSIVE para celulares */

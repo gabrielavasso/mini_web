@@ -4,13 +4,23 @@
 
 {% block content %}
 <style>
+.fondo-ver-album {
+    background-image: url('{{ url_for('static', filename='img/fondo_galeria.jpg') }}');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+    padding: 60px 10px 40px 10px;
+    overflow-x: hidden;
+}
+
 .galeria-grid {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 15px;
     margin-top: 20px;
-    padding: 0 10px;
 }
 
 .foto-galeria {
@@ -39,6 +49,11 @@
     z-index: 1000;
     flex-direction: column;
     padding: 20px;
+}
+
+.lightbox.show {
+    display: flex;
+    animation: fadeIn 0.3s ease;
 }
 
 .lightbox img {
@@ -74,7 +89,12 @@
     font-family: 'Great Vibes', cursive;
 }
 
-/* Responsive para móviles */
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* Responsive */
 @media screen and (max-width: 768px) {
     .foto-galeria {
         width: 120px;
@@ -102,7 +122,7 @@
 }
 </style>
 
-<div class="galeria-contenido">
+<main class="fondo-ver-album">
     <h2 class="titulo-album">📁 Álbum: {{ carpeta }}</h2>
 
     <div class="galeria-grid">
@@ -123,7 +143,7 @@
         <img id="lightbox-img" src="" alt="Imagen ampliada">
         <button class="siguiente" onclick="siguienteImagen()">➡️</button>
     </div>
-</div>
+</main>
 
 <script>
 const imagenes = document.querySelectorAll('.foto-galeria');
@@ -133,19 +153,27 @@ let currentIndex = 0;
 
 imagenes.forEach((img, index) => {
     img.addEventListener('click', () => {
-        lightbox.style.display = 'flex';
+        lightbox.classList.add('show');
         lightboxImg.src = img.src;
         currentIndex = index;
     });
 });
 
 function cerrarLightbox() {
-    lightbox.style.display = 'none';
+    lightbox.classList.remove('show');
 }
 
 function siguienteImagen() {
     currentIndex = (currentIndex + 1) % imagenes.length;
     lightboxImg.src = imagenes[currentIndex].src;
 }
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === "Escape") cerrarLightbox();
+});
+
+lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) cerrarLightbox();
+});
 </script>
 {% endblock %}

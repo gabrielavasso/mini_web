@@ -5,6 +5,17 @@
 
 {% block extra_head %}
 <style>
+.fondo-notitas {
+    background-image: url('{{ url_for('static', filename='img/fondo_notitas.png') }}');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    padding: 60px 0 40px 0;
+    position: relative;
+    overflow-x: hidden;
+}
+
 .titulo-subir {
     text-align: center;
     color: rgba(220, 20, 60, 0.85);
@@ -60,6 +71,7 @@
     cursor: pointer;
     transition: transform 0.2s ease;
 }
+
 .icono-basura:hover {
     transform: scale(1.1);
 }
@@ -71,8 +83,6 @@
     width: 90%;
     margin: 0 auto;
 }
-
-
 
 /* === RESPONSIVE PARA CELULARES === */
 @media screen and (max-width: 768px) {
@@ -113,7 +123,7 @@
 {% endblock %}
 
 {% block content %}
-<main class="subir-fotos-fondo" style="background-image: url('{{ url_for('static', filename='img/fondo_notitas.png') }}'); background-size: cover; background-position: center; background-repeat: no-repeat; min-height: 100vh; padding: 60px 0 40px 0; position: relative;">
+<main class="fondo-notitas">
 
     <a href="{{ url_for('index') }}" class="boton-volver">
         <i class="fas fa-heart"></i>

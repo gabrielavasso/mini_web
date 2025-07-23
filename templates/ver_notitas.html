@@ -3,20 +3,103 @@
 {% block title %}📜 Ver Notitas{% endblock %}
 
 {% block content %}
-<h2 class="titulo-ver-notas">📜 Nuestras notitas de amor</h2>
+<style>
+.fondo-ver-notitas {
+    min-height: 100vh;
+    background-image: url('{{ url_for('static', filename='img/fondo_notitas.png') }}');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 60px 20px 40px 20px;
+}
 
-<div class="contenedor-notitas">
-    {% if notas %}
-        {% for nota in notas %}
-            <div class="notita">
-                <p class="mensaje-notita">"{{ nota.mensaje }}"</p>
-                <p class="autor-notita">— {{ nota.autor }}</p>
+.titulo-ver-notas {
+    text-align: center;
+    font-family: 'Great Vibes', cursive;
+    font-size: 2.5rem;
+    color: #d63384;
+    margin-bottom: 30px;
+    text-shadow: 0 0 4px #fff;
+}
+
+.contenedor-notitas {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.notita {
+    background: rgba(255, 255, 255, 0.85);
+    padding: 25px;
+    border-radius: 16px;
+    max-width: 600px;
+    width: 90%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    text-align: left;
+    font-family: 'Quicksand', sans-serif;
+    position: relative;
+}
+
+.mensaje-notita {
+    font-size: 1.2rem;
+    color: #5c1a3b;
+    margin-bottom: 10px;
+}
+
+.autor-notita {
+    font-size: 1rem;
+    color: #912f5d;
+    font-style: italic;
+    text-align: right;
+}
+
+.mensaje-vacio {
+    background: rgba(255, 255, 255, 0.8);
+    color: #8a1f3b;
+    font-size: 1.3rem;
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    max-width: 400px;
+    margin: 0 auto;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+    .titulo-ver-notas {
+        font-size: 1.8rem;
+    }
+
+    .notita {
+        padding: 20px;
+        font-size: 15px;
+    }
+
+    .mensaje-vacio {
+        font-size: 1.1rem;
+        padding: 20px;
+    }
+}
+</style>
+
+<main class="fondo-ver-notitas">
+    <h2 class="titulo-ver-notas">📜 Nuestras notitas de amor</h2>
+
+    <div class="contenedor-notitas">
+        {% if notas %}
+            {% for nota in notas %}
+                <div class="notita">
+                    <p class="mensaje-notita">"{{ nota.mensaje }}"</p>
+                    <p class="autor-notita">— {{ nota.autor }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="mensaje-vacio">
+                📝 Se han dejado 0 notitas de amor
             </div>
-        {% endfor %}
-    {% else %}
-        <div class="mensaje-vacio">
-            📝 Se han dejado 0 notitas de amor
-        </div>
-    {% endif %}
-</div>
+        {% endif %}
+    </div>
+</main>
 {% endblock %}
