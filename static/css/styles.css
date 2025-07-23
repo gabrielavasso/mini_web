@@ -14,7 +14,7 @@ html, body {
     background-size: cover;
 }
 
-/* ======= HEADER ======= */
+/* ======= HEADER CON ESTILO MEJORADO ======= */
 header {
     width: 100%;
     height: 250px;
@@ -31,15 +31,18 @@ header {
 
 /* ======= CONTENIDO PRINCIPAL ======= */
 .contenido-principal {
-    min-height: 100vh;
+    min-height: calc(100vh - 250px);
+    background-size: cover;
+    background-position: center;
     padding: 10px 20px 0 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
+    flex-grow: 1;
 }
 
-/* ======= BOTONERA 2x2 ======= */
+/* ======= BOTONERA 2x2 MUY GRANDE ======= */
 .botonera {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -82,10 +85,36 @@ header {
     text-decoration: none;
     font-size: 24px;
     font-weight: bold;
+    display: block;
     background: linear-gradient(90deg, gold, black);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+}
+
+/* ======= BOTÓN LOGIN FLOTANTE ======= */
+.boton-login {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background-color: #fcd5ce;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: background 0.3s ease;
+    z-index: 999;
+}
+
+.boton-login img {
+    width: 35px;
+    height: 35px;
+}
+
+.boton-login:hover {
+    background-color: #f8a5c2;
 }
 
 /* ======= MENSAJE DE BIENVENIDA ======= */
@@ -101,27 +130,6 @@ header {
 @keyframes latido {
     0% { transform: scale(1); }
     100% { transform: scale(1.08); }
-}
-
-/* ======= BOTÓN LOGIN INDIVIDUAL ======= */
-.login-boton-individual {
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    z-index: 999;
-}
-
-.login-boton-individual img {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    animation: pulse 2s infinite;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-}
-
-@keyframes pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.05); }
 }
 
 /* ======= BOTÓN VOLVER ======= */
@@ -154,8 +162,33 @@ header {
     100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
 }
 
-/* ======= RESPONSIVE ======= */
+/* ======= BOTÓN LOGIN INDIVIDUAL (NO LOGUEADA) ======= */
+.login-boton-individual {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 999;
+}
+
+.login-boton-individual img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+/* ======= RESPONSIVE CELULAR ======= */
 @media screen and (max-width: 600px) {
+    header {
+        height: 140px;
+    }
+
     .botonera {
         grid-template-columns: 1fr 1fr;
         gap: 20px;
@@ -163,8 +196,8 @@ header {
 
     .boton-con-imagen {
         width: 140px;
-        height: auto;
         padding: 15px;
+        height: auto;
     }
 
     .boton-con-imagen img {
@@ -176,8 +209,23 @@ header {
         font-size: 16px;
     }
 
-    .login-boton-individual img {
-        width: 60px;
-        height: 60px;
+    .boton-login {
+        width: 50px;
+        height: 50px;
+    }
+
+    .boton-login img {
+        width: 30px;
+        height: 30px;
+    }
+
+    .contenido-principal {
+        min-height: auto;
+        padding-bottom: 0;
+    }
+
+    body {
+        padding-bottom: 0;
+        margin-bottom: 0;
     }
 }
