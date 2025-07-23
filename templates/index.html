@@ -1,11 +1,11 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
 {% block title %}Miqueas & Gaby{% endblock %}
 
 {% block content %}
 <main class="contenido-principal fondo-portada">
 
     {% if session.get('logueado') %}
-    <div class="mensaje-login">✨ ¡Bienvenido Amor ! ✨</div>
+        <div class="mensaje-login">✨ ¡Bienvenido Amor ! ✨</div>
     {% endif %}
 
     <div class="botonera">
@@ -27,24 +27,18 @@
         </div>
     </div>
 
-    <div class="contenedor-gif">
-        <img src="{{ url_for('static', filename='img/amor.gif') }}" alt="Decoración amorosa">
-    </div>
-
-    <div style="height: 0; margin: 0; padding: 0;"></div> <!-- evita espacio final en móviles -->
-
     {% if session.get('logueado') %}
-    <a href="{{ url_for('logout') }}" class="boton-login-separado boton-estilo">
-        <i class="fas fa-sign-out-alt"></i> Cerrar sesión
-    </a>
+        <a href="{{ url_for('logout') }}" class="boton-login-separado boton-estilo">
+            <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+        </a>
     {% endif %}
 
     {% if not session.get('logueado') %}
-    <div class="login-boton-individual">
-        <a href="{{ url_for('login') }}">
-            <img src="{{ url_for('static', filename='img/boton5.jpg') }}" alt="Iniciar sesión">
-        </a>
-    </div>
+        <div class="login-boton-individual">
+            <a href="{{ url_for('login') }}">
+                <img src="{{ url_for('static', filename='img/boton5.jpg') }}" alt="Iniciar sesión">
+            </a>
+        </div>
     {% endif %}
 
 </main>
