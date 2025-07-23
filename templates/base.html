@@ -87,9 +87,15 @@
     </script>
     {% endif %}
 
+        {% endif %}
+
     <!-- Scripts de cada página -->
     {% block extra_scripts %}{% endblock %}
 
+    {% if request.endpoint == 'index' %}
+    <script src="{{ url_for('static', filename='js/heart.js') }}"></script>
+    {% endif %}
 </body>
+
 </html>
 

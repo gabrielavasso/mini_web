@@ -244,3 +244,47 @@ main.contenido-principal {
     margin-bottom: 0 !important;
     padding-bottom: 0 !important;
 }
+
+/* ======= EFECTO CORAZONES VOLANDO ======= */
+.heart {
+  position: fixed;
+  top: -10px;
+  font-size: 20px;
+  animation: fall 6s linear infinite;
+  color: #ff99cc;
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+@keyframes fall {
+  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+}
+
+/* ======= BOTÓN LOGIN INDIVIDUAL (NO LOGUEADA) ======= */
+.login-boton-individual {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 999;
+}
+
+.login-boton-individual img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* ======= AJUSTE GIF FINAL ======= */
+.contenedor-gif img {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+  display: block;
+}
