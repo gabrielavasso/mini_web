@@ -26,14 +26,11 @@
             <img src="{{ url_for('static', filename='img/boton4.jpg') }}" alt="boton4">
             <a href="{{ url_for('galeria') }}">📸 Nuestras fotos</a>
         </div>
-    
+
+    </div>
 <div class="contenedor-gif">
     <img src="{{ url_for('static', filename='img/amor.gif') }}" alt="Decoración amorosa">
 </div>
-
-</div>
-
-    </div>
 
     {% if session.get('logueado') %}
     <a href="{{ url_for('logout') }}" class="boton-login-separado boton-estilo">
