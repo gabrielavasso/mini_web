@@ -15,8 +15,8 @@ body {
 
 /* ======= HEADER CON ESTILO MEJORADO ======= */
 header {
-    width: 90%;
-    height: 150px;
+    width: 200%;
+    height: 250px;
     background-image: url('../img/encabezado.jpg');
     background-size: cover;
     background-position: center;
