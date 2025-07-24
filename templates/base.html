@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Mejora para móviles -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Miqueas & Gaby{% endblock %}</title>
 
     <!-- Fuentes románticas -->
@@ -47,9 +47,6 @@
     </a>
     {% endif %}
 
-    <!-- Scripts de cada página -->
-    {% block extra_scripts %}{% endblock %}
-
     <!-- Música solo en index y si no está logueada -->
     {% if request.endpoint == 'index' and not session.get('logueado') %}
     <audio id="musica" autoplay loop>
@@ -67,7 +64,8 @@
             width: 50px;
             height: 50px;
             font-size: 22px;
-            background-color: #f8d7da;
+            background-color: #d4af37; /* Dorado */
+            color: #000;
             border: none;
             border-radius: 50%;
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);

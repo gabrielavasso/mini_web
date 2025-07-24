@@ -1,4 +1,4 @@
-/* ======= RESET GENERAL ======= */ 
+/* ======= RESET GENERAL ======= */
 * {
     margin: 0;
     padding: 0;
@@ -9,34 +9,47 @@ html, body {
     height: 100%;
     overflow-x: hidden;
     font-family: 'Quicksand', sans-serif;
-    background: linear-gradient(180deg, #ffe4ec, #fcd5ce, #fff);
+    background: linear-gradient(180deg, #f5e6b3, #fff5d7, #ffffff);
     background-attachment: fixed;
     background-size: cover;
 }
 
-/* ======= HEADER CON ESTILO MEJORADO ======= */
+/* ======= HEADER ELEGANTE ======= */
 header {
     width: 100%;
-    height: 250px;
-    background-image: url('../img/encabezado.jpg');
+    height: 140px; /* Más delgado */
+    background: linear-gradient(180deg, #d4af37, #f5e6b3);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
     padding-bottom: 10px;
+    text-align: center;
 }
 
-.encabezado-notas {
-    height: 180px;
+/* Texto principal */
+header h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #000;
+    text-shadow: 1px 1px 4px rgba(212,175,55,0.8);
+    margin: 0;
+}
+
+/* Subtítulo (fecha) */
+header p {
+    font-size: 1.1rem;
+    color: #d4af37;
+    margin-top: 5px;
 }
 
 /* ======= CONTENIDO PRINCIPAL ======= */
 .contenido-principal {
-    min-height: calc(100vh - 250px);
+    min-height: calc(100vh - 140px);
     background-size: cover;
     background-position: center;
     padding: 10px 20px 0 20px;
@@ -60,13 +73,13 @@ header {
 
 .boton-con-imagen {
     text-align: center;
-    background-color: #fff0f3;
-    border: 2px solid #fcd5ce;
+    background-color: #fffaf2;
+    border: 2px solid #d4af37;
     border-radius: 25px;
     padding: 35px 20px;
     width: 100%;
     height: 280px;
-    box-shadow: 0 8px 18px rgba(255, 192, 203, 0.4);
+    box-shadow: 0 8px 18px rgba(212,175,55,0.4);
     transition: transform 0.3s ease;
     display: flex;
     flex-direction: column;
@@ -91,7 +104,7 @@ header {
     font-size: 24px;
     font-weight: bold;
     display: block;
-    background: linear-gradient(90deg, gold, black);
+    background: linear-gradient(90deg, #d4af37, #000);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -102,7 +115,7 @@ header {
     position: fixed;
     bottom: 20px;
     left: 20px;
-    background-color: #fcd5ce;
+    background-color: #d4af37;
     border: none;
     border-radius: 50%;
     width: 70px;
@@ -119,14 +132,14 @@ header {
 }
 
 .boton-login:hover {
-    background-color: #f8a5c2;
+    background-color: #b9962e;
 }
 
 /* ======= MENSAJE DE BIENVENIDA ======= */
 .mensaje-login {
     font-size: 20px;
     font-weight: bold;
-    color: #ff6b81;
+    color: #d4af37;
     margin-top: 20px;
     text-align: center;
     animation: latido 1s infinite alternate;
@@ -142,22 +155,22 @@ header {
     display: inline-block;
     margin: 10px auto;
     padding: 10px 20px;
-    background-color: #ffe4ec;
+    background-color: #fffaf2;
     border-radius: 20px;
-    color: #333;
+    color: #000;
     text-decoration: none;
     font-weight: bold;
     box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     text-align: center;
 }
 
-/* ======= EFECTO CORAZONES VOLANDO ======= */
+/* ======= EFECTO CORAZONES ======= */
 .heart {
     position: fixed;
     top: -10px;
     font-size: 20px;
     animation: fall 6s linear infinite;
-    color: #ff99cc;
+    color: #d4af37;
     opacity: 0.8;
     pointer-events: none;
 }
@@ -167,36 +180,11 @@ header {
     100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
 }
 
-/* ======= BOTÓN LOGIN INDIVIDUAL ======= */
-.login-boton-individual {
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    z-index: 999;
-}
-
-.login-boton-individual img {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    animation: pulse 2s infinite;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-}
-
-@keyframes pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-}
-
 /* ======= RESPONSIVE CELULAR ======= */
 @media screen and (max-width: 600px) {
     header {
-        height: 160px;
+        height: 110px;
         padding-bottom: 5px;
-    }
-
-    .encabezado-notas {
-        height: 120px;
     }
 
     .botonera {
@@ -217,96 +205,5 @@ header {
 
     .boton-con-imagen a {
         font-size: 18px;
-    }
-
-    .boton-login {
-        width: 120px;
-        height: 120px;
-    }
-
-    .boton-login img {
-        width: 100px;
-        height: 100px;
-    }
-
-    .contenido-principal {
-        padding-bottom: 0 !important;
-        margin-bottom: 0 !important;
-        min-height: unset !important;
-    }
-
-    html, body {
-        height: auto !important;
-        overflow-y: auto !important;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-}
-
-/* ======= MENSAJE CENTRAL ======= */
-.mensaje-centrado {
-    text-align: center;
-    padding: 40px 20px;
-    font-size: 22px;
-    color: #d63384;
-    animation: latido 1.2s infinite alternate;
-}
-
-/* === GIF decorativo === */
-.gif-decorativo {
-    display: flex;
-    justify-content: center;
-    margin: 10px 0;
-}
-
-.gif-decorativo img {
-    width: 120px;
-    height: auto;
-    animation: bounce 2s infinite ease-in-out;
-}
-
-/* Animación suave del GIF */
-@keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-}
-
-/* === Footer romántico === */
-.footer-romantico {
-    text-align: center;
-    font-size: 14px;
-    color: #d63384;
-    padding: 12px 10px;
-    background: rgba(255, 240, 243, 0.7);
-    backdrop-filter: blur(3px);
-    border-top: 1px solid #fcd5ce;
-    margin-top: 10px;
-}
-
-/* ===== Ajuste para móvil: GIF gigante ===== */
-@media screen and (max-width: 600px) {
-    .gif-decorativo {
-        margin: 20px 0 10px 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .gif-decorativo img {
-        width: 300px !important; /* 4 veces más grande */
-        height: auto;
-        border: 4px solid #fcd5ce;
-        border-radius: 20px;
-        background: #fff0f3;
-        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-        padding: 6px;
-        animation: bounce 2s infinite ease-in-out;
-    }
-
-    .footer-romantico {
-        font-size: 14px;
-        padding: 16px 10px;
-        background: rgba(255, 240, 243, 0.95);
-        border-top: 2px solid #fcd5ce;
     }
 }
