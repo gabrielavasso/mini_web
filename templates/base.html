@@ -54,25 +54,9 @@
         Tu navegador no soporta el audio HTML5.
     </audio>
 
-    <button onclick="toggleMusica()" id="boton-musica" title="Silenciar / Activar">🔈</button>
-
-    <style>
-        #boton-musica {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 50px;
-            height: 50px;
-            font-size: 22px;
-            background-color: #d4af37; /* Dorado */
-            color: #000;
-            border: none;
-            border-radius: 50%;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            cursor: pointer;
-            z-index: 9999;
-        }
-    </style>
+    <button onclick="toggleMusica()" id="boton-musica" class="boton-flotante" style="right: 20px;">
+        🔈
+    </button>
 
     <script>
         const musica = document.getElementById('musica');

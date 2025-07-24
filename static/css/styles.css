@@ -110,29 +110,33 @@ header p {
     -webkit-text-fill-color: transparent;
 }
 
-/* ======= BOTÓN LOGIN FLOTANTE ======= */
-.boton-login {
+/* ===== BOTONES FLOTANTES (Login, Logout, Música) ===== */
+.boton-flotante {
     position: fixed;
     bottom: 20px;
-    left: 20px;
-    background-color: #d4af37;
-    border: none;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
-    width: 70px;
-    height: 70px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    border: 2px solid #d4af37; /* dorado */
+    background-color: #fffaf2;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
-    transition: background 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     z-index: 999;
 }
 
-.boton-login img {
-    width: 40px;
-    height: 40px;
+.boton-flotante:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
 }
 
-.boton-login:hover {
-    background-color: #b9962e;
+.boton-flotante img {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
 }
 
 /* ======= MENSAJE DE BIENVENIDA ======= */

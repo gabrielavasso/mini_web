@@ -37,14 +37,14 @@
 
 <!-- Botón de cerrar sesión -->
 {% if session.get('logueado') %}
-    <a href="{{ url_for('logout') }}" class="boton-login-separado boton-estilo">
-        <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+    <a href="{{ url_for('logout') }}" class="boton-flotante" style="left: 20px;">
+        <i class="fas fa-sign-out-alt"></i>
     </a>
 {% endif %}
 
 <!-- Botón de login si no está logueado -->
 {% if not session.get('logueado') %}
-    <div class="login-boton-individual">
+    <div class="boton-flotante" style="left: 20px;">
         <a href="{{ url_for('login') }}">
             <img src="{{ url_for('static', filename='img/boton5.jpg') }}" alt="Iniciar sesión">
         </a>
