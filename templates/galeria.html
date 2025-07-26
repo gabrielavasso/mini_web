@@ -1,148 +1,41 @@
 {% extends 'base.html' %}
 
-{% block title %}📸 Nuestras Fotos{% endblock %}
+{% block title %}Galería{% endblock %}
 
 {% block content %}
 <main class="galeria-fondo">
 
+    <!-- Título -->
+    <h2 class="titulo-album">Galería de Álbumes</h2>
+
+    <!-- Botones para crear álbum solo si hay sesión -->
     {% if session.get('logueado') %}
-    <!-- Botones superiores -->
-    <div class="galeria-botones galeria-superior">
-        <a href="{{ url_for('crear_album') }}" class="boton-galeria"><i class="fas fa-plus"></i> Crear Carpeta</a>
-        <a href="{{ url_for('upload') }}" class="boton-galeria"><i class="fas fa-upload"></i> Subir Fotos</a>
-        <a href="{{ url_for('eliminar_fotos') }}" class="boton-galeria"><i class="fas fa-trash-alt"></i> Eliminar Fotos o Carpetas</a>
+    <div class="galeria-superior">
+        <a href="{{ url_for('crear_album') }}" class="boton-galeria">➕ Crear Álbum</a>
+        <a href="{{ url_for('upload') }}" class="boton-galeria">📤 Subir Fotos</a>
     </div>
     {% endif %}
 
-    <!-- Contenido de la galería -->
-    <div class="galeria-contenido">
-        {% if galeria %}
-            {% for carpeta in galeria.keys() %}
-            <div class="album-carpeta">
-                <a href="{{ url_for('ver_album', carpeta=carpeta) }}">
-                    <img src="{{ url_for('static', filename='img/folder_icon.png') }}" alt="Carpeta {{ carpeta }}" class="icono-carpeta">
-                    <p class="nombre-carpeta">{{ carpeta }}</p>
-                </a>
-            </div>
-            {% endfor %}
+    <!-- Lista de álbumes -->
+    <div class="galeria-botones">
+        {% for carpeta, fotos in galeria.items() %}
+        <div class="album-carpeta">
+            <a href="{{ url_for('ver_album', carpeta=carpeta) }}">
+                <img src="{{ url_for('static', filename='img/icono_carpeta.png') }}" alt="Carpeta" class="icono-carpeta">
+                <span class="nombre-carpeta">{{ carpeta }}</span>
+            </a>
+        </div>
         {% else %}
-            <p style="text-align: center; color: white;">No hay álbumes todavía.</p>
-        {% endif %}
+        <p style="color:white; text-align:center; width:100%;">No hay álbumes creados aún.</p>
+        {% endfor %}
     </div>
+
+    <!-- Botón volver al inicio -->
+    <div class="volver-centro">
+        <a href="{{ url_for('index') }}" class="boton-volver-dorado">
+            <i class="fas fa-heart"></i> Volver al comienzo
+        </a>
+    </div>
+
 </main>
-
-<style>
-.galeria-fondo {
-    background-image: url('{{ url_for('static', filename='img/portada.jpg') }}');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-attachment: fixed;
-    min-height: 100vh;
-    padding: 100px 20px 40px;
-}
-
-/* Botones superiores fijos */
-.galeria-superior {
-    position: sticky;
-    top: 70px; /* justo bajo el header */
-    z-index: 10;
-    background: rgba(0,0,0,0.5);
-    padding: 10px;
-    border-radius: 15px;
-    backdrop-filter: blur(4px);
-}
-
-/* Contenedor de botones */
-.galeria-botones {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 30px;
-}
-
-.boton-galeria {
-    background: linear-gradient(145deg, rgba(212,175,55,1), rgba(168, 132, 12, 1));
-    color: white;
-    padding: 10px 18px;
-    border: none;
-    border-radius: 30px;
-    font-weight: bold;
-    text-decoration: none;
-    font-size: 14px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
-}
-.boton-galeria:hover {
-    transform: scale(1.05);
-    background: rgba(212,175,55,1);
-}
-
-/* Carpetas */
-.album-carpeta {
-    display: inline-block;
-    margin: 30px;
-    text-align: center;
-    transition: transform 0.2s ease-in-out;
-}
-.album-carpeta:hover {
-    transform: scale(1.05);
-}
-
-.icono-carpeta {
-    width: 150px;
-    height: auto;
-    border-radius: 16px;
-    box-shadow: 0 4px 8px rgba(223, 187, 30, 0.3);
-    transition: box-shadow 0.3s ease-in-out;
-}
-.icono-carpeta:hover {
-    box-shadow: 0 8px 16px rgba(219, 200, 88, 0.6);
-}
-
-.nombre-carpeta {
-    display: block;
-    margin-top: 10px;
-    font-family: 'Great Vibes', cursive;
-    font-size: 1.5rem;
-    color: rgba(212,175,55,1);
-    text-shadow: 0 0 3px #fff, 0 0 6px rgba(235, 184, 16, 1);
-    text-decoration: none;
-}
-
-.album-carpeta a {
-    text-decoration: none !important;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .album-carpeta {
-        margin: 15px;
-    }
-
-    .icono-carpeta {
-        width: 100px;
-    }
-
-    .nombre-carpeta {
-        font-size: 1.2rem;
-    }
-
-    .galeria-botones {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .boton-galeria {
-        width: 90%;
-        font-size: 15px;
-        padding: 12px;
-    }
-
-    p {
-        padding: 0 15px;
-    }
-}
-</style>
 {% endblock %}

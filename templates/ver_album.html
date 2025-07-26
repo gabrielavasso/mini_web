@@ -8,25 +8,18 @@
     <!-- Título del álbum -->
     <h2 class="titulo-album">Álbum: {{ carpeta }}</h2>
 
-    <!-- Mensaje de éxito -->
-    {% if mensaje %}
-    <div class="mensaje-exito">
-        {{ mensaje }}
-    </div>
-    {% endif %}
-
     <!-- Galería de fotos -->
     <div class="galeria-grid">
         {% for imagen in imagenes %}
         <div class="foto-wrapper">
             <!-- Imagen -->
-            <img src="{{ url_for('ver_imagen', carpeta=carpeta, nombre=imagen) }}" alt="{{ imagen }}" class="foto-galeria" onclick="abrirLightbox(this)">
+            <img src="{{ imagen.url }}" alt="Foto" class="foto-galeria" onclick="abrirLightbox(this)">
 
             <!-- Botón eliminar solo si hay sesión -->
             {% if session.get('logueado') %}
             <form method="POST" action="{{ url_for('eliminar_fotos') }}" class="form-eliminar-foto">
                 <input type="hidden" name="carpeta" value="{{ carpeta }}">
-                <input type="hidden" name="nombre" value="{{ imagen }}">
+                <input type="hidden" name="nombre" value="{{ imagen.url }}">
                 <button type="submit" class="btn-eliminar-foto" title="Eliminar">
                     <i class="fas fa-trash-alt"></i>
                 </button>
@@ -45,8 +38,8 @@
 
     <!-- Botón volver al inicio -->
     <div class="volver-centro">
-        <a href="{{ url_for('index') }}" class="boton-volver-dorado">
-            <i class="fas fa-heart"></i> Volver al comienzo
+        <a href="{{ url_for('galeria') }}" class="boton-volver-dorado">
+            <i class="fas fa-heart"></i> Volver a la galería
         </a>
     </div>
 
@@ -71,19 +64,6 @@
     margin-bottom: 20px;
     font-family: 'Great Vibes', cursive;
     text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
-}
-
-/* Mensaje de éxito */
-.mensaje-exito {
-    background: rgba(255, 255, 255, 0.9);
-    color: #28a745;
-    text-align: center;
-    padding: 12px;
-    margin: 10px auto 25px;
-    max-width: 400px;
-    border-radius: 10px;
-    font-weight: bold;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
 /* Galería */
