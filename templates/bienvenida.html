@@ -2,9 +2,53 @@
 
 {% block content %}
 <main class="contenido-principal">
-    <div class="mensaje-centrado">
+    <div class="mensaje-centrado animacion-bienvenida">
         <h2>💗 Bienvenidos Gaby y Miqueas 💗</h2>
         <p>Nos alegra tenerlos de vuelta en su rinconcito mágico</p>
     </div>
 </main>
+
+<style>
+.mensaje-centrado {
+    text-align: center;
+    margin-top: 80px;
+    color: #d4af37;
+    font-family: 'Great Vibes', cursive;
+}
+
+.mensaje-centrado h2 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    text-shadow: 0 0 5px #000;
+}
+
+.mensaje-centrado p {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+/* Animación suave */
+.animacion-bienvenida {
+    opacity: 0;
+    animation: fadeInUp 1s ease forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+</style>
+
+<script>
+// Redirigir automáticamente al index después de 3 segundos
+setTimeout(() => {
+    window.location.href = "{{ url_for('index') }}";
+}, 3000);
+</script>
 {% endblock %}

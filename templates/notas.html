@@ -1,46 +1,56 @@
 {% extends 'base.html' %}
 
-{% block title %}📜 Notitas de Amor{% endblock %}
+{% block title %}📝 Nuestras Notitas{% endblock %}
 
 {% block content %}
-<main class="fondo-ver-notitas">
-    <h2 class="titulo-ver-notas">📜 Nuestras notitas de amor</h2>
+<main class="fondo-notas">
+    <h2 class="titulo-notas">📝 Nuestras notitas de amor</h2>
 
-    <!-- Formulario siempre visible -->
-    <form method="POST" action="{{ url_for('notas') }}" class="form-notitas">
+    <!-- Formulario para agregar nota (siempre visible) -->
+    <form method="POST" action="{{ url_for('notas') }}" class="formulario-nota">
         <input type="text" name="autor" placeholder="Tu nombre" required>
-        <textarea name="mensaje" placeholder="Escribí tu mensaje..." required></textarea>
-        <button type="submit" class="boton-enviar">Guardar notita</button>
+        <textarea name="mensaje" placeholder="Escribí tu notita aquí..." required></textarea>
+        <button type="submit" class="boton-enviar">Agregar Notita</button>
     </form>
 
-    <!-- Lista de notitas -->
-    <div class="contenedor-notitas">
+    <!-- Lista de notas -->
+    <div class="contenedor-notas">
         {% if notas %}
-            {% for nota in notas %}
-            <div class="notita">
-                <p class="mensaje-notita">"{{ nota.mensaje }}"</p>
-                <p class="autor-notita">— {{ nota.autor }}</p>
+            {% for i, nota in enumerate(notas) %}
+            <div class="nota-item">
+                <p class="mensaje-nota">"{{ nota.mensaje }}"</p>
+                <p class="autor-nota">— {{ nota.autor }}</p>
+
+                {% if session.get('logueado') %}
+                <form method="POST" action="{{ url_for('eliminar_nota', indice=i) }}" class="form-eliminar">
+                    <button type="submit" class="btn-eliminar" title="Eliminar">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </form>
+                {% endif %}
             </div>
             {% endfor %}
         {% else %}
             <div class="mensaje-vacio">
-                📝 Se han dejado 0 notitas de amor
+                📝 Aún no hay notitas, ¡sé el primero en dejar una!
             </div>
         {% endif %}
     </div>
 </main>
 
 <style>
-.fondo-ver-notitas {
+/* Fondo */
+.fondo-notas {
     min-height: 100vh;
     background-image: url('{{ url_for('static', filename='img/portada.jpg') }}');
     background-size: cover;
     background-position: center;
+    background-attachment: fixed;
     padding: 60px 20px 40px 20px;
 }
 
 /* Título */
-.titulo-ver-notas {
+.titulo-notas {
     text-align: center;
     font-family: 'Great Vibes', cursive;
     font-size: 2.5rem;
@@ -50,97 +60,121 @@
 }
 
 /* Formulario */
-.form-notitas {
-    background: rgba(255,255,255,0.85);
-    border-radius: 20px;
-    padding: 20px;
-    max-width: 500px;
+.formulario-nota {
+    max-width: 600px;
     margin: 0 auto 30px auto;
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    gap: 10px;
 }
 
-.form-notitas input,
-.form-notitas textarea {
+.formulario-nota input,
+.formulario-nota textarea {
     padding: 12px;
     border-radius: 10px;
     border: 1px solid #ccc;
     font-size: 16px;
+    font-family: 'Quicksand', sans-serif;
 }
 
-.form-notitas textarea {
+.formulario-nota textarea {
     resize: none;
-    height: 100px;
+    height: 80px;
 }
 
 .boton-enviar {
-    background: linear-gradient(145deg, #d4af37, #a8840c);
+    background-color: #d4af37;
+    color: #000;
     border: none;
-    padding: 12px;
+    padding: 10px;
     border-radius: 10px;
     font-weight: bold;
-    color: white;
     cursor: pointer;
-    transition: background 0.3s ease;
+    transition: background 0.3s ease, color 0.3s ease;
 }
 .boton-enviar:hover {
-    background: #d4af37;
+    background-color: #a8840c;
+    color: #fff;
 }
 
-/* Notitas */
-.contenedor-notitas {
+/* Contenedor de notas */
+.contenedor-notas {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 20px;
 }
 
-.notita {
-    background: rgba(255,255,255,0.9);
+/* Nota individual */
+.nota-item {
+    background: rgba(255, 255, 255, 0.85);
     padding: 20px;
     border-radius: 16px;
-    max-width: 500px;
+    max-width: 600px;
     width: 90%;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    text-align: left;
-    font-family: 'Quicksand', sans-serif;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    position: relative;
 }
 
-.mensaje-notita {
+.mensaje-nota {
     font-size: 1.2rem;
-    color: #000;
+    color: #333;
     margin-bottom: 10px;
 }
 
-.autor-notita {
+.autor-nota {
     font-size: 1rem;
-    color: #d4af37;
+    color: #555;
     font-style: italic;
     text-align: right;
 }
 
+/* Botón eliminar (solo visible logueado) */
+.form-eliminar {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.btn-eliminar {
+    background: none;
+    border: none;
+    color: #d4af37;
+    font-size: 20px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+.btn-eliminar:hover {
+    color: #a8840c;
+}
+
 /* Mensaje vacío */
 .mensaje-vacio {
-    background: rgba(255,255,255,0.8);
-    color: #d4af37;
+    background: rgba(255, 255, 255, 0.8);
+    color: #333;
     font-size: 1.3rem;
     padding: 30px;
     border-radius: 20px;
     text-align: center;
     max-width: 400px;
     margin: 0 auto;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
 }
 
 /* Responsive */
 @media screen and (max-width: 768px) {
-    .titulo-ver-notas {
-        font-size: 2rem;
+    .titulo-notas {
+        font-size: 1.8rem;
     }
-    .form-notitas {
+
+    .nota-item {
+        font-size: 15px;
         padding: 15px;
+    }
+
+    .mensaje-vacio {
+        font-size: 1.1rem;
+        padding: 20px;
     }
 }
 </style>

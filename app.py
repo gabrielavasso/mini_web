@@ -79,7 +79,6 @@ def upload():
     if not session.get("logueado"):
         return redirect(url_for("login"))
 
-    mensaje = ""
     if request.method == "POST":
         carpeta = request.form["carpeta"]
         archivos = request.files.getlist("fotos")
@@ -90,9 +89,11 @@ def upload():
             if archivo and allowed_file(archivo.filename):
                 nombre_seguro = secure_filename(archivo.filename)
                 archivo.save(os.path.join(ruta_carpeta, nombre_seguro))
-        mensaje = "Fotos subidas correctamente."
 
-    return render_template("upload.html", mensaje=mensaje)
+        flash("📸 Fotos subidas correctamente.")
+        return redirect(url_for("ver_album", carpeta=carpeta))
+
+    return render_template("upload.html")
 
 @app.route("/uploads/<carpeta>/<nombre>")
 def ver_imagen(carpeta, nombre):
@@ -149,13 +150,10 @@ def canciones():
         canciones = json.load(f)
 
     if request.method == "POST":
-        print("🎵 POST recibido en /canciones")  # AÑADÍ ESTO
         if not session.get("logueado"):
-            print("❌ Usuario no logueado")  # AÑADÍ ESTO
             return redirect(url_for("login"))
 
         link = request.form["link"]
-        print(f"🔗 LINK RECIBIDO: {link}")  # AÑADÍ ESTO
         canciones.append(link)
         with open(archivo_canciones, "w", encoding="utf-8") as f:
             json.dump(canciones, f, indent=4, ensure_ascii=False)
@@ -163,9 +161,6 @@ def canciones():
         return redirect(url_for("canciones"))
 
     return render_template("canciones.html", canciones=canciones)
-
-from flask import flash
-
 
 @app.route("/galeria")
 def galeria():
@@ -196,32 +191,32 @@ def crear_album():
 
     return render_template("crear_album.html", mensaje=mensaje)
 
-@app.route("/eliminar_fotos", methods=["GET", "POST"])
+@app.route("/eliminar_fotos", methods=["POST"])
 def eliminar_fotos():
     if not session.get("logueado"):
         return redirect(url_for("login"))
 
-    mensaje = None
-    if request.method == "POST":
-        carpeta = request.form.get("carpeta", "").strip()
-        nombre = request.form.get("nombre", "").strip()
-        carpeta_path = os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(carpeta))
+    carpeta = request.form.get("carpeta", "").strip()
+    nombre = request.form.get("nombre", "").strip()
+    carpeta_path = os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(carpeta))
 
-        if nombre:
-            ruta_foto = os.path.join(carpeta_path, secure_filename(nombre))
-            if os.path.exists(ruta_foto):
-                os.remove(ruta_foto)
-                mensaje = f"🗑️ Foto '{nombre}' eliminada del álbum '{carpeta}'."
-            else:
-                mensaje = f"❌ No se encontró la foto '{nombre}'."
+    if nombre:
+        # Eliminar foto específica
+        ruta_foto = os.path.join(carpeta_path, secure_filename(nombre))
+        if os.path.exists(ruta_foto):
+            os.remove(ruta_foto)
+            flash(f"🗑️ Foto '{nombre}' eliminada con éxito.")
         else:
-            if os.path.exists(carpeta_path):
-                shutil.rmtree(carpeta_path)
-                mensaje = f"🗑️ Álbum '{carpeta}' eliminado completamente."
-            else:
-                mensaje = f"❌ No se encontró la carpeta '{carpeta}'."
-
-    return render_template("eliminar_fotos.html", mensaje=mensaje)
+            flash(f"❌ No se encontró la foto '{nombre}'.")
+        return redirect(url_for('ver_album', carpeta=carpeta))
+    else:
+        # Eliminar carpeta completa
+        if os.path.exists(carpeta_path):
+            shutil.rmtree(carpeta_path)
+            flash(f"🗑️ Álbum '{carpeta}' eliminado completamente.")
+        else:
+            flash(f"❌ No se encontró la carpeta '{carpeta}'.")
+        return redirect(url_for('galeria'))
 
 @app.route("/ver_album/<carpeta>")
 def ver_album(carpeta):
@@ -288,9 +283,6 @@ def bienvenida():
         return redirect(url_for("login"))
     return render_template("bienvenida.html")
 
-import os
-
-# 🔚 ESTA LÍNEA DEBE SER SIEMPRE LA ÚLTIMA
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))  # Render define automáticamente el puerto
+    port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
