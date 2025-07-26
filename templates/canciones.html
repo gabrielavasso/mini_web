@@ -7,13 +7,6 @@
     <div class="overlay-fondo"></div>
     <div class="contenedor-canciones">
 
-        <!-- Botón volver -->
-        <div class="volver-centro">
-            <a href="{{ url_for('index') }}" class="boton-volver-dorado">
-                <i class="fas fa-heart"></i> Volver al comienzo
-            </a>
-        </div>
-
         <!-- MENSAJE FLASH -->
         {% with messages = get_flashed_messages() %}
             {% if messages %}
@@ -29,7 +22,7 @@
         {% if session.get('logueado') %}
         <form method="POST" action="{{ url_for('canciones') }}" class="formulario-subir">
             <input type="text" name="link" placeholder="Pega aquí el enlace de YouTube" required>
-            <button type="submit" class="boton5">Agregar canción</button>
+            <button type="submit" class="boton-agregar">Agregar canción</button>
         </form>
         {% else %}
         <p class="mensaje-login">
@@ -64,7 +57,6 @@
 </main>
 
 <style>
-/* Fondo translúcido */
 .overlay-fondo {
     position: absolute;
     top: 0;
@@ -73,7 +65,7 @@
     height: 100%;
     z-index: 1;
     pointer-events: none;
-    background-image: url('/static/img/fondo_canciones.png');
+    background-image: url('/static/img/portada.jpg');
     background-size: cover;
     background-position: center;
     opacity: 0.25;
@@ -86,7 +78,6 @@
     background: none;
 }
 
-/* Contenedor */
 .contenedor-canciones {
     position: relative;
     z-index: 2;
@@ -94,7 +85,6 @@
     margin: auto;
 }
 
-/* Lista de canciones */
 .lista-canciones {
     display: flex;
     flex-direction: column;
@@ -107,11 +97,11 @@
     align-items: center;
     justify-content: space-between;
     gap: 20px;
-    background: rgba(255, 255, 255, 0.85);
-    border: 1px solid #d4af37;
+    background: rgba(0,0,0,0.6);
+    border: 2px solid #d4af37;
     border-radius: 15px;
     padding: 20px;
-    box-shadow: 0 4px 10px rgba(212,175,55,0.3);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
 .cancion-item iframe {
@@ -121,7 +111,6 @@
     border-radius: 10px;
 }
 
-/* Formulario subir canción */
 .formulario-subir {
     display: flex;
     flex-direction: column;
@@ -132,66 +121,46 @@
 .formulario-subir input {
     padding: 12px;
     border-radius: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #d4af37;
     font-size: 16px;
+    background: #fffaf2;
 }
 
-.formulario-subir .boton5 {
+.formulario-subir .boton-agregar {
     background: linear-gradient(145deg, #d4af37, #a8840c);
+    color: white;
     border: none;
     padding: 12px;
     border-radius: 10px;
     font-weight: bold;
     cursor: pointer;
-    color: #fff;
-    transition: all 0.3s ease;
+    transition: background 0.3s ease;
 }
 
-.formulario-subir .boton5:hover {
-    background-color: #d4af37;
+.formulario-subir .boton-agregar:hover {
+    background: #d4af37;
 }
 
-/* Botón eliminar */
 .btn-eliminar-lateral {
     background: none;
     border: none;
-    color: #dc3545;
+    color: #d4af37;
     font-size: 20px;
     cursor: pointer;
-}
-.btn-eliminar-lateral:hover {
-    color: #a71d2a;
+    transition: color 0.3s ease;
 }
 
-/* Mensaje flash */
-.mensaje-flash {
-    background-color: #fff8e1;
+.btn-eliminar-lateral:hover {
     color: #a8840c;
+}
+
+.mensaje-flash {
+    background-color: rgba(212,175,55,0.2);
+    color: #d4af37;
     padding: 10px 15px;
     border-radius: 10px;
     margin-top: 20px;
     font-weight: bold;
-}
-
-/* Botón volver dorado centrado */
-.volver-centro {
-    text-align: center;
-    margin-bottom: 15px;
-}
-.boton-volver-dorado {
-    display: inline-block;
-    padding: 10px 22px;
-    border-radius: 25px;
-    background: linear-gradient(145deg, #d4af37, #a8840c);
-    color: white;
-    font-weight: bold;
-    text-decoration: none;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-    transition: all 0.3s ease;
-}
-.boton-volver-dorado:hover {
-    transform: scale(1.05);
-    background: #d4af37;
 }
 
 /* RESPONSIVE para móviles */
@@ -210,6 +179,7 @@
     .mensaje-login {
         font-size: 0.95rem;
         padding: 10px;
+        color: #fff;
     }
 
     .cancion-item {
@@ -227,7 +197,6 @@
         padding: 10px;
         font-size: 16px;
     }
-
-    .boton-volver-dorado {
-        font-size: 14px;
-        padding: 10px 16px;
+}
+</style>
+{% endblock %}
