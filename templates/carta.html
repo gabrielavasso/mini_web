@@ -4,14 +4,6 @@
 
 {% block content %}
 <main class="carta-fondo">
-
-    <!-- Botón volver al inicio -->
-    <div class="volver-centro">
-        <a href="{{ url_for('index') }}" class="boton-volver-dorado">
-            <i class="fas fa-heart"></i> Volver al comienzo
-        </a>
-    </div>
-
     <!-- Contenido de la carta -->
     <div class="carta-contenido">
         <div class="carta-texto">
@@ -30,7 +22,6 @@
             <p>Con amor,<br>Gaby</p>
         </div>
     </div>
-
 </main>
 
 <style>
@@ -56,37 +47,11 @@
     text-align: justify;
 }
 
-/* Botón volver estilo dorado */
-.volver-centro {
-    text-align: center;
-    margin-bottom: 20px;
-}
-.boton-volver-dorado {
-    display: inline-block;
-    padding: 10px 22px;
-    border-radius: 25px;
-    background: linear-gradient(145deg, #d4af37, #a8840c);
-    color: white;
-    font-weight: bold;
-    text-decoration: none;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-    transition: all 0.3s ease;
-}
-.boton-volver-dorado:hover {
-    transform: scale(1.05);
-    background: #d4af37;
-}
-
 /* RESPONSIVE */
 @media screen and (max-width: 768px) {
     .carta-contenido {
         padding: 25px;
         font-size: 1rem;
-    }
-
-    .boton-volver-dorado {
-        font-size: 14px;
-        padding: 10px 16px;
     }
 }
 </style>
