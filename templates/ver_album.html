@@ -6,6 +6,7 @@
 <main class="fondo-ver-album">
     <h2 class="titulo-album">📁 Álbum: {{ carpeta }}</h2>
 
+    <!-- Grid de fotos -->
     <div class="galeria-grid">
         {% for imagen in imagenes %}
         <img src="{{ url_for('ver_imagen', carpeta=carpeta, nombre=imagen) }}"
@@ -15,7 +16,8 @@
         {% endfor %}
     </div>
 
-    <div style="text-align: center; margin-top: 25px;">
+    <!-- Botón para volver -->
+    <div class="volver-centro">
         <a href="{{ url_for('galeria') }}" class="boton-volver-dorado">← Volver a Galería</a>
     </div>
 

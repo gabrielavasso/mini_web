@@ -224,7 +224,7 @@ header p {
 
 .galeria-superior {
     position: sticky;
-    top: 70px; /* justo bajo el header */
+    top: 70px;
     z-index: 10;
     background: rgba(0,0,0,0.5);
     padding: 10px;
@@ -292,37 +292,139 @@ header p {
     text-decoration: none !important;
 }
 
-/* Responsive para galería */
-@media (max-width: 768px) {
-    .album-carpeta {
-        margin: 15px;
-    }
+/* ======= VER_ALBUM ======= */
+.fondo-ver-album {
+    background-image: url('../img/portada.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+    padding: 80px 20px 40px;
+    overflow-x: hidden;
+}
 
-    .icono-carpeta {
-        width: 100px;
-    }
+.titulo-album {
+    text-align: center;
+    color: #d4af37;
+    font-size: 1.9rem;
+    margin-top: 10px;
+    font-family: 'Great Vibes', cursive;
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
+}
 
-    .nombre-carpeta {
-        font-size: 1.2rem;
-    }
+.galeria-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 25px;
+}
 
-    .galeria-botones {
-        flex-direction: column;
-        align-items: center;
-    }
+.foto-galeria {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(212,175,55,0.3);
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.foto-galeria:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(212,175,55,0.5);
+}
 
-    .boton-galeria {
-        width: 90%;
-        font-size: 15px;
-        padding: 12px;
-    }
+.volver-centro {
+    text-align: center;
+    margin-top: 25px;
+}
+.boton-volver-dorado {
+    display: inline-block;
+    padding: 10px 22px;
+    border-radius: 25px;
+    background: linear-gradient(145deg, #d4af37, #a8840c);
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+}
+.boton-volver-dorado:hover {
+    transform: scale(1.05);
+    background: #d4af37;
+}
 
-    p {
-        padding: 0 15px;
+.lightbox {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    flex-direction: column;
+    padding: 20px;
+}
+.lightbox.show {
+    display: flex;
+    animation: fadeIn 0.3s ease;
+}
+.lightbox img {
+    max-width: 90%;
+    max-height: 70%;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(212,175,55,0.6);
+}
+.lightbox .cerrar,
+.lightbox .siguiente {
+    background: none;
+    border: none;
+    color: #d4af37;
+    font-size: 2rem;
+    cursor: pointer;
+    margin: 10px;
+}
+.lightbox .cerrar {
+    align-self: flex-end;
+}
+.lightbox .siguiente {
+    font-size: 2.5rem;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* ======= RESPONSIVE ======= */
+@media screen and (max-width: 768px) {
+    .foto-galeria {
+        width: 120px;
+        height: 120px;
+    }
+    .titulo-album {
+        font-size: 1.5rem;
+    }
+    .lightbox img {
+        max-width: 95%;
+        max-height: 60%;
+    }
+    .lightbox .cerrar,
+    .lightbox .siguiente {
+        font-size: 2rem;
+    }
+    .boton-volver-dorado {
+        font-size: 14px;
+        padding: 10px 16px;
     }
 }
 
-/* ======= RESPONSIVE GENERAL ======= */
+/* ======= RESPONSIVE BOTONERA PRINCIPAL ======= */
 @media screen and (max-width: 600px) {
     header {
         height: 110px;
