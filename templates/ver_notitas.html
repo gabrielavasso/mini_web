@@ -3,88 +3,15 @@
 {% block title %}📜 Ver Notitas{% endblock %}
 
 {% block content %}
-<style>
-.fondo-ver-notitas {
-    min-height: 100vh;
-    background-image: url('{{ url_for('static', filename='img/fondo_notitas.png') }}');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    padding: 60px 20px 40px 20px;
-}
-
-.titulo-ver-notas {
-    text-align: center;
-    font-family: 'Great Vibes', cursive;
-    font-size: 2.5rem;
-    color: #d63384;
-    margin-bottom: 30px;
-    text-shadow: 0 0 4px #fff;
-}
-
-.contenedor-notitas {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-}
-
-.notita {
-    background: rgba(255, 255, 255, 0.85);
-    padding: 25px;
-    border-radius: 16px;
-    max-width: 600px;
-    width: 90%;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    text-align: left;
-    font-family: 'Quicksand', sans-serif;
-    position: relative;
-}
-
-.mensaje-notita {
-    font-size: 1.2rem;
-    color: #5c1a3b;
-    margin-bottom: 10px;
-}
-
-.autor-notita {
-    font-size: 1rem;
-    color: #912f5d;
-    font-style: italic;
-    text-align: right;
-}
-
-.mensaje-vacio {
-    background: rgba(255, 255, 255, 0.8);
-    color: #8a1f3b;
-    font-size: 1.3rem;
-    padding: 30px;
-    border-radius: 20px;
-    text-align: center;
-    max-width: 400px;
-    margin: 0 auto;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-}
-
-/* Responsive */
-@media screen and (max-width: 768px) {
-    .titulo-ver-notas {
-        font-size: 1.8rem;
-    }
-
-    .notita {
-        padding: 20px;
-        font-size: 15px;
-    }
-
-    .mensaje-vacio {
-        font-size: 1.1rem;
-        padding: 20px;
-    }
-}
-</style>
-
 <main class="fondo-ver-notitas">
+
+    <!-- Botón volver al inicio -->
+    <div class="volver-centro">
+        <a href="{{ url_for('index') }}" class="boton-volver-dorado">
+            <i class="fas fa-heart"></i> Volver al comienzo
+        </a>
+    </div>
+
     <h2 class="titulo-ver-notas">📜 Nuestras notitas de amor</h2>
 
     <div class="contenedor-notitas">
@@ -102,4 +29,116 @@
         {% endif %}
     </div>
 </main>
+
+<style>
+/* Fondo */
+.fondo-ver-notitas {
+    min-height: 100vh;
+    background-image: url('{{ url_for('static', filename='img/portada.jpg') }}');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 60px 20px 40px 20px;
+}
+
+/* Título */
+.titulo-ver-notas {
+    text-align: center;
+    font-family: 'Great Vibes', cursive;
+    font-size: 2.2rem;
+    color: #d4af37;
+    margin: 20px 0 30px;
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
+}
+
+/* Contenedor */
+.contenedor-notitas {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Notita individual */
+.notita {
+    background: rgba(255, 255, 255, 0.85);
+    padding: 25px;
+    border-radius: 16px;
+    max-width: 600px;
+    width: 90%;
+    box-shadow: 0 4px 12px rgba(212,175,55,0.4);
+    text-align: left;
+    font-family: 'Quicksand', sans-serif;
+    position: relative;
+}
+
+.mensaje-notita {
+    font-size: 1.2rem;
+    color: #000;
+    margin-bottom: 10px;
+}
+
+.autor-notita {
+    font-size: 1rem;
+    color: #555;
+    font-style: italic;
+    text-align: right;
+}
+
+/* Mensaje vacío */
+.mensaje-vacio {
+    background: rgba(255, 255, 255, 0.85);
+    color: #000;
+    font-size: 1.3rem;
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    max-width: 400px;
+    margin: 20px auto;
+    box-shadow: 0 4px 8px rgba(212,175,55,0.3);
+}
+
+/* Botón volver dorado */
+.volver-centro {
+    text-align: center;
+    margin-bottom: 15px;
+}
+.boton-volver-dorado {
+    display: inline-block;
+    padding: 10px 22px;
+    border-radius: 25px;
+    background: linear-gradient(145deg, #d4af37, #a8840c);
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+}
+.boton-volver-dorado:hover {
+    transform: scale(1.05);
+    background: #d4af37;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+    .titulo-ver-notas {
+        font-size: 1.8rem;
+    }
+
+    .notita {
+        padding: 20px;
+        font-size: 15px;
+    }
+
+    .mensaje-vacio {
+        font-size: 1.1rem;
+        padding: 20px;
+    }
+
+    .boton-volver-dorado {
+        font-size: 14px;
+        padding: 10px 16px;
+    }
+}
+</style>
 {% endblock %}

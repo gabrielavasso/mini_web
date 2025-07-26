@@ -8,9 +8,11 @@
     <div class="contenedor-canciones">
 
         <!-- Botón volver -->
-        <a href="{{ url_for('index') }}" class="boton-volver">
-            <i class="fas fa-heart"></i> Volver al comienzo
-        </a>
+        <div class="volver-centro">
+            <a href="{{ url_for('index') }}" class="boton-volver-dorado">
+                <i class="fas fa-heart"></i> Volver al comienzo
+            </a>
+        </div>
 
         <!-- MENSAJE FLASH -->
         {% with messages = get_flashed_messages() %}
@@ -62,6 +64,7 @@
 </main>
 
 <style>
+/* Fondo translúcido */
 .overlay-fondo {
     position: absolute;
     top: 0;
@@ -83,6 +86,7 @@
     background: none;
 }
 
+/* Contenedor */
 .contenedor-canciones {
     position: relative;
     z-index: 2;
@@ -90,6 +94,7 @@
     margin: auto;
 }
 
+/* Lista de canciones */
 .lista-canciones {
     display: flex;
     flex-direction: column;
@@ -102,11 +107,11 @@
     align-items: center;
     justify-content: space-between;
     gap: 20px;
-    background: #fff8f9;
-    border: 1px solid #fcd5ce;
+    background: rgba(255, 255, 255, 0.85);
+    border: 1px solid #d4af37;
     border-radius: 15px;
     padding: 20px;
-    box-shadow: 0 4px 10px rgba(255, 182, 193, 0.3);
+    box-shadow: 0 4px 10px rgba(212,175,55,0.3);
 }
 
 .cancion-item iframe {
@@ -116,6 +121,7 @@
     border-radius: 10px;
 }
 
+/* Formulario subir canción */
 .formulario-subir {
     display: flex;
     flex-direction: column;
@@ -131,19 +137,21 @@
 }
 
 .formulario-subir .boton5 {
-    background-color: #ffc0cb;
+    background: linear-gradient(145deg, #d4af37, #a8840c);
     border: none;
     padding: 12px;
     border-radius: 10px;
     font-weight: bold;
     cursor: pointer;
-    transition: background 0.3s ease;
+    color: #fff;
+    transition: all 0.3s ease;
 }
 
 .formulario-subir .boton5:hover {
-    background-color: #ffa6c9;
+    background-color: #d4af37;
 }
 
+/* Botón eliminar */
 .btn-eliminar-lateral {
     background: none;
     border: none;
@@ -151,18 +159,39 @@
     font-size: 20px;
     cursor: pointer;
 }
-
 .btn-eliminar-lateral:hover {
     color: #a71d2a;
 }
 
+/* Mensaje flash */
 .mensaje-flash {
-    background-color: #ffe4ec;
-    color: #d63384;
+    background-color: #fff8e1;
+    color: #a8840c;
     padding: 10px 15px;
     border-radius: 10px;
     margin-top: 20px;
     font-weight: bold;
+}
+
+/* Botón volver dorado centrado */
+.volver-centro {
+    text-align: center;
+    margin-bottom: 15px;
+}
+.boton-volver-dorado {
+    display: inline-block;
+    padding: 10px 22px;
+    border-radius: 25px;
+    background: linear-gradient(145deg, #d4af37, #a8840c);
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+}
+.boton-volver-dorado:hover {
+    transform: scale(1.05);
+    background: #d4af37;
 }
 
 /* RESPONSIVE para móviles */
@@ -199,10 +228,6 @@
         font-size: 16px;
     }
 
-    .boton-volver {
-        font-size: 18px;
-        padding: 8px 12px;
-    }
-}
-</style>
-{% endblock %}
+    .boton-volver-dorado {
+        font-size: 14px;
+        padding: 10px 16px;

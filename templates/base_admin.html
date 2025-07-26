@@ -2,16 +2,16 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 🧡 Para móviles -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>{% block title %}Panel Admin{% endblock %}</title>
     
-    <!-- Fuentes más sobrias -->
+    <!-- Fuente Quicksand -->
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
 
-    <!-- Estilos base -->
+    <!-- Estilos base para panel admin -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
-   
+
     {% block extra_head %}{% endblock %}
 </head>
 <body class="admin-fondo">
@@ -25,7 +25,7 @@
         </nav>
     </header>
 
-    <!-- Contenido -->
+    <!-- Contenido dinámico -->
     <main class="admin-contenido">
         {% block content %}{% endblock %}
     </main>
@@ -33,3 +33,66 @@
     {% block extra_scripts %}{% endblock %}
 </body>
 </html>
+
+<style>
+/* Fondo general del panel admin */
+.admin-fondo {
+    font-family: 'Quicksand', sans-serif;
+    background: url('{{ url_for("static", filename="img/portada.jpg") }}') center/cover no-repeat fixed;
+    min-height: 100vh;
+    margin: 0;
+    color: #fff;
+}
+
+/* Encabezado del panel */
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(180deg, #000000, #d4af37);
+    padding: 15px 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.admin-titulo {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #fff;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
+}
+
+/* Navegación del panel */
+.admin-nav a {
+    color: #fff;
+    text-decoration: none;
+    margin-left: 15px;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.admin-nav a:hover {
+    color: #d4af37;
+}
+
+/* Contenido del panel */
+.admin-contenido {
+    padding: 20px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .admin-header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .admin-nav {
+        margin-top: 10px;
+    }
+
+    .admin-nav a {
+        margin: 0 10px;
+        display: inline-block;
+    }
+}
+</style>
