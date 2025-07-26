@@ -3,125 +3,6 @@
 {% block title %}📁 {{ carpeta }}{% endblock %}
 
 {% block content %}
-<style>
-.fondo-ver-album {
-    background-image: url('{{ url_for('static', filename='img/fondo_galeria.jpg') }}');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-attachment: fixed;
-    min-height: 100vh;
-    padding: 60px 10px 40px 10px;
-    overflow-x: hidden;
-}
-
-.galeria-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 15px;
-    margin-top: 20px;
-}
-
-.foto-galeria {
-    width: 200px;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    cursor: pointer;
-    transition: transform 0.3s ease;
-}
-.foto-galeria:hover {
-    transform: scale(1.05);
-}
-
-.lightbox {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.9);
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    flex-direction: column;
-    padding: 20px;
-}
-
-.lightbox.show {
-    display: flex;
-    animation: fadeIn 0.3s ease;
-}
-
-.lightbox img {
-    max-width: 90%;
-    max-height: 70%;
-    border-radius: 10px;
-    margin-bottom: 20px;
-}
-
-.lightbox .cerrar,
-.lightbox .siguiente {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 2rem;
-    cursor: pointer;
-    margin: 10px;
-}
-
-.lightbox .cerrar {
-    align-self: flex-end;
-}
-
-.lightbox .siguiente {
-    font-size: 2.5rem;
-}
-
-.titulo-album {
-    text-align: center;
-    color: #ffaad4;
-    font-size: 1.8rem;
-    margin-top: 20px;
-    font-family: 'Great Vibes', cursive;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.95); }
-    to { opacity: 1; transform: scale(1); }
-}
-
-/* Responsive */
-@media screen and (max-width: 768px) {
-    .foto-galeria {
-        width: 120px;
-        height: 120px;
-    }
-
-    .titulo-album {
-        font-size: 1.5rem;
-    }
-
-    .lightbox img {
-        max-width: 95%;
-        max-height: 60%;
-    }
-
-    .lightbox .cerrar,
-    .lightbox .siguiente {
-        font-size: 2rem;
-    }
-
-    .boton-volver {
-        font-size: 14px;
-        padding: 10px 16px;
-    }
-}
-</style>
-
 <main class="fondo-ver-album">
     <h2 class="titulo-album">📁 Álbum: {{ carpeta }}</h2>
 
@@ -134,10 +15,11 @@
         {% endfor %}
     </div>
 
-    <div style="text-align: center; margin-top: 20px;">
-        <a href="{{ url_for('galeria') }}" class="boton-volver">← Volver a Galería</a>
+    <div style="text-align: center; margin-top: 25px;">
+        <a href="{{ url_for('galeria') }}" class="boton-volver-dorado">← Volver a Galería</a>
     </div>
 
+    <!-- Lightbox -->
     <div class="lightbox" id="lightbox">
         <button class="cerrar" onclick="cerrarLightbox()">✖</button>
         <img id="lightbox-img" src="" alt="Imagen ampliada">
