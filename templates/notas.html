@@ -6,14 +6,12 @@
 <main class="fondo-ver-notitas">
     <h2 class="titulo-ver-notas">📜 Nuestras notitas de amor</h2>
 
-    <!-- Formulario para agregar notitas -->
-    {% if session.get('logueado') %}
+    <!-- Formulario siempre visible -->
     <form method="POST" action="{{ url_for('notas') }}" class="form-notitas">
         <input type="text" name="autor" placeholder="Tu nombre" required>
         <textarea name="mensaje" placeholder="Escribí tu mensaje..." required></textarea>
         <button type="submit" class="boton-enviar">Guardar notita</button>
     </form>
-    {% endif %}
 
     <!-- Lista de notitas -->
     <div class="contenedor-notitas">
