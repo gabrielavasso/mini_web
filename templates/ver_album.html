@@ -8,6 +8,13 @@
     <!-- Título del álbum -->
     <h2 class="titulo-album">Álbum: {{ carpeta }}</h2>
 
+    <!-- Mensaje de éxito -->
+    {% if mensaje %}
+    <div class="mensaje-exito">
+        {{ mensaje }}
+    </div>
+    {% endif %}
+
     <!-- Galería de fotos -->
     <div class="galeria-grid">
         {% for imagen in imagenes %}
@@ -29,6 +36,20 @@
         {% endfor %}
     </div>
 
+    <!-- Botón volver a galería -->
+    <div class="volver-centro">
+        <a href="{{ url_for('galeria') }}" class="boton-volver-dorado">
+            <i class="fas fa-heart"></i> Volver a la galería
+        </a>
+    </div>
+
+    <!-- Botón volver al inicio -->
+    <div class="volver-centro">
+        <a href="{{ url_for('index') }}" class="boton-volver-dorado">
+            <i class="fas fa-heart"></i> Volver al comienzo
+        </a>
+    </div>
+
     <!-- Lightbox para ver imagen ampliada -->
     <div id="lightbox" class="lightbox">
         <button class="cerrar" onclick="cerrarLightbox()">&times;</button>
@@ -36,169 +57,7 @@
         <button class="siguiente" onclick="siguienteFoto()">&#8594;</button>
     </div>
 
-    <!-- Botón volver al inicio -->
-    <div class="volver-centro">
-        <a href="{{ url_for('galeria') }}" class="boton-volver-dorado">
-            <i class="fas fa-heart"></i> Volver a la galería
-        </a>
-    </div>
-
 </main>
-
-<style>
-/* Fondo general */
-.fondo-ver-album {
-    background-image: url('{{ url_for("static", filename="img/portada.jpg") }}');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    min-height: 100vh;
-    padding: 80px 20px 40px;
-}
-
-/* Título */
-.titulo-album {
-    text-align: center;
-    color: #d4af37;
-    font-size: 1.9rem;
-    margin-bottom: 20px;
-    font-family: 'Great Vibes', cursive;
-    text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
-}
-
-/* Galería */
-.galeria-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 15px;
-}
-
-/* Contenedor de cada foto */
-.foto-wrapper {
-    position: relative;
-    display: inline-block;
-}
-
-/* Imagen */
-.foto-galeria {
-    width: 180px;
-    height: 180px;
-    object-fit: cover;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(212,175,55,0.3);
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.foto-galeria:hover {
-    transform: scale(1.05);
-    box-shadow: 0 6px 12px rgba(212,175,55,0.5);
-}
-
-/* Botón eliminar */
-.form-eliminar-foto {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-}
-.btn-eliminar-foto {
-    background: rgba(0, 0, 0, 0.6);
-    border: none;
-    color: #ff4d4d;
-    font-size: 18px;
-    padding: 6px 8px;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: background 0.3s ease, transform 0.3s ease;
-}
-.btn-eliminar-foto:hover {
-    background: rgba(0, 0, 0, 0.8);
-    transform: scale(1.1);
-}
-
-/* Lightbox */
-.lightbox {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.9);
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    flex-direction: column;
-    padding: 20px;
-}
-.lightbox.show {
-    display: flex;
-    animation: fadeIn 0.3s ease;
-}
-.lightbox img {
-    max-width: 90%;
-    max-height: 70%;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 12px rgba(212,175,55,0.6);
-}
-.lightbox .cerrar,
-.lightbox .siguiente {
-    background: none;
-    border: none;
-    color: #d4af37;
-    font-size: 2rem;
-    cursor: pointer;
-    margin: 10px;
-}
-.lightbox .cerrar {
-    align-self: flex-end;
-}
-.lightbox .siguiente {
-    font-size: 2.5rem;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.95); }
-    to { opacity: 1; transform: scale(1); }
-}
-
-/* Botón volver */
-.volver-centro {
-    text-align: center;
-    margin-top: 25px;
-}
-.boton-volver-dorado {
-    display: inline-block;
-    padding: 10px 22px;
-    border-radius: 25px;
-    background: linear-gradient(145deg, #d4af37, #a8840c);
-    color: white;
-    font-weight: bold;
-    text-decoration: none;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-    transition: all 0.3s ease;
-}
-.boton-volver-dorado:hover {
-    transform: scale(1.05);
-    background: #d4af37;
-}
-
-/* Responsive */
-@media screen and (max-width: 768px) {
-    .foto-galeria {
-        width: 120px;
-        height: 120px;
-    }
-    .titulo-album {
-        font-size: 1.5rem;
-    }
-    .btn-eliminar-foto {
-        font-size: 16px;
-        padding: 4px 6px;
-    }
-}
-</style>
 
 <script>
 let currentIndex = 0;
@@ -220,5 +79,4 @@ function siguienteFoto() {
     document.getElementById('lightbox-img').src = fotos[currentIndex];
 }
 </script>
-
 {% endblock %}

@@ -8,7 +8,7 @@
     <!-- Título -->
     <h2 class="titulo-album">Galería de Álbumes</h2>
 
-    <!-- Botones para crear álbum solo si hay sesión -->
+    <!-- Botones para crear álbum y subir fotos (solo si hay sesión) -->
     {% if session.get('logueado') %}
     <div class="galeria-superior">
         <a href="{{ url_for('crear_album') }}" class="boton-galeria">➕ Crear Álbum</a>
@@ -21,7 +21,13 @@
         {% for carpeta, fotos in galeria.items() %}
         <div class="album-carpeta">
             <a href="{{ url_for('ver_album', carpeta=carpeta) }}">
-                <img src="{{ url_for('static', filename='img/icono_carpeta.png') }}" alt="Carpeta" class="icono-carpeta">
+                {% if fotos and fotos|length > 0 %}
+                    <!-- Mostrar primera foto como portada -->
+                    <img src="{{ fotos[0].url }}" alt="Portada {{ carpeta }}" class="icono-carpeta">
+                {% else %}
+                    <!-- Mostrar icono de carpeta si está vacío -->
+                    <img src="{{ url_for('static', filename='img/icono_carpeta.png') }}" alt="Carpeta" class="icono-carpeta">
+                {% endif %}
                 <span class="nombre-carpeta">{{ carpeta }}</span>
             </a>
         </div>

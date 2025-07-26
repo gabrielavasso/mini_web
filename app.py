@@ -42,7 +42,6 @@ app.jinja_env.filters['youtube_id'] = youtube_id
 # === Rutas principales ===
 @app.route("/")
 def index():
-    # Cargar fotos por álbum desde JSON
     with open(FOTOS_FILE, "r", encoding="utf-8") as f:
         fotos = json.load(f)
     return render_template("index.html", galeria=fotos)
@@ -125,7 +124,6 @@ def upload():
         flash("📸 Fotos subidas correctamente.")
         return redirect(url_for("ver_album", carpeta=carpeta))
 
-    # Mostrar lista de álbumes
     with open(FOTOS_FILE, "r", encoding="utf-8") as f:
         fotos = json.load(f)
     return render_template("upload.html", albums=list(fotos.keys()))
@@ -145,24 +143,21 @@ def eliminar_fotos():
         return redirect(url_for("login"))
 
     carpeta = request.form.get("carpeta", "").strip()
-    nombre = request.form.get("nombre", "").strip()  # Aquí será la URL
+    nombre = request.form.get("nombre", "").strip()
 
     with open(FOTOS_FILE, "r", encoding="utf-8") as f:
         fotos = json.load(f)
 
     if carpeta in fotos:
         if nombre:
-            # Buscar la foto en el álbum por URL
             foto = next((f for f in fotos[carpeta] if f["url"] == nombre), None)
             if foto:
-                # Borrar de Cloudinary usando public_id
                 cloudinary.uploader.destroy(foto["public_id"])
                 fotos[carpeta].remove(foto)
                 flash(f"🗑️ Foto eliminada de '{carpeta}'.")
             else:
                 flash("❌ No se encontró la foto.")
         else:
-            # Eliminar álbum completo
             for foto in fotos[carpeta]:
                 cloudinary.uploader.destroy(foto["public_id"])
             del fotos[carpeta]
@@ -180,7 +175,7 @@ def galeria():
         fotos = json.load(f)
     return render_template("galeria.html", galeria=fotos)
 
-# === Otras rutas (notas, carta, canciones) siguen igual ===
+# === Rutas adicionales ===
 @app.route("/carta")
 def carta():
     return render_template("carta.html")
