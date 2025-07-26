@@ -4,15 +4,18 @@
 
 {% block content %}
 <main class="galeria-fondo">
-    <div class="galeria-contenido">
-        {% if session.get('logueado') %}
-        <div class="galeria-botones">
-            <a href="{{ url_for('crear_album') }}" class="boton-galeria"><i class="fas fa-plus"></i> Crear Carpeta</a>
-            <a href="{{ url_for('upload') }}" class="boton-galeria"><i class="fas fa-upload"></i> Subir Fotos</a>
-            <a href="{{ url_for('eliminar_fotos') }}" class="boton-galeria"><i class="fas fa-trash-alt"></i> Eliminar Fotos o Carpetas</a>
-        </div>
-        {% endif %}
 
+    {% if session.get('logueado') %}
+    <!-- Botones superiores -->
+    <div class="galeria-botones galeria-superior">
+        <a href="{{ url_for('crear_album') }}" class="boton-galeria"><i class="fas fa-plus"></i> Crear Carpeta</a>
+        <a href="{{ url_for('upload') }}" class="boton-galeria"><i class="fas fa-upload"></i> Subir Fotos</a>
+        <a href="{{ url_for('eliminar_fotos') }}" class="boton-galeria"><i class="fas fa-trash-alt"></i> Eliminar Fotos o Carpetas</a>
+    </div>
+    {% endif %}
+
+    <!-- Contenido de la galería -->
+    <div class="galeria-contenido">
         {% if galeria %}
             {% for carpeta in galeria.keys() %}
             <div class="album-carpeta">
@@ -30,16 +33,53 @@
 
 <style>
 .galeria-fondo {
-    background-image: url('{{ url_for('static', filename='img/fondo_galeria.jpg') }}');
+    background-image: url('{{ url_for('static', filename='img/portada.jpg') }}');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
     background-attachment: fixed;
     min-height: 100vh;
-    padding: 60px 20px 40px;
+    padding: 100px 20px 40px;
 }
 
-/* Estilo para carpetas */
+/* Botones superiores fijos */
+.galeria-superior {
+    position: sticky;
+    top: 70px; /* justo bajo el header */
+    z-index: 10;
+    background: rgba(0,0,0,0.5);
+    padding: 10px;
+    border-radius: 15px;
+    backdrop-filter: blur(4px);
+}
+
+/* Contenedor de botones */
+.galeria-botones {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.boton-galeria {
+    background: linear-gradient(145deg, rgba(212,175,55,1), rgba(168, 132, 12, 1));
+    color: white;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 14px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+.boton-galeria:hover {
+    transform: scale(1.05);
+    background: rgba(212,175,55,1);
+}
+
+/* Carpetas */
 .album-carpeta {
     display: inline-block;
     margin: 30px;
@@ -54,11 +94,11 @@
     width: 150px;
     height: auto;
     border-radius: 16px;
-    box-shadow: 0 4px 8px rgba(255, 192, 203, 0.3);
+    box-shadow: 0 4px 8px rgba(223, 187, 30, 0.3);
     transition: box-shadow 0.3s ease-in-out;
 }
 .icono-carpeta:hover {
-    box-shadow: 0 8px 16px rgba(255, 192, 203, 0.6);
+    box-shadow: 0 8px 16px rgba(219, 200, 88, 0.6);
 }
 
 .nombre-carpeta {
@@ -66,40 +106,13 @@
     margin-top: 10px;
     font-family: 'Great Vibes', cursive;
     font-size: 1.5rem;
-    color: #ffaad4;
-    text-shadow: 0 0 3px #fff, 0 0 6px #fba3d0;
+    color: rgba(212,175,55,1);
+    text-shadow: 0 0 3px #fff, 0 0 6px rgba(235, 184, 16, 1);
     text-decoration: none;
 }
 
 .album-carpeta a {
     text-decoration: none !important;
-}
-
-/* Botones de acciones */
-.galeria-botones {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 15px;
-    margin-top: 20px;
-    margin-bottom: 30px;
-}
-
-.boton-galeria {
-    background: linear-gradient(145deg, #ffb6c1, #f08080);
-    color: white;
-    padding: 10px 18px;
-    border: none;
-    border-radius: 30px;
-    font-weight: bold;
-    text-decoration: none;
-    font-size: 14px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
-}
-.boton-galeria:hover {
-    transform: scale(1.05);
-    background: #ff7f9c;
 }
 
 /* Responsive */
