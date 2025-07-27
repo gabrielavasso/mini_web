@@ -19,7 +19,7 @@
     <div class="galeria-grid">
         {% for foto in imagenes %}
         <div class="foto-item">
-            <img src="{{ foto.url }}" class="foto-galeria" onclick="abrirLightbox('{{ foto.url }}')">
+            <img src="{{ foto.url }}" class="foto-galeria" onclick="abrirLightbox('{{ loop.index0 }}')">
 
             {% if session.get('logueado') %}
             <form action="{{ url_for('eliminar_fotos') }}" method="POST" onsubmit="return confirm('¿Eliminar esta foto?')">
@@ -33,24 +33,52 @@
     </div>
 
     <div class="volver-centro">
-        <a href="{{ url_for('galeria') }}" class="boton-volver-dorado">❤️ Volver al comienzo</a>
+        <a href="{{ url_for('galeria') }}" class="boton-volver-dorado">❤️ Volver a galería</a>
     </div>
 </main>
 
 <!-- LIGHTBOX -->
-<div id="lightbox" class="lightbox" onclick="cerrarLightbox()">
+<div id="lightbox" class="lightbox">
     <button class="cerrar" onclick="cerrarLightbox()">✖</button>
+    <a class="prev" onclick="cambiarFoto(-1)">&#10094;</a>
     <img id="lightbox-img" src="">
+    <a class="next" onclick="cambiarFoto(1)">&#10095;</a>
 </div>
 
 <script>
-function abrirLightbox(url) {
+let currentIndex = 0;
+const fotos = [
+    {% for foto in imagenes %}
+    "{{ foto.url }}"{% if not loop.last %},{% endif %}
+    {% endfor %}
+];
+
+function abrirLightbox(index) {
+    currentIndex = index;
     document.getElementById('lightbox').classList.add('show');
-    document.getElementById('lightbox-img').src = url;
+    document.getElementById('lightbox-img').src = fotos[currentIndex];
 }
+
 function cerrarLightbox() {
     document.getElementById('lightbox').classList.remove('show');
 }
+
+function cambiarFoto(n) {
+    currentIndex += n;
+    if (currentIndex < 0) currentIndex = fotos.length - 1;
+    if (currentIndex >= fotos.length) currentIndex = 0;
+    document.getElementById('lightbox-img').src = fotos[currentIndex];
+}
+
+// Gestos táctiles para deslizar
+let startX = 0;
+const lightboxImg = document.getElementById('lightbox-img');
+lightboxImg.addEventListener('touchstart', e => startX = e.touches[0].clientX);
+lightboxImg.addEventListener('touchend', e => {
+    let endX = e.changedTouches[0].clientX;
+    if (startX - endX > 50) cambiarFoto(1); // deslizar izquierda
+    if (endX - startX > 50) cambiarFoto(-1); // deslizar derecha
+});
 </script>
 
 <style>
@@ -92,6 +120,29 @@ input[type="file"] {
 
 .boton-eliminar:hover {
     background: #cce017ff;
+}
+
+/* Flechas del lightbox */
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
+    color: #ffd700;
+    font-weight: bold;
+    font-size: 32px;
+    transition: 0.3s;
+    user-select: none;
+}
+
+.prev { left: 0; }
+.next { right: 0; }
+
+.prev:hover, .next:hover {
+    color: #fff;
+    text-shadow: 0 0 10px #ffd700;
 }
 </style>
 {% endblock %}
