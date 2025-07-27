@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 
-{% block title %}Galería{% endblock %}
+{% block title %}Galería de Álbumes{% endblock %}
 
 {% block content %}
 <main class="fondo-galeria">
     <h2 class="titulo-galeria">Galería de Álbumes</h2>
 
     {% if session.get('logueado') %}
-    <div class="acciones-galeria">
-        <a href="{{ url_for('crear_album') }}" class="boton-dorado">➕ Crear Álbum</a>
+    <div class="crear-album-centro">
+        <a href="{{ url_for('crear_album') }}" class="boton-dorado">+ Crear Álbum</a>
     </div>
     {% endif %}
 
@@ -16,63 +16,97 @@
         {% for album in albums %}
         <div class="album-item">
             <a href="{{ url_for('ver_album', carpeta=album) }}">
-                <div class="album-nombre">{{ album }}</div>
+                <img src="{{ url_for('static', filename='img/icono_carpeta.png') }}" alt="Carpeta">
+                <span>{{ album }}</span>
             </a>
         </div>
         {% endfor %}
+    </div>
+
+    <div class="volver-centro">
+        <a href="{{ url_for('index') }}" class="boton-volver-dorado">❤️ Volver al comienzo</a>
     </div>
 </main>
 
 <style>
 .fondo-galeria {
-    padding: 20px;
     text-align: center;
+    padding: 20px;
 }
 
+/* Título */
 .titulo-galeria {
     font-size: 2rem;
     color: #d4af37;
     margin-bottom: 20px;
 }
 
-.acciones-galeria {
-    margin-bottom: 20px;
+/* Contenedor de álbumes */
+.galeria-albumes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 25px;
+    padding: 20px;
+    justify-items: center;
 }
 
+/* Cada álbum */
+.album-item a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+}
+
+/* Icono carpeta */
+.album-item img {
+    width: 70px;
+    height: auto;
+    margin-bottom: 8px;
+}
+
+/* Nombre del álbum */
+.album-item span {
+    font-family: 'Great Vibes', cursive;
+    font-size: 1rem;
+    color: #d4af37;
+    text-shadow: 0 0 3px rgba(0,0,0,0.6);
+    font-weight: bold;
+    text-align: center;
+    transition: color 0.3s ease;
+}
+
+/* Hover */
+.album-item:hover span {
+    color: #fff;
+}
+
+/* Botón crear álbum */
 .boton-dorado {
     background: #d4af37;
-    color: #fff;
+    color: white;
     padding: 10px 20px;
+    border-radius: 10px;
     text-decoration: none;
-    border-radius: 8px;
     font-weight: bold;
+    display: inline-block;
+    margin-bottom: 20px;
 }
 
 .boton-dorado:hover {
     background: #a8840c;
 }
 
-.galeria-albumes {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 15px;
-}
-
-.album-item {
-    background: #fff;
-    border: 2px solid #d4af37;
+/* Botón volver */
+.boton-volver-dorado {
+    display: inline-block;
+    background: #d4af37;
+    color: white;
+    padding: 10px 20px;
+    margin-top: 20px;
     border-radius: 10px;
-    padding: 15px;
-    transition: transform 0.2s ease;
-}
-
-.album-item:hover {
-    transform: scale(1.05);
-}
-
-.album-nombre {
+    text-decoration: none;
     font-weight: bold;
-    color: #333;
 }
 </style>
 {% endblock %}
