@@ -1,43 +1,32 @@
 {% extends 'base.html' %}
 
-{% block title %}Galería de Álbumes{% endblock %}
+{% block title %}Galería{% endblock %}
 
 {% block content %}
-<main class="galeria-principal">
+<main class="fondo-galeria">
     <h2 class="titulo-galeria">Galería de Álbumes</h2>
 
-    <!-- Botón Crear Álbum solo si está logueado -->
     {% if session.get('logueado') %}
-    <div class="botones-galeria">
-        <a href="{{ url_for('crear_album') }}" class="btn-crear-album">➕ Crear Álbum</a>
+    <div class="acciones-galeria">
+        <a href="{{ url_for('crear_album') }}" class="boton-dorado">➕ Crear Álbum</a>
     </div>
     {% endif %}
 
-    <!-- Lista de álbumes -->
-    <div class="lista-albumes">
-        {% if galeria %}
-            {% for album, fotos in galeria.items() %}
-            <div class="album-item">
-                <a href="{{ url_for('ver_album', carpeta=album) }}">
-                    {% if fotos and fotos[0]['url'] %}
-                        <img src="{{ fotos[0]['url'] }}" alt="{{ album }}">
-                    {% else %}
-                        <div class="album-placeholder">Sin fotos</div>
-                    {% endif %}
-                    <p class="nombre-album">{{ album }}</p>
-                </a>
-            </div>
-            {% endfor %}
-        {% else %}
-            <p class="sin-albumes">No hay álbumes creados aún.</p>
-        {% endif %}
+    <div class="galeria-albumes">
+        {% for album in albums %}
+        <div class="album-item">
+            <a href="{{ url_for('ver_album', carpeta=album) }}">
+                <div class="album-nombre">{{ album }}</div>
+            </a>
+        </div>
+        {% endfor %}
     </div>
 </main>
 
 <style>
-.galeria-principal {
-    text-align: center;
+.fondo-galeria {
     padding: 20px;
+    text-align: center;
 }
 
 .titulo-galeria {
@@ -46,55 +35,44 @@
     margin-bottom: 20px;
 }
 
-.botones-galeria {
+.acciones-galeria {
     margin-bottom: 20px;
 }
 
-.btn-crear-album {
+.boton-dorado {
     background: #d4af37;
-    color: white;
+    color: #fff;
     padding: 10px 20px;
-    border-radius: 10px;
     text-decoration: none;
+    border-radius: 8px;
     font-weight: bold;
 }
 
-.lista-albumes {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
+.boton-dorado:hover {
+    background: #a8840c;
+}
+
+.galeria-albumes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
 }
 
 .album-item {
-    text-align: center;
-    width: 150px;
-}
-
-.album-item img {
-    width: 100%;
-    height: 120px;
-    object-fit: cover;
-    border-radius: 10px;
+    background: #fff;
     border: 2px solid #d4af37;
-}
-
-.album-placeholder {
-    width: 100%;
-    height: 120px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(212,175,55,0.2);
-    border: 2px dashed #d4af37;
     border-radius: 10px;
-    color: #d4af37;
+    padding: 15px;
+    transition: transform 0.2s ease;
 }
 
-.nombre-album {
-    margin-top: 8px;
-    color: white;
+.album-item:hover {
+    transform: scale(1.05);
+}
+
+.album-nombre {
     font-weight: bold;
+    color: #333;
 }
 </style>
 {% endblock %}

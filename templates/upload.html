@@ -7,9 +7,9 @@
     <h2 class="titulo-subir">Subir fotos a un álbum</h2>
 
     {% if session.get('logueado') %}
-    <form action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data" class="form-subida">
+    <form action="{{ url_for('upload_form') }}" method="POST" enctype="multipart/form-data" class="form-subida">
 
-        <!-- Seleccionar álbum existente -->
+        <!-- Seleccionar álbum -->
         <label for="carpeta">Selecciona el álbum:</label>
         <select name="carpeta" required>
             {% for album in albums %}
@@ -23,6 +23,10 @@
         <!-- Botón enviar -->
         <button type="submit" class="btn-subir">📤 Subir Fotos</button>
     </form>
+
+    <div class="volver-centro">
+        <a href="{{ url_for('galeria') }}" class="boton-volver-dorado">❤️ Volver a galería</a>
+    </div>
 
     {% else %}
     <p class="mensaje-login">
@@ -72,7 +76,7 @@
     background: #a8840c;
 }
 
-.btn-volver {
+.boton-volver-dorado {
     display: inline-block;
     background: #d4af37;
     color: white;

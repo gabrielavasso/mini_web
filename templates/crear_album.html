@@ -1,112 +1,77 @@
 {% extends 'base.html' %}
 
-{% block title %}➕ Crear nuevo álbum{% endblock %}
+{% block title %}Crear Álbum{% endblock %}
 
 {% block content %}
-<main class="crear-album-fondo">
-    <div class="crear-album-container">
-        <h2>➕ Crear nuevo álbum</h2>
-        <form method="POST">
-            <label for="nombre">Nombre del nuevo álbum:</label><br>
-            <input type="text" id="nombre" name="nombre" placeholder="Ej: Fiesta, Aniversario, Cumpleaños..." required><br>
-            <button class="boton-crear" type="submit">Crear Carpeta</button>
-        </form>
-        <a class="volver-galeria" href="{{ url_for('galeria') }}">← Volver a la galería</a>
+<main class="fondo-crear-album">
+    <h2 class="titulo-crear">Crear nuevo álbum</h2>
+
+    {% if session.get('logueado') %}
+    <form method="POST" action="{{ url_for('crear_album') }}" class="form-crear-album">
+        <label for="nombre">Nombre del álbum:</label>
+        <input type="text" name="nombre" id="nombre" required placeholder="Ej: Viaje a Brasil">
+        <button type="submit" class="boton-dorado">Crear</button>
+    </form>
+
+    {% if mensaje %}
+    <p class="mensaje-error">{{ mensaje }}</p>
+    {% endif %}
+
+    <div class="volver-centro">
+        <a href="{{ url_for('galeria') }}" class="boton-volver-dorado">❤️ Volver a galería</a>
     </div>
+    {% else %}
+    <p class="mensaje-login">
+        🔒 Debes iniciar sesión para crear un álbum.
+    </p>
+    {% endif %}
 </main>
 
 <style>
-.crear-album-fondo {
-    background-image: url('{{ url_for('static', filename='img/fondo_galeria.jpg') }}');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-attachment: fixed;
-    min-height: 100vh;
-    padding: 60px 15px 40px;
+.fondo-crear-album {
+    text-align: center;
+    padding: 20px;
 }
 
-.crear-album-container {
+.titulo-crear {
+    font-size: 2rem;
+    color: #d4af37;
+    margin-bottom: 20px;
+}
+
+.form-crear-album {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    margin-top: 40px;
+    gap: 15px;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.form-crear-album input {
+    padding: 10px;
+    border: 1px solid #d4af37;
+    border-radius: 8px;
     text-align: center;
-    background-color: rgba(255, 255, 255, 0.85);
-    padding: 30px;
-    border-radius: 20px;
-    max-width: 500px;
-    margin-left: auto;
-    margin-right: auto;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
 }
 
-.crear-album-container h2 {
-    font-size: 24px;
-    color: #333;
-    margin-bottom: 20px;
-}
-
-.crear-album-container input[type="text"] {
-    padding: 12px 20px;
-    border: none;
-    border-radius: 25px;
-    width: 300px;
-    max-width: 100%;
-    font-size: 16px;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
-    outline: none;
-    margin-bottom: 20px;
-}
-
-.boton-crear {
-    background: linear-gradient(145deg, #ffb6c1, #f08080);
-    color: white;
-    padding: 10px 24px;
-    border: none;
-    border-radius: 50px;
-    font-weight: bold;
-    font-size: 14px;
-    cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    transition: transform 0.3s ease;
-}
-
-.boton-crear:hover {
-    transform: scale(1.05);
-    background: #ff7f9c;
-}
-
-.volver-galeria {
-    margin-top: 30px;
-    font-size: 14px;
-    display: inline-block;
-    color: #7f1d1d;
+.boton-dorado {
+    background: #d4af37;
+    color: #fff;
+    padding: 10px 20px;
     text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
 }
 
-.volver-galeria:hover {
-    text-decoration: underline;
+.boton-dorado:hover {
+    background: #a8840c;
 }
 
-/* Responsive */
-@media screen and (max-width: 600px) {
-    .crear-album-container {
-        padding: 20px;
-    }
-
-    .crear-album-container h2 {
-        font-size: 20px;
-    }
-
-    .boton-crear {
-        font-size: 13px;
-        padding: 10px 20px;
-    }
-
-    .volver-galeria {
-        font-size: 13px;
-    }
+.mensaje-error {
+    color: red;
+    margin-top: 10px;
 }
 </style>
 {% endblock %}

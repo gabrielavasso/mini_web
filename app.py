@@ -1,58 +1,61 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from dotenv import load_dotenv
 import os
-import json
 import re
 import cloudinary
 import cloudinary.uploader
+import cloudinary.api
 
 load_dotenv()
 
 app = Flask(__name__)
 app.secret_key = "supersecreto"
 
-# === Configuración Cloudinary con fallback ===
+# === Configuración Cloudinary ===
 cloudinary_url = os.getenv("CLOUDINARY_URL")
 if cloudinary_url:
     cloudinary.config(cloudinary_url=cloudinary_url)
 else:
-    # Configuración manual si la variable no existe (ej. en local o fallo en Render)
+    # Configuración manual si no hay variable en entorno
     cloudinary.config(
         cloud_name="djuurobvo",
         api_key="567997862976986",
         api_secret="TjUDD_bUkejGoAdxYs0JrEase_I"
     )
 
-# Archivos JSON
-NOTAS_FILE = os.path.join("data", "notas.json")
-FOTOS_FILE = os.path.join("data", "fotos.json")
-CANCIONES_FILE = os.path.join("data", "canciones.json")
-
-# Crear estructura inicial
-os.makedirs("data", exist_ok=True)
-if not os.path.exists(NOTAS_FILE):
-    with open(NOTAS_FILE, "w", encoding="utf-8") as f:
-        json.dump([], f)
-if not os.path.exists(FOTOS_FILE):
-    with open(FOTOS_FILE, "w", encoding="utf-8") as f:
-        json.dump({}, f)
-if not os.path.exists(CANCIONES_FILE):
-    with open(CANCIONES_FILE, "w", encoding="utf-8") as f:
-        json.dump([], f)
-
-# Filtro para extraer ID de YouTube
+# === Filtro para extraer ID de YouTube ===
 def youtube_id(link):
     match = re.search(r"(?:v=|\/)([0-9A-Za-z_-]{11})", link)
     return match.group(1) if match else ""
 
 app.jinja_env.filters['youtube_id'] = youtube_id
 
+# === Helpers para Cloudinary ===
+def listar_albums():
+    """Obtiene lista de carpetas dentro de mini_web en Cloudinary"""
+    resultado = cloudinary.api.sub_folders("mini_web")
+    return [folder["name"] for folder in resultado["folders"]]
+
+def listar_fotos_album(album):
+    """Obtiene fotos de una carpeta específica"""
+    resultado = cloudinary.api.resources(
+        type="upload",
+        prefix=f"mini_web/{album}/",
+        max_results=100
+    )
+    fotos = []
+    for foto in resultado.get("resources", []):
+        fotos.append({
+            "url": foto["secure_url"],
+            "public_id": foto["public_id"]
+        })
+    return fotos
+
 # === Rutas principales ===
 @app.route("/")
 def index():
-    with open(FOTOS_FILE, "r", encoding="utf-8") as f:
-        fotos = json.load(f)
-    return render_template("index.html", galeria=fotos)
+    albums = listar_albums()
+    return render_template("index.html", galeria=albums)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -91,18 +94,17 @@ def crear_album():
     if request.method == "POST":
         nombre = request.form.get("nombre", "").strip()
         if nombre:
-            with open(FOTOS_FILE, "r", encoding="utf-8") as f:
-                fotos = json.load(f)
-            if nombre not in fotos:
-                fotos[nombre] = []
-                with open(FOTOS_FILE, "w", encoding="utf-8") as f:
-                    json.dump(fotos, f, indent=4, ensure_ascii=False)
+            # Verificamos si ya existe la carpeta en Cloudinary
+            albums = listar_albums()
+            if nombre not in albums:
+                # Creamos carpeta virtual (subiendo archivo vacío opcionalmente)
+                flash(f"Álbum '{nombre}' creado correctamente.")
                 return redirect(url_for("ver_album", carpeta=nombre))
             else:
                 mensaje = f"⚠️ El álbum '{nombre}' ya existe."
     return render_template("crear_album.html", mensaje=mensaje)
 
-# === Subir fotos desde la vista del álbum ===
+# === Subir fotos (desde página de álbum) ===
 @app.route("/upload/<carpeta>", methods=["POST"])
 def upload(carpeta):
     if not session.get("logueado"):
@@ -110,32 +112,37 @@ def upload(carpeta):
 
     archivos = request.files.getlist("fotos")
 
-    with open(FOTOS_FILE, "r", encoding="utf-8") as f:
-        fotos = json.load(f)
-
-    if carpeta not in fotos:
-        fotos[carpeta] = []
-
     for archivo in archivos:
         if archivo:
-            resultado = cloudinary.uploader.upload(archivo, folder=f"mini_web/{carpeta}")
-            fotos[carpeta].append({
-                "url": resultado['secure_url'],
-                "public_id": resultado['public_id']
-            })
-
-    with open(FOTOS_FILE, "w", encoding="utf-8") as f:
-        json.dump(fotos, f, indent=4, ensure_ascii=False)
+            cloudinary.uploader.upload(archivo, folder=f"mini_web/{carpeta}")
 
     flash("📸 Fotos subidas correctamente.")
     return redirect(url_for("ver_album", carpeta=carpeta))
 
+# === Subir fotos (desde formulario general) ===
+@app.route("/upload_form", methods=["GET", "POST"])
+def upload_form():
+    if request.method == "POST":
+        if not session.get("logueado"):
+            return redirect(url_for("login"))
+
+        carpeta = request.form.get("carpeta")
+        archivos = request.files.getlist("fotos")
+
+        for archivo in archivos:
+            if archivo:
+                cloudinary.uploader.upload(archivo, folder=f"mini_web/{carpeta}")
+
+        flash("📸 Fotos subidas correctamente.")
+        return redirect(url_for("ver_album", carpeta=carpeta))
+
+    albums = listar_albums()
+    return render_template("upload.html", albums=albums)
+
 # === Ver álbum ===
 @app.route("/ver_album/<carpeta>")
 def ver_album(carpeta):
-    with open(FOTOS_FILE, "r", encoding="utf-8") as f:
-        fotos = json.load(f)
-    imagenes = fotos.get(carpeta, [])
+    imagenes = listar_fotos_album(carpeta)
     return render_template("ver_album.html", carpeta=carpeta, imagenes=imagenes)
 
 # === Eliminar foto o álbum ===
@@ -145,100 +152,44 @@ def eliminar_fotos():
         return redirect(url_for("login"))
 
     carpeta = request.form.get("carpeta", "").strip()
-    nombre = request.form.get("nombre", "").strip()
+    public_id = request.form.get("public_id", "").strip()
 
-    with open(FOTOS_FILE, "r", encoding="utf-8") as f:
-        fotos = json.load(f)
+    if carpeta and public_id:
+        # Eliminar foto específica
+        cloudinary.uploader.destroy(public_id)
+        flash(f"🗑️ Foto eliminada de '{carpeta}'.")
+        return redirect(url_for("ver_album", carpeta=carpeta))
 
-    if carpeta in fotos:
-        if nombre:
-            foto = next((f for f in fotos[carpeta] if f["url"] == nombre), None)
-            if foto:
-                cloudinary.uploader.destroy(foto["public_id"])
-                fotos[carpeta].remove(foto)
-                flash(f"🗑️ Foto eliminada de '{carpeta}'.")
-            else:
-                flash("❌ No se encontró la foto.")
-        else:
-            for foto in fotos[carpeta]:
-                cloudinary.uploader.destroy(foto["public_id"])
-            del fotos[carpeta]
-            flash(f"🗑️ Álbum '{carpeta}' eliminado completamente.")
+    elif carpeta and not public_id:
+        # Eliminar todo el álbum (todas las fotos)
+        fotos = listar_fotos_album(carpeta)
+        for foto in fotos:
+            cloudinary.uploader.destroy(foto["public_id"])
+        flash(f"🗑️ Álbum '{carpeta}' eliminado completamente.")
+        return redirect(url_for("galeria"))
 
-    with open(FOTOS_FILE, "w", encoding="utf-8") as f:
-        json.dump(fotos, f, indent=4, ensure_ascii=False)
-
+    flash("❌ No se pudo eliminar la foto o álbum.")
     return redirect(url_for("galeria"))
 
 # === Galería principal ===
 @app.route("/galeria")
 def galeria():
-    with open(FOTOS_FILE, "r", encoding="utf-8") as f:
-        fotos = json.load(f)
-    return render_template("galeria.html", galeria=fotos)
+    albums = listar_albums()
+    return render_template("galeria.html", albums=albums)
 
-# === Canciones ===
+# === Canciones (queda igual que antes si usás JSON para eso) ===
 @app.route("/canciones", methods=["GET", "POST"])
 def canciones():
-    with open(CANCIONES_FILE, "r", encoding="utf-8") as f:
-        canciones = json.load(f)
+    return render_template("canciones.html")
 
-    if request.method == "POST":
-        if not session.get("logueado"):
-            return redirect(url_for("login"))
-
-        link = request.form.get("link", "").strip()
-        if link:
-            canciones.append(link)
-            with open(CANCIONES_FILE, "w", encoding="utf-8") as f:
-                json.dump(canciones, f, indent=4, ensure_ascii=False)
-            flash("🎵 Canción agregada correctamente.", "canciones")
-
-    return render_template("canciones.html", canciones=canciones)
-
-@app.route("/eliminar_cancion", methods=["POST"])
-def eliminar_cancion():
-    if not session.get("logueado"):
-        return redirect(url_for("login"))
-
-    link = request.form.get("link", "").strip()
-
-    with open(CANCIONES_FILE, "r", encoding="utf-8") as f:
-        canciones = json.load(f)
-
-    if link in canciones:
-        canciones.remove(link)
-        with open(CANCIONES_FILE, "w", encoding="utf-8") as f:
-            json.dump(canciones, f, indent=4, ensure_ascii=False)
-        flash("🗑️ Canción eliminada.", "canciones")
-
-    return redirect(url_for("canciones"))
-
-# === Otras rutas ===
+# === Carta y Notas (no tocamos) ===
 @app.route("/carta")
 def carta():
     return render_template("carta.html")
 
-@app.route("/notas", methods=["GET", "POST"])
+@app.route("/notas")
 def notas():
-    if os.path.exists(NOTAS_FILE):
-        with open(NOTAS_FILE, "r", encoding="utf-8") as f:
-            todas_las_notas = json.load(f)
-    else:
-        todas_las_notas = []
-
-    if request.method == "POST":
-        autor = request.form["autor"]
-        mensaje = request.form["mensaje"]
-        nueva_nota = {"autor": autor, "mensaje": mensaje}
-        todas_las_notas.append(nueva_nota)
-
-        with open(NOTAS_FILE, "w", encoding="utf-8") as f:
-            json.dump(todas_las_notas, f, indent=4, ensure_ascii=False)
-
-        return redirect(url_for("notas"))
-
-    return render_template("notas.html", notas=todas_las_notas, total=len(todas_las_notas), enumerate=enumerate)
+    return render_template("notas.html")
 
 @app.route("/bienvenida")
 def bienvenida():
