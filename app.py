@@ -31,7 +31,7 @@ if not os.path.exists(NOTAS_FILE):
         json.dump([], f)
 if not os.path.exists(FOTOS_FILE):
     with open(FOTOS_FILE, "w", encoding="utf-8") as f:
-        json.dump({}, f)
+        json.dump({}, f)  # Diccionario con {album: [fotos]}
 if not os.path.exists(CANCIONES_FILE):
     with open(CANCIONES_FILE, "w", encoding="utf-8") as f:
         json.dump([], f)
@@ -182,32 +182,27 @@ def galeria():
 # === Canciones ===
 @app.route("/canciones", methods=["GET", "POST"])
 def canciones():
+    # Cargar canciones
     with open(CANCIONES_FILE, "r", encoding="utf-8") as f:
         canciones = json.load(f)
 
     if request.method == "POST":
         if not session.get("logueado"):
-            flash("Debes iniciar sesión para agregar canciones.")
-            return redirect(url_for("canciones"))
+            return redirect(url_for("login"))
 
         link = request.form.get("link", "").strip()
-        if link and link not in canciones:
+        if link:
             canciones.append(link)
             with open(CANCIONES_FILE, "w", encoding="utf-8") as f:
                 json.dump(canciones, f, indent=4, ensure_ascii=False)
-            flash("Canción agregada correctamente.")
-        else:
-            flash("La canción ya existe o el enlace es inválido.")
-
-        return redirect(url_for("canciones"))
+            flash("🎵 Canción agregada correctamente.")
 
     return render_template("canciones.html", canciones=canciones)
 
 @app.route("/eliminar_cancion", methods=["POST"])
 def eliminar_cancion():
     if not session.get("logueado"):
-        flash("Debes iniciar sesión para eliminar canciones.")
-        return redirect(url_for("canciones"))
+        return redirect(url_for("login"))
 
     link = request.form.get("link", "").strip()
 
@@ -218,9 +213,7 @@ def eliminar_cancion():
         canciones.remove(link)
         with open(CANCIONES_FILE, "w", encoding="utf-8") as f:
             json.dump(canciones, f, indent=4, ensure_ascii=False)
-        flash("Canción eliminada correctamente.")
-    else:
-        flash("No se encontró la canción para eliminar.")
+        flash("🗑️ Canción eliminada.")
 
     return redirect(url_for("canciones"))
 
