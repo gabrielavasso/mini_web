@@ -12,11 +12,7 @@ app = Flask(__name__)
 app.secret_key = "supersecreto"
 
 # === Configuración Cloudinary ===
-cloudinary.config(
-    cloud_name=os.getenv("CLOUDINARY_URL").split("@")[1],
-    api_key=os.getenv("CLOUDINARY_URL").split("//")[1].split(":")[0],
-    api_secret=os.getenv("CLOUDINARY_URL").split(":")[2].split("@")[0]
-)
+cloudinary.config(cloudinary_url=os.getenv("CLOUDINARY_URL"))
 
 # Archivos JSON
 NOTAS_FILE = os.path.join("data", "notas.json")
