@@ -11,8 +11,17 @@ load_dotenv()
 app = Flask(__name__)
 app.secret_key = "supersecreto"
 
-# === Configuración Cloudinary ===
-cloudinary.config(cloudinary_url=os.getenv("CLOUDINARY_URL"))
+# === Configuración Cloudinary con fallback ===
+cloudinary_url = os.getenv("CLOUDINARY_URL")
+if cloudinary_url:
+    cloudinary.config(cloudinary_url=cloudinary_url)
+else:
+    # Configuración manual si la variable no existe (ej. en local o fallo en Render)
+    cloudinary.config(
+        cloud_name="djuurobvo",
+        api_key="567997862976986",
+        api_secret="TjUDD_bUkejGoAdxYs0JrEase_I"
+    )
 
 # Archivos JSON
 NOTAS_FILE = os.path.join("data", "notas.json")

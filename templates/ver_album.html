@@ -19,7 +19,8 @@
     <div class="galeria-grid">
         {% for foto in imagenes %}
         <div class="foto-item">
-            <img src="{{ foto.url }}" class="foto-galeria" onclick="abrirLightbox('{{ loop.index0 }}')">
+            <img src="{{ foto.url }}" class="foto-galeria" onclick="abrirLightbox({{ loop.index0 }})">
+
 
             {% if session.get('logueado') %}
             <form action="{{ url_for('eliminar_fotos') }}" method="POST" onsubmit="return confirm('¿Eliminar esta foto?')">
