@@ -33,7 +33,7 @@ app.jinja_env.filters['youtube_id'] = youtube_id
 # === Helpers para Cloudinary ===
 def listar_albums():
     """Obtiene lista de carpetas dentro de mini_web en Cloudinary"""
-    resultado = cloudinary.api.sub_folders("mini_web")
+    resultado = cloudinary.api.subfolders("mini_web")
     return [folder["name"] for folder in resultado["folders"]]
 
 def listar_fotos_album(album):
