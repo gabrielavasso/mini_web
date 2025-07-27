@@ -3,80 +3,120 @@
 {% block title %}Álbum: {{ carpeta }}{% endblock %}
 
 {% block content %}
-<main class="fondo-ver-album">
+<main class="album-detalle">
+    <h2 class="titulo-album">{{ carpeta }}</h2>
 
-    <!-- Título del álbum -->
-    <h2 class="titulo-album">Álbum: {{ carpeta }}</h2>
-
-    <!-- Mensaje de éxito -->
-    {% if mensaje %}
-    <div class="mensaje-exito">
-        {{ mensaje }}
+    <!-- Botones dentro del álbum -->
+    {% if session.get('logueado') %}
+    <div class="acciones-album">
+        <form action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data" class="form-subir">
+            <input type="hidden" name="carpeta" value="{{ carpeta }}">
+            <input type="file" name="fotos" multiple required>
+            <button type="submit" class="btn-subir">📤 Subir Fotos</button>
+        </form>
     </div>
     {% endif %}
 
-    <!-- Galería de fotos -->
-    <div class="galeria-grid">
-        {% for imagen in imagenes %}
-        <div class="foto-wrapper">
-            <!-- Imagen -->
-            <img src="{{ imagen.url }}" alt="Foto" class="foto-galeria" onclick="abrirLightbox(this)">
+    <!-- Fotos del álbum -->
+    <div class="grid-fotos">
+        {% if imagenes %}
+            {% for foto in imagenes %}
+            <div class="foto-item">
+                <img src="{{ foto.url }}" alt="foto">
 
-            <!-- Botón eliminar solo si hay sesión -->
-            {% if session.get('logueado') %}
-            <form method="POST" action="{{ url_for('eliminar_fotos') }}" class="form-eliminar-foto">
-                <input type="hidden" name="carpeta" value="{{ carpeta }}">
-                <input type="hidden" name="nombre" value="{{ imagen.url }}">
-                <button type="submit" class="btn-eliminar-foto" title="Eliminar">
-                    <i class="fas fa-trash-alt"></i>
-                </button>
-            </form>
-            {% endif %}
-        </div>
-        {% endfor %}
+                {% if session.get('logueado') %}
+                <form action="{{ url_for('eliminar_fotos') }}" method="POST" class="form-eliminar">
+                    <input type="hidden" name="carpeta" value="{{ carpeta }}">
+                    <input type="hidden" name="nombre" value="{{ foto.url }}">
+                    <button type="submit" class="btn-eliminar">🗑️</button>
+                </form>
+                {% endif %}
+            </div>
+            {% endfor %}
+        {% else %}
+            <p class="sin-fotos">No hay fotos en este álbum aún.</p>
+        {% endif %}
     </div>
 
-    <!-- Botón volver a galería -->
-    <div class="volver-centro">
-        <a href="{{ url_for('galeria') }}" class="boton-volver-dorado">
-            <i class="fas fa-heart"></i> Volver a la galería
-        </a>
+    <!-- Botón volver -->
+    <div class="volver-galeria">
+        <a href="{{ url_for('galeria') }}" class="btn-volver">❤️ Volver a la galería</a>
     </div>
-
-    <!-- Botón volver al inicio -->
-    <div class="volver-centro">
-        <a href="{{ url_for('index') }}" class="boton-volver-dorado">
-            <i class="fas fa-heart"></i> Volver al comienzo
-        </a>
-    </div>
-
-    <!-- Lightbox para ver imagen ampliada -->
-    <div id="lightbox" class="lightbox">
-        <button class="cerrar" onclick="cerrarLightbox()">&times;</button>
-        <img id="lightbox-img" src="" alt="Imagen ampliada">
-        <button class="siguiente" onclick="siguienteFoto()">&#8594;</button>
-    </div>
-
 </main>
 
-<script>
-let currentIndex = 0;
-let fotos = [];
-
-function abrirLightbox(img) {
-    fotos = Array.from(document.querySelectorAll('.foto-galeria')).map(f => f.src);
-    currentIndex = fotos.indexOf(img.src);
-    document.getElementById('lightbox-img').src = img.src;
-    document.getElementById('lightbox').classList.add('show');
+<style>
+.album-detalle {
+    text-align: center;
+    padding: 20px;
 }
 
-function cerrarLightbox() {
-    document.getElementById('lightbox').classList.remove('show');
+.titulo-album {
+    font-size: 2rem;
+    color: #d4af37;
+    margin-bottom: 20px;
 }
 
-function siguienteFoto() {
-    currentIndex = (currentIndex + 1) % fotos.length;
-    document.getElementById('lightbox-img').src = fotos[currentIndex];
+.acciones-album {
+    margin-bottom: 20px;
 }
-</script>
+
+.form-subir input[type="file"] {
+    margin: 10px;
+}
+
+.btn-subir {
+    background: #d4af37;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.grid-fotos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
+}
+
+.foto-item {
+    position: relative;
+}
+
+.foto-item img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 2px solid #d4af37;
+}
+
+.form-eliminar {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+.btn-eliminar {
+    background: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    padding: 5px 8px;
+    cursor: pointer;
+}
+
+.volver-galeria {
+    margin-top: 30px;
+}
+
+.btn-volver {
+    background: #d4af37;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: bold;
+}
+</style>
 {% endblock %}

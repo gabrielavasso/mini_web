@@ -1,149 +1,90 @@
 {% extends 'base.html' %}
 
-{% block title %}📤 Subir Fotos{% endblock %}
-{% block encabezado %}📤 Subir nuevas fotos{% endblock %}
+{% block title %}Subir Fotos{% endblock %}
 
 {% block content %}
-<style>
-.fondo-galeria {
-    background-image: url('{{ url_for('static', filename='img/fondo_galeria.jpg') }}');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-attachment: fixed;
-    min-height: 100vh;
-    padding: 60px 20px 40px 20px;
-    overflow-x: hidden;
-}
+<main class="subir-fotos">
+    <h2 class="titulo-subir">Subir fotos a un álbum</h2>
 
-.formulario-subida {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    padding: 30px;
-    border-radius: 15px;
-    max-width: 500px;
-    margin: auto;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    text-align: center;
-}
+    {% if session.get('logueado') %}
+    <form action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data" class="form-subida">
 
-.formulario-subida input[type="text"] {
-    width: 100%;
-    padding: 10px;
-    margin-top: 15px;
-    margin-bottom: 20px;
-    border-radius: 10px;
-    border: none;
-    outline: none;
-    font-family: 'Quicksand', sans-serif;
-}
+        <!-- Seleccionar álbum existente -->
+        <label for="carpeta">Selecciona el álbum:</label>
+        <select name="carpeta" required>
+            {% for album in albums %}
+            <option value="{{ album }}">{{ album }}</option>
+            {% endfor %}
+        </select>
 
-.formulario-subida label {
-    display: block;
-    margin-top: 20px;
-    font-weight: bold;
-}
+        <!-- Seleccionar fotos -->
+        <input type="file" name="fotos" multiple required>
 
-.custom-file-upload {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #ffb6c1;
-    color: white;
-    border-radius: 25px;
-    cursor: pointer;
-    font-weight: bold;
-    margin-top: 10px;
-    transition: background-color 0.2s ease;
-}
+        <!-- Botón enviar -->
+        <button type="submit" class="btn-subir">📤 Subir Fotos</button>
+    </form>
 
-.custom-file-upload:hover {
-    background-color: #ff8fa3;
-}
+    {% else %}
+    <p class="mensaje-login">
+        🔒 Iniciá sesión para subir fotos.
+    </p>
+    {% endif %}
 
-.formulario-subida input[type="file"] {
-    display: none;
-}
-
-.formulario-subida button {
-    background-color: #ff8fa3;
-    color: white;
-    border: none;
-    padding: 12px 25px;
-    border-radius: 25px;
-    cursor: pointer;
-    font-weight: bold;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    margin-top: 20px;
-    transition: transform 0.2s ease;
-}
-
-.formulario-subida button:hover {
-    transform: scale(1.05);
-    background-color: #ff7090;
-}
-
-.volver-links {
-    text-align: center;
-    margin-top: 30px;
-    font-size: 14px;
-}
-
-.volver-links a {
-    color: #d63384;
-    text-decoration: none;
-    margin: 0 10px;
-}
-
-.volver-links a:hover {
-    text-decoration: underline;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .formulario-subida {
-        padding: 20px;
-        width: 90%;
-    }
-
-    .formulario-subida input[type="text"] {
-        font-size: 15px;
-    }
-
-    .formulario-subida button {
-        font-size: 15px;
-        padding: 10px 20px;
-    }
-
-    .custom-file-upload {
-        font-size: 14px;
-        padding: 8px 18px;
-    }
-
-    .volver-links {
-        margin-top: 20px;
-        font-size: 16px;
-    }
-}
-</style>
-
-<main class="fondo-galeria">
-    <div class="formulario-subida">
-        <form method="POST" enctype="multipart/form-data">
-            <label>Nombre de la carpeta:</label>
-            <input type="text" name="carpeta" placeholder="Ej: Viaje2023 o Aniversario" required>
-
-            <label>Seleccionar fotos:</label>
-            <label for="file-upload" class="custom-file-upload">
-                📸 Elegir fotos
-            </label>
-            <input id="file-upload" type="file" name="fotos" multiple required>
-
-            <button type="submit">Subir</button>
-        </form>
-    </div>
-
-    <div class="volver-links">
-        <a href="{{ url_for('galeria') }}">← Volver a la galería</a>
+    <!-- Volver a la galería -->
+    <div class="volver-galeria">
+        <a href="{{ url_for('galeria') }}" class="btn-volver">❤️ Volver a la galería</a>
     </div>
 </main>
+
+<style>
+.subir-fotos {
+    text-align: center;
+    padding: 20px;
+}
+
+.titulo-subir {
+    font-size: 2rem;
+    color: #d4af37;
+    margin-bottom: 20px;
+}
+
+.form-subida {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.form-subida select,
+.form-subida input[type="file"] {
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid #d4af37;
+}
+
+.btn-subir {
+    background: #d4af37;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.btn-subir:hover {
+    background: #a8840c;
+}
+
+.btn-volver {
+    display: inline-block;
+    background: #d4af37;
+    color: white;
+    padding: 10px 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: bold;
+}
+</style>
 {% endblock %}

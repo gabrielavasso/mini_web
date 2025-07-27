@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
-from werkzeug.utils import secure_filename
 from dotenv import load_dotenv
 import os
 import json
@@ -19,19 +18,19 @@ cloudinary.config(
     api_secret=os.getenv("CLOUDINARY_URL").split(":")[2].split("@")[0]
 )
 
-# Archivos JSON para datos
+# Archivos JSON
 NOTAS_FILE = os.path.join("data", "notas.json")
 FOTOS_FILE = os.path.join("data", "fotos.json")
 CANCIONES_FILE = os.path.join("data", "canciones.json")
 
-# Crear archivos y carpetas necesarios
+# Crear estructura inicial
 os.makedirs("data", exist_ok=True)
 if not os.path.exists(NOTAS_FILE):
     with open(NOTAS_FILE, "w", encoding="utf-8") as f:
         json.dump([], f)
 if not os.path.exists(FOTOS_FILE):
     with open(FOTOS_FILE, "w", encoding="utf-8") as f:
-        json.dump({}, f)  # Diccionario con {album: [fotos]}
+        json.dump({}, f)
 if not os.path.exists(CANCIONES_FILE):
     with open(CANCIONES_FILE, "w", encoding="utf-8") as f:
         json.dump([], f)
@@ -93,44 +92,38 @@ def crear_album():
                 fotos[nombre] = []
                 with open(FOTOS_FILE, "w", encoding="utf-8") as f:
                     json.dump(fotos, f, indent=4, ensure_ascii=False)
-                mensaje = f"✅ Álbum '{nombre}' creado exitosamente."
+                return redirect(url_for("ver_album", carpeta=nombre))
             else:
                 mensaje = f"⚠️ El álbum '{nombre}' ya existe."
     return render_template("crear_album.html", mensaje=mensaje)
 
-# === Subir fotos a Cloudinary ===
-@app.route("/upload", methods=["GET", "POST"])
-def upload():
+# === Subir fotos desde la vista del álbum ===
+@app.route("/upload/<carpeta>", methods=["POST"])
+def upload(carpeta):
     if not session.get("logueado"):
         return redirect(url_for("login"))
 
-    if request.method == "POST":
-        carpeta = request.form["carpeta"]
-        archivos = request.files.getlist("fotos")
-
-        with open(FOTOS_FILE, "r", encoding="utf-8") as f:
-            fotos = json.load(f)
-
-        if carpeta not in fotos:
-            fotos[carpeta] = []
-
-        for archivo in archivos:
-            if archivo:
-                resultado = cloudinary.uploader.upload(archivo, folder=f"mini_web/{carpeta}")
-                fotos[carpeta].append({
-                    "url": resultado['secure_url'],
-                    "public_id": resultado['public_id']
-                })
-
-        with open(FOTOS_FILE, "w", encoding="utf-8") as f:
-            json.dump(fotos, f, indent=4, ensure_ascii=False)
-
-        flash("📸 Fotos subidas correctamente.")
-        return redirect(url_for("ver_album", carpeta=carpeta))
+    archivos = request.files.getlist("fotos")
 
     with open(FOTOS_FILE, "r", encoding="utf-8") as f:
         fotos = json.load(f)
-    return render_template("upload.html", albums=list(fotos.keys()))
+
+    if carpeta not in fotos:
+        fotos[carpeta] = []
+
+    for archivo in archivos:
+        if archivo:
+            resultado = cloudinary.uploader.upload(archivo, folder=f"mini_web/{carpeta}")
+            fotos[carpeta].append({
+                "url": resultado['secure_url'],
+                "public_id": resultado['public_id']
+            })
+
+    with open(FOTOS_FILE, "w", encoding="utf-8") as f:
+        json.dump(fotos, f, indent=4, ensure_ascii=False)
+
+    flash("📸 Fotos subidas correctamente.")
+    return redirect(url_for("ver_album", carpeta=carpeta))
 
 # === Ver álbum ===
 @app.route("/ver_album/<carpeta>")
@@ -182,7 +175,6 @@ def galeria():
 # === Canciones ===
 @app.route("/canciones", methods=["GET", "POST"])
 def canciones():
-    # Cargar canciones
     with open(CANCIONES_FILE, "r", encoding="utf-8") as f:
         canciones = json.load(f)
 
@@ -195,7 +187,7 @@ def canciones():
             canciones.append(link)
             with open(CANCIONES_FILE, "w", encoding="utf-8") as f:
                 json.dump(canciones, f, indent=4, ensure_ascii=False)
-            flash("🎵 Canción agregada correctamente.")
+            flash("🎵 Canción agregada correctamente.", "canciones")
 
     return render_template("canciones.html", canciones=canciones)
 
@@ -213,11 +205,11 @@ def eliminar_cancion():
         canciones.remove(link)
         with open(CANCIONES_FILE, "w", encoding="utf-8") as f:
             json.dump(canciones, f, indent=4, ensure_ascii=False)
-        flash("🗑️ Canción eliminada.")
+        flash("🗑️ Canción eliminada.", "canciones")
 
     return redirect(url_for("canciones"))
 
-# === Rutas adicionales ===
+# === Otras rutas ===
 @app.route("/carta")
 def carta():
     return render_template("carta.html")

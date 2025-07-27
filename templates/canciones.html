@@ -8,15 +8,16 @@
     <div class="contenedor-canciones">
 
         <!-- MENSAJE FLASH -->
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-            <div class="mensaje-flash">
-                {% for message in messages %}
-                    <p>{{ message }}</p>
-                {% endfor %}
-            </div>
-            {% endif %}
-        {% endwith %}
+     {% with messages = get_flashed_messages(category_filter=["canciones"]) %}
+    {% if messages %}
+    <div class="mensaje-flash">
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
+{% endwith %}
+
 
         <!-- Formulario agregar canción -->
         {% if session.get('logueado') %}
