@@ -22,6 +22,7 @@ cloudinary.config(
 # Archivos JSON para datos
 NOTAS_FILE = os.path.join("data", "notas.json")
 FOTOS_FILE = os.path.join("data", "fotos.json")
+CANCIONES_FILE = os.path.join("data", "canciones.json")
 
 # Crear archivos y carpetas necesarios
 os.makedirs("data", exist_ok=True)
@@ -30,7 +31,10 @@ if not os.path.exists(NOTAS_FILE):
         json.dump([], f)
 if not os.path.exists(FOTOS_FILE):
     with open(FOTOS_FILE, "w", encoding="utf-8") as f:
-        json.dump({}, f)  # Diccionario con {album: [fotos]}
+        json.dump({}, f)
+if not os.path.exists(CANCIONES_FILE):
+    with open(CANCIONES_FILE, "w", encoding="utf-8") as f:
+        json.dump([], f)
 
 # Filtro para extraer ID de YouTube
 def youtube_id(link):
@@ -174,6 +178,51 @@ def galeria():
     with open(FOTOS_FILE, "r", encoding="utf-8") as f:
         fotos = json.load(f)
     return render_template("galeria.html", galeria=fotos)
+
+# === Canciones ===
+@app.route("/canciones", methods=["GET", "POST"])
+def canciones():
+    with open(CANCIONES_FILE, "r", encoding="utf-8") as f:
+        canciones = json.load(f)
+
+    if request.method == "POST":
+        if not session.get("logueado"):
+            flash("Debes iniciar sesión para agregar canciones.")
+            return redirect(url_for("canciones"))
+
+        link = request.form.get("link", "").strip()
+        if link and link not in canciones:
+            canciones.append(link)
+            with open(CANCIONES_FILE, "w", encoding="utf-8") as f:
+                json.dump(canciones, f, indent=4, ensure_ascii=False)
+            flash("Canción agregada correctamente.")
+        else:
+            flash("La canción ya existe o el enlace es inválido.")
+
+        return redirect(url_for("canciones"))
+
+    return render_template("canciones.html", canciones=canciones)
+
+@app.route("/eliminar_cancion", methods=["POST"])
+def eliminar_cancion():
+    if not session.get("logueado"):
+        flash("Debes iniciar sesión para eliminar canciones.")
+        return redirect(url_for("canciones"))
+
+    link = request.form.get("link", "").strip()
+
+    with open(CANCIONES_FILE, "r", encoding="utf-8") as f:
+        canciones = json.load(f)
+
+    if link in canciones:
+        canciones.remove(link)
+        with open(CANCIONES_FILE, "w", encoding="utf-8") as f:
+            json.dump(canciones, f, indent=4, ensure_ascii=False)
+        flash("Canción eliminada correctamente.")
+    else:
+        flash("No se encontró la canción para eliminar.")
+
+    return redirect(url_for("canciones"))
 
 # === Rutas adicionales ===
 @app.route("/carta")
