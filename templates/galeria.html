@@ -1,23 +1,24 @@
 {% extends 'base.html' %}
 
-{% block title %}Galería de Álbumes{% endblock %}
+{% block title %}Galería{% endblock %}
 
 {% block content %}
 <main class="fondo-galeria">
     <h2 class="titulo-galeria">Galería de Álbumes</h2>
 
     {% if session.get('logueado') %}
-    <div class="crear-album-centro">
-        <a href="{{ url_for('crear_album') }}" class="boton-dorado">+ Crear Álbum</a>
+    <div class="crear-album">
+        <a href="{{ url_for('crear_album') }}" class="boton-crear">+ Crear Álbum</a>
     </div>
     {% endif %}
 
-    <div class="galeria-albumes">
+    <!-- Contenedor de carpetas -->
+    <div class="carpetas-grid">
         {% for album in albums %}
-        <div class="album-item">
+        <div class="carpeta-item">
             <a href="{{ url_for('ver_album', carpeta=album) }}">
-                <img src="{{ url_for('static', filename='img/icono_carpeta.png') }}" alt="Carpeta">
-                <span>{{ album }}</span>
+                <img src="{{ url_for('static', filename='img/icono_carpeta.png') }}" alt="Carpeta {{ album }}">
+                <p class="nombre-carpeta">{{ album }}</p>
             </a>
         </div>
         {% endfor %}
@@ -29,84 +30,67 @@
 </main>
 
 <style>
+/* Fondo */
 .fondo-galeria {
-    text-align: center;
-    padding: 20px;
+    min-height: 100vh;
+    background-image: url('{{ url_for('static', filename='img/portada.jpg') }}');
+    background-size: cover;
+    background-position: center;
+    padding: 60px 20px 40px 20px;
 }
 
-/* Título */
+/* Título con resaltado */
 .titulo-galeria {
-    font-size: 2rem;
-    color: #d4af37;
-    margin-bottom: 20px;
-}
-
-/* Contenedor de álbumes */
-.galeria-albumes {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 25px;
-    padding: 20px;
-    justify-items: center;
-}
-
-/* Cada álbum */
-.album-item a {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-decoration: none;
-}
-
-/* Icono carpeta */
-.album-item img {
-    width: 70px;
-    height: auto;
-    margin-bottom: 8px;
-}
-
-/* Nombre del álbum */
-.album-item span {
-    font-family: 'Great Vibes', cursive;
-    font-size: 1rem;
-    color: #d4af37;
-    text-shadow: 0 0 3px rgba(0,0,0,0.6);
-    font-weight: bold;
     text-align: center;
-    transition: color 0.3s ease;
+    font-family: 'Great Vibes', cursive;
+    font-size: 2.8rem;
+    color: #ffd700;
+    margin-bottom: 25px;
+    text-shadow: 0 0 10px #000, 0 0 20px #a8840c, 0 0 30px #d4af37;
+    border-bottom: 2px solid #d4af37;
+    display: inline-block;
+    padding-bottom: 5px;
 }
 
-/* Hover */
-.album-item:hover span {
+/* Botón Crear Álbum */
+.boton-crear {
+    background-color: #d4af37;
+    color: #000;
+    padding: 10px 25px;
+    border-radius: 10px;
+    font-weight: bold;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+.boton-crear:hover {
+    background-color: #a8840c;
     color: #fff;
 }
 
-/* Botón crear álbum */
-.boton-dorado {
-    background: #d4af37;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 10px;
-    text-decoration: none;
-    font-weight: bold;
-    display: inline-block;
-    margin-bottom: 20px;
+/* Grid de carpetas */
+.carpetas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 30px;
+    justify-items: center;
+    margin: 40px 0;
 }
 
-.boton-dorado:hover {
-    background: #a8840c;
+/* Item de carpeta */
+.carpeta-item img {
+    width: 120px;
+    transition: transform 0.3s ease;
 }
-
-/* Botón volver */
-.boton-volver-dorado {
-    display: inline-block;
-    background: #d4af37;
-    color: white;
-    padding: 10px 20px;
-    margin-top: 20px;
-    border-radius: 10px;
-    text-decoration: none;
-    font-weight: bold;
+.carpeta-item img:hover {
+    transform: scale(1.1);
+}
+.nombre-carpeta {
+    text-align: center;
+    color: #ffd700;
+    font-family: 'Great Vibes', cursive;
+    font-size: 1.2rem;
+    margin-top: 5px;
 }
 </style>
 {% endblock %}
