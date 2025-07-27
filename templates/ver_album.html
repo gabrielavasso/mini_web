@@ -3,120 +3,62 @@
 {% block title %}Álbum: {{ carpeta }}{% endblock %}
 
 {% block content %}
-<main class="album-detalle">
+<main class="fondo-ver-album">
+    <!-- Título del álbum -->
     <h2 class="titulo-album">{{ carpeta }}</h2>
 
-    <!-- Botones dentro del álbum -->
+    <!-- Formulario para subir fotos (solo logueado) -->
     {% if session.get('logueado') %}
-    <div class="acciones-album">
-        <form action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data" class="form-subir">
-            <input type="hidden" name="carpeta" value="{{ carpeta }}">
-            <input type="file" name="fotos" multiple required>
-            <button type="submit" class="btn-subir">📤 Subir Fotos</button>
-        </form>
-    </div>
+    <form method="POST" action="{{ url_for('upload', carpeta=carpeta) }}" enctype="multipart/form-data" style="text-align:center; margin-top:20px;">
+        <input type="file" name="fotos" multiple required>
+        <button type="submit" class="boton-galeria">📤 Subir fotos</button>
+    </form>
     {% endif %}
 
-    <!-- Fotos del álbum -->
-    <div class="grid-fotos">
+    <!-- Grid de fotos -->
+    <div class="galeria-grid">
         {% if imagenes %}
             {% for foto in imagenes %}
-            <div class="foto-item">
-                <img src="{{ foto.url }}" alt="foto">
-
-                {% if session.get('logueado') %}
-                <form action="{{ url_for('eliminar_fotos') }}" method="POST" class="form-eliminar">
-                    <input type="hidden" name="carpeta" value="{{ carpeta }}">
-                    <input type="hidden" name="nombre" value="{{ foto.url }}">
-                    <button type="submit" class="btn-eliminar">🗑️</button>
-                </form>
-                {% endif %}
-            </div>
+            <img src="{{ foto['url'] }}" alt="Foto" class="foto-galeria" onclick="abrirLightbox('{{ foto['url'] }}')">
             {% endfor %}
         {% else %}
-            <p class="sin-fotos">No hay fotos en este álbum aún.</p>
+            <p style="color:white; margin-top:20px;">Este álbum está vacío. ¡Subí tus primeras fotos!</p>
         {% endif %}
     </div>
 
     <!-- Botón volver -->
-    <div class="volver-galeria">
-        <a href="{{ url_for('galeria') }}" class="btn-volver">❤️ Volver a la galería</a>
+    <div class="volver-centro">
+        <a href="{{ url_for('galeria') }}" class="boton-volver-dorado">❤️ Volver a la galería</a>
     </div>
 </main>
 
-<style>
-.album-detalle {
-    text-align: center;
-    padding: 20px;
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+    <button class="cerrar" onclick="cerrarLightbox()">✖</button>
+    <img id="lightbox-img" src="" alt="Foto ampliada">
+    <button class="siguiente" onclick="siguienteFoto()">➡</button>
+</div>
+
+<script>
+let fotos = [];
+let indiceActual = 0;
+
+function abrirLightbox(url) {
+    const imagenes = document.querySelectorAll('.foto-galeria');
+    fotos = Array.from(imagenes).map(img => img.src);
+    indiceActual = fotos.indexOf(url);
+
+    document.getElementById('lightbox-img').src = fotos[indiceActual];
+    document.getElementById('lightbox').classList.add('show');
 }
 
-.titulo-album {
-    font-size: 2rem;
-    color: #d4af37;
-    margin-bottom: 20px;
+function cerrarLightbox() {
+    document.getElementById('lightbox').classList.remove('show');
 }
 
-.acciones-album {
-    margin-bottom: 20px;
+function siguienteFoto() {
+    indiceActual = (indiceActual + 1) % fotos.length;
+    document.getElementById('lightbox-img').src = fotos[indiceActual];
 }
-
-.form-subir input[type="file"] {
-    margin: 10px;
-}
-
-.btn-subir {
-    background: #d4af37;
-    color: white;
-    border: none;
-    padding: 8px 15px;
-    border-radius: 10px;
-    cursor: pointer;
-}
-
-.grid-fotos {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 15px;
-}
-
-.foto-item {
-    position: relative;
-}
-
-.foto-item img {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 10px;
-    border: 2px solid #d4af37;
-}
-
-.form-eliminar {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-}
-
-.btn-eliminar {
-    background: rgba(0,0,0,0.5);
-    color: white;
-    border: none;
-    border-radius: 50%;
-    padding: 5px 8px;
-    cursor: pointer;
-}
-
-.volver-galeria {
-    margin-top: 30px;
-}
-
-.btn-volver {
-    background: #d4af37;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 10px;
-    text-decoration: none;
-    font-weight: bold;
-}
-</style>
+</script>
 {% endblock %}
