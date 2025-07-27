@@ -16,7 +16,7 @@
     <div class="carpetas-grid">
         {% for album in albums %}
         <div class="carpeta-item">
-            <a href="{{ url_for('ver_album', carpeta=album) }}">
+            <a href="{{ url_for('ver_album', carpeta=album) }}" class="enlace-carpeta">
                 <img src="{{ url_for('static', filename='img/icono_carpeta.png') }}" alt="Carpeta {{ album }}">
                 <p class="nombre-carpeta">{{ album }}</p>
             </a>
@@ -24,8 +24,9 @@
         {% endfor %}
     </div>
 
+    <!-- Botón volver (solo dorado, se elimina el rojo) -->
     <div class="volver-centro">
-        <a href="{{ url_for('index') }}" class="boton-volver-dorado">❤️ Volver al comienzo</a>
+        <a href="{{ url_for('index') }}" class="boton-volver-dorado">Volver al comienzo</a>
     </div>
 </main>
 
@@ -39,16 +40,16 @@
     padding: 60px 20px 40px 20px;
 }
 
-/* Título con resaltado */
+/* Título centrado y resaltado */
 .titulo-galeria {
     text-align: center;
+    width: 100%;
     font-family: 'Great Vibes', cursive;
     font-size: 2.8rem;
     color: #ffd700;
     margin-bottom: 25px;
     text-shadow: 0 0 10px #000, 0 0 20px #a8840c, 0 0 30px #d4af37;
     border-bottom: 2px solid #d4af37;
-    display: inline-block;
     padding-bottom: 5px;
 }
 
@@ -91,6 +92,11 @@
     font-family: 'Great Vibes', cursive;
     font-size: 1.2rem;
     margin-top: 5px;
+}
+
+/* Quitar subrayado en los nombres */
+.enlace-carpeta {
+    text-decoration: none;
 }
 </style>
 {% endblock %}
