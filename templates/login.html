@@ -4,9 +4,6 @@
 
 {% block content %}
 <main class="login-body">
-    <a href="{{ url_for('index') }}" class="boton-volver">
-        <i class="fas fa-heart"></i> Volver al comienzo
-    </a>
 
     {% if session.get('bienvenida') %}
     <div class="bienvenida">
@@ -33,38 +30,44 @@
 </main>
 
 <style>
+/* Fondo negro con dorado */
 .login-body {
     text-align: center;
     padding: 60px 20px;
     min-height: 100vh;
-    background: linear-gradient(180deg, #ffe4ec, #fcd5ce, #fff);
+    background: url('../img/portada.jpg') center/cover no-repeat fixed;
 }
 
-/* Formulario */
+/* Caja transparente con borde dorado */
 .form-login {
-    background: rgba(255,255,255,0.3);
+    background: rgba(0,0,0,0.6);
     padding: 30px;
     border-radius: 16px;
-    backdrop-filter: blur(5px);
+    border: 2px solid #d4af37;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
     display: inline-block;
     max-width: 90%;
     margin-top: 40px;
 }
 
+/* Inputs */
 input[type="text"], input[type="password"] {
     padding: 10px;
     margin: 5px auto;
     border-radius: 10px;
-    border: none;
+    border: 1px solid #d4af37;
+    background: rgba(255,255,255,0.1);
+    color: #fff;
     width: 100%;
     max-width: 280px;
     display: block;
     font-size: 16px;
 }
 
+/* Botón estilo dorado */
 button {
     padding: 10px 20px;
-    background-color: #e91e63;
+    background: linear-gradient(145deg, #d4af37, #a8840c);
     color: white;
     border: none;
     border-radius: 20px;
@@ -75,35 +78,35 @@ button {
     width: 100%;
     max-width: 180px;
 }
-
 button:hover {
-    background-color: #ad1457;
+    background: #d4af37;
 }
 
+/* Bienvenida */
 .bienvenida {
     font-size: 1.5rem;
     font-weight: bold;
-    background: rgba(255,255,255,0.6);
+    background: rgba(0,0,0,0.6);
     padding: 30px 20px;
     border-radius: 20px;
+    border: 2px solid #d4af37;
     margin-top: 100px;
     animation: fadeIn 1.5s ease forwards;
-    color: #8a1f3b;
+    color: #d4af37;
     max-width: 90%;
     margin-left: auto;
     margin-right: auto;
 }
-
 .bienvenida span {
     display: block;
     font-size: 1rem;
     margin-top: 10px;
-    color: #4a1f2f;
+    color: #fff;
 }
 
 .error {
     font-size: 0.95rem;
-    color: #b3003b;
+    color: #ff6f91;
     margin: 10px 0;
 }
 
@@ -116,11 +119,6 @@ button:hover {
 @media screen and (max-width: 768px) {
     .form-login h2 {
         font-size: 1.3rem;
-    }
-
-    .boton-volver {
-        font-size: 16px;
-        padding: 8px 12px;
     }
 
     .form-login {

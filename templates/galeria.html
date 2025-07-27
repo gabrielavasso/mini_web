@@ -6,7 +6,7 @@
 <main class="galeria-principal">
     <h2 class="titulo-galeria">Galería de Álbumes</h2>
 
-    <!-- Botones solo si está logueado -->
+    <!-- Botón Crear Álbum solo si está logueado -->
     {% if session.get('logueado') %}
     <div class="botones-galeria">
         <a href="{{ url_for('crear_album') }}" class="btn-crear-album">➕ Crear Álbum</a>
@@ -31,11 +31,6 @@
         {% else %}
             <p class="sin-albumes">No hay álbumes creados aún.</p>
         {% endif %}
-    </div>
-
-    <!-- Botón volver -->
-    <div class="volver-inicio">
-        <a href="{{ url_for('index') }}" class="btn-volver">❤️ Volver al comienzo</a>
     </div>
 </main>
 
@@ -99,19 +94,6 @@
 .nombre-album {
     margin-top: 8px;
     color: white;
-    font-weight: bold;
-}
-
-.volver-inicio {
-    margin-top: 30px;
-}
-
-.btn-volver {
-    background: #d4af37;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 10px;
-    text-decoration: none;
     font-weight: bold;
 }
 </style>
